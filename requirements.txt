@@ -2,7 +2,4 @@ Flask
 Jinja2
 psycopg2
 pylint
-PyQt5
-PyQt5-Qt5
-PyQt5-sip
 SQLAlchemy
