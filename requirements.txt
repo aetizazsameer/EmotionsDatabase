@@ -1,6 +1,5 @@
 gunicorn
-Flask
-Jinja2
+flask
 psycopg2
 pylint
 SQLAlchemy
