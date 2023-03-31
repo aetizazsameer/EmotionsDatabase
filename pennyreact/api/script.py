@@ -7,7 +7,20 @@ DB_PORT = "5432"
 import psycopg2
 
 try:
-    connection = psycopg2.connect(user=DB_USER, password=DB_PASS, host=DB_HOST, port=DB_PORT)
+    connection = psycopg2.connect(user=DB_USER, 
+                                  password=DB_PASS, 
+                                  host=DB_HOST, 
+                                  port=DB_PORT, 
+                                  database=DB_NAME)
+    
+    cursor = connection.cursor()
+
+    postgres_insert_query = """ CREATE TABLE video (id, title, url, timestamp) VALUES (%s, %s, %s, %s)"""
+    record_to_insert = (1, )
+
+
+
+
 
 connection = psycopg2.connect(dbname=DB_NAME, user=DB_USER, password=DB_PASS, host=DB_HOST)
 
