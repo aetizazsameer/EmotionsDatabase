@@ -1,3 +1,4 @@
+from flask import Flask, request
 import psycopg2
 from datetime import datetime
 
@@ -71,7 +72,7 @@ def delete_video(id):
 def test():
     title, url = "testtitle", "testurl"
     title1, url1 = "lol", "lol"
-    id = 1
+    id = 6
     insert_video(title, url)
     insert_video(title1, url1)
     delete_video(id)
