@@ -17,7 +17,6 @@ _PASSWORD = 'muO6WwujmxvrVuxwhYRcK1jOrQslGrTm'
 
 # -----------------------------------------------------------------------
 
-
 def get_videos(query):
 
     videos = []
@@ -40,6 +39,21 @@ def get_videos(query):
 
 # -----------------------------------------------------------------------
 
+def insert_video(query):
+
+    videos = []
+
+    with psycopg2.connect(host=_HOST_URL, database=_DATABASE,
+                          user=_USERNAME, password=_PASSWORD) as conn:
+
+        with conn.cursor() as cursor:
+
+            query_str = "SELECT id, title, url FROM videos "
+            query_str += "WHERE title LIKE ? OR url LIKE ?"
+            cursor.execute(query_str, [query+'%']*2)
+            row = cursor.fetchone()
+
+            while
 
 def _testhelp(query):
     videos = get_videos(query)
