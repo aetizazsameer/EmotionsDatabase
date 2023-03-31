@@ -51,7 +51,7 @@ def delete_video(id):
                               password=_PASSWORD,
                               port=_PORT) as connection:
             with connection.cursor() as cursor:
-                postgres_delete_query = """ DELETE from videos where id = %s"""
+                postgres_delete_query = """ DELETE from videos where id = %d"""
                 cursor.execute(postgres_delete_query, (id))
 
                 connection.commit()
