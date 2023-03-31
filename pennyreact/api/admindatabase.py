@@ -5,7 +5,6 @@
 # query: Andrew Hwang, Aetizaz Sameer
 # -----------------------------------------------------------------------
 
-from flask import Flask, request
 import psycopg2
 from datetime import datetime
 
@@ -17,12 +16,21 @@ _USERNAME = 'emotionsdatabase_user'
 _PASSWORD = 'muO6WwujmxvrVuxwhYRcK1jOrQslGrTm'
 _PORT = '5432'
 
-# -----------------------------------------------------------------------
-
+#-----------------------------------------------------------------------
+# timestamp
+# Returns: the date and time of the timestamp
+#-----------------------------------------------------------------------
 
 def timestamp():
     return str(datetime.now().replace(microsecond=0))
 
+#-----------------------------------------------------------------------
+# insert_video
+# Accesses the database and returns the results of the query.
+# Parameters: title - the title of the video to be added
+#             url - the url of the video to be added
+# Returns: the results of the query
+#-----------------------------------------------------------------------
 
 def insert_video(title, url):
     try:
@@ -50,6 +58,12 @@ def insert_video(title, url):
             connection.close()
             print("PostgreSQL connection is closed")
 
+#-----------------------------------------------------------------------
+# delete_video
+# Accesses the database and returns the results of the query.
+# Parameters: id - the id number of the video to be deleted
+# Returns: the results of the query
+#-----------------------------------------------------------------------
 
 def delete_video(id):
     try:
@@ -75,6 +89,7 @@ def delete_video(id):
             connection.close()
             print("PostgreSQL connection is closed")
 
+#-----------------------------------------------------------------------
 
 def test():
     title, url = "testtitle", "testurl"
@@ -84,6 +99,7 @@ def test():
     insert_video(title1, url1)
     delete_video(id)
 
+#-----------------------------------------------------------------------
 
 if __name__ == '__main__':
     test()
