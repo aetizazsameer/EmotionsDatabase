@@ -19,7 +19,7 @@ def insert_video(search, inputs):
                               user=_USERNAME,
                               password=_PASSWORD,
                               port="5432") as connection:
-            with contextlib.closing(connection.cursor()) as cursor:
+            with connection.cursor() as cursor:
                 # cursor.execute(search, inputs)
 
                 # query_str = "SELECT * FROM videos WHERE title ILIKE " +\
