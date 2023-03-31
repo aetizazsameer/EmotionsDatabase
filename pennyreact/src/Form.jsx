@@ -16,7 +16,7 @@ const Form = () => {
         uploadtimestamp,
       });
       console.log('Data submitted successfully');
-      admindatabase.insert_video(title,url,uploadtimestamp)
+      // admindatabase.insert_video(title,url,uploadtimestamp)
     } catch (error) {
       console.log(error);
       // Add code here to handle submission error
