@@ -30,9 +30,7 @@ class PennyFooter extends React.Component
             <hr />
             {'Date and time: ' + this.state.datetime.toLocaleString()}
             <br />
-            {'Created by '}
-            <a href="https://www.cs.princeton.edu/~rdondero">
-            Bob Dondero</a>
+            {'Created by Tyler Vu, Aetizaz Sameer, Andrew Hwang'}
          </div>
       );
    }
