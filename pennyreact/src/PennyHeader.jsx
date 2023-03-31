@@ -37,7 +37,7 @@ class PennyHeader extends React.Component
       return (
          <div>
             <hr />
-            {'Good ' + this.greeting() + ' and welcome to Penny.com'}
+            {'Good ' + this.greeting() + ' and welcome to EmotionsNet'}
             <hr />
          </div>
       );

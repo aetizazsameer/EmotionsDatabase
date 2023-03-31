@@ -2,48 +2,55 @@
 
 #-----------------------------------------------------------------------
 # database.py
-# Author: Bob Dondero
+# query: Aetizaz Sameer
 #-----------------------------------------------------------------------
 
-import sqlite3
-import contextlib
-import book as bookmod
-
-#-----------------------------------------------------------------------
-
-_DATABASE_URL = 'file:penny.sqlite?mode=ro'
+import video as videomod
+import psycopg2
 
 #-----------------------------------------------------------------------
 
-def get_books(author):
+_HOST_URL = 'dpg-cgifmlpr8t1g7lp9krfg-a.ohio-postgres.render.com'
+_DATABASE = 'emotionsdatabase'
+_USERNAME = 'emotionsdatabase_user'
+_PASSWORD = 'muO6WwujmxvrVuxwhYRcK1jOrQslGrTm'
 
-    books = []
+#-----------------------------------------------------------------------
 
-    with sqlite3.connect(_DATABASE_URL, isolation_level=None,
-        uri=True) as connection:
+def get_videos(query):
 
-        with contextlib.closing(connection.cursor()) as cursor:
+    videos = []
 
-            query_str = "SELECT author, title, price FROM books "
-            query_str += "WHERE author LIKE ?"
-            cursor.execute(query_str, [author+'%'])
+    with psycopg2.connect(host=_HOST_URL, database=_DATABASE,
+        user=_USERNAME, password=_PASSWORD) as conn:
+
+        with conn.cursor() as cursor:
+
+            query_str = "SELECT id, title, url FROM videos "
+            query_str += "WHERE title LIKE ? OR url LIKE ?"
+            cursor.execute(query_str, [query+'%']*2)
 
             table = cursor.fetchall()
             for row in table:
-                book = bookmod.Book(row[0], row[1], row[2])
-                books.append(book)
+                video = videomod.Video(row[0], row[1], row[2], row[3])
+                videos.append(video)
 
-    return books
+    return videos
 
 #-----------------------------------------------------------------------
 
-def _test():
-    books = get_books('ker')
-    for book in books:
-        print(book.get_author())
-        print(book.get_title())
-        print(book.get_price())
+def _testhelp(query):
+    videos = get_videos(query)
+    for video in videos:
+        print(video.get_id)
+        print(video.get_title())
+        print(video.get_url())
+        print(video.get_uploadtimestamp())
         print()
+
+def _test():
+    _testhelp('highlight')
+    _testhelp('neutral')
 
 if __name__ == '__main__':
     _test()

@@ -7,11 +7,11 @@ import React, { useState } from 'react';
 import './style.css';
 
 const data = [
-  { title: 'Vancouver City Highlight', url: 'https://mediacentral.princeton.edu/media/Walk%20in%20the%20City%20(Neutral)/1_evlgwt6z', timestamp: 25 },
-  { title: 'Blended', url: 'https://mediacentral.princeton.edu/media/Blended+%28Funny%29/1_v2sgkiqw', timestamp: 32 },
-  { title: 'Marley and Me', url: 'https://mediacentral.princeton.edu/media/Marley+and+Me+%28Sad%29/1_kn9ryovr', timestamp: 19 },
-  { title: 'Vacancy', url: 'https://mediacentral.princeton.edu/media/Vacancy+%28Fear%29/1_xyl6m690', timestamp: 28 },
-  { title: 'Pride and Prejudice', url: 'https://mediacentral.princeton.edu/media/Pride+and+Prejudice+%28Calm%29/1_nr0xosoo', timestamp: 35 },
+  { title: 'Vancouver City Highlight', url: 'https://mediacentral.princeton.edu/media/Walk%20in%20the%20City%20(Neutral)/1_evlgwt6z', datetimeUploaded: 25 },
+  { title: 'Blended', url: 'https://mediacentral.princeton.edu/media/Blended+%28Funny%29/1_v2sgkiqw', datetimeUploaded: 32 },
+  { title: 'Marley and Me', url: 'https://mediacentral.princeton.edu/media/Marley+and+Me+%28Sad%29/1_kn9ryovr', datetimeUploaded: 19 },
+  { title: 'Vacancy', url: 'https://mediacentral.princeton.edu/media/Vacancy+%28Fear%29/1_xyl6m690', datetimeUploaded: 28 },
+  { title: 'Pride and Prejudice', url: 'https://mediacentral.princeton.edu/media/Pride+and+Prejudice+%28Calm%29/1_nr0xosoo', datetimeUploaded: 35 },
 ];
 
 const SortableTable = () => {
@@ -31,7 +31,7 @@ const SortableTable = () => {
     ? sortedData.filter(
         item =>
           item.url.toLowerCase().includes(searchTerm.toLowerCase()) ||
-          item.timestamp.toString().includes(searchTerm)
+          item.datetimeUploaded.toString().includes(searchTerm)
       )
     : sortedData;
 
@@ -57,7 +57,7 @@ const SortableTable = () => {
           <tr>
             <th onClick={() => handleSort('title')}>Title</th>
             <th onClick={() => handleSort('url')}>URL</th>
-            <th onClick={() => handleSort('timestamp')}>Timestamp</th>
+            <th onClick={() => handleSort('datetimeUploaded')}>Timestamp</th>
           </tr>
         </thead>
         <tbody>
@@ -65,7 +65,7 @@ const SortableTable = () => {
             <tr key={item.title}>
               <td>{item.title}</td>
               <td>{item.url}</td>
-              <td>{item.timestamp}</td>
+              <td>{item.datetimeUploaded}</td>
             </tr>
           ))}
         </tbody>

@@ -1,6 +1,6 @@
 //----------------------------------------------------------------------
 // PennySearch.jsx
-// Author: Lucas Manning and Bob Dondero
+// Author: Aetizaz Sameer
 //----------------------------------------------------------------------
 
 import React from 'react';
@@ -10,14 +10,14 @@ class PennySearch extends React.Component
    constructor(props)
    {
       super(props);
-      this.state = {books: ''};
+      this.state = {query: ''};
       this._controller = null;
    }
 
-   getResults(author)
+   getResults(query)
    {
-      let encodedAuthor = encodeURIComponent(author);
-      let url = '/searchresults?author=' + encodedAuthor;
+      let encodedQuery = encodeURIComponent(query);
+      let url = '/searchresults?query=' + encodedQuery;
 
       if (this._controller !== null)
          this._controller.abort();
@@ -25,7 +25,7 @@ class PennySearch extends React.Component
 
       fetch(url, {signal: this._controller.signal})
          .then((resp) => {return resp.text();})
-         .then((text) => {this.setState({books: text});})
+         .then((list) => {this.setState({videos: list});})
          .catch((error) => {return console.log(error);});
    }
 
@@ -33,19 +33,19 @@ class PennySearch extends React.Component
    {
       return (
          <div>
-             <h1>Author Search</h1>
-             {'Please enter an author name: '}
+             <h1>Search</h1>
+             {'Enter search query: '}
              <input
                  type='text'
                  onInput={ ((event) => {
-                    let author = event.target.value;
-                    this.getResults(author);
+                    let query = event.target.value;
+                    this.getResults(query);
                  })}
                  autoFocus />
              <hr />
 
              <div dangerouslySetInnerHTML=
-                { {__html: this.state.books} }/>
+                { {__html: this.state.videos} }/>
 
          </div>
       );
