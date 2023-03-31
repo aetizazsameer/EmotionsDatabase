@@ -8,7 +8,7 @@ import './style.css';
 
 // TODO
 
-const data = [
+const videos = [
   { title: 'Vancouver City Highlight', url: 'https://mediacentral.princeton.edu/media/Walk%20in%20the%20City%20(Neutral)/1_evlgwt6z', datetimeUploaded: 25 },
   { title: 'Blended', url: 'https://mediacentral.princeton.edu/media/Blended+%28Funny%29/1_v2sgkiqw', datetimeUploaded: 32 },
   { title: 'Marley and Me', url: 'https://mediacentral.princeton.edu/media/Marley+and+Me+%28Sad%29/1_kn9ryovr', datetimeUploaded: 19 },
