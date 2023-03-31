@@ -23,12 +23,11 @@ def get_videos(query):
 
     with psycopg2.connect(host=_HOST_URL, database=_DATABASE,
                           user=_USERNAME, password=_PASSWORD) as conn:
-
         with conn.cursor() as cursor:
-            query_str = "SELECT id, title, url FROM videos " +\
-                        "WHERE videos.title LIKE ? OR videos.url LIKE ?"
-            query = f'%{query}%'
-            cursor.execute(query_str, (query, query))
+
+            query_str = "SELECT * FROM videos WHERE title ILIKE " +\
+                "%(query)s OR url ILIKE %(query)s"
+            cursor.execute(query_str, {'query': query})
 
             table = cursor.fetchall()
             for row in table:
@@ -40,30 +39,18 @@ def get_videos(query):
 # -----------------------------------------------------------------------
 
 def insert_video(query):
-    try:
-        connection = psycopg2.connect(host=_HOST_URL,
-                                      database=_DATABASE,
-                                      user=_USERNAME,
-                                      ) as connection:
-            with contextlib.closing(connection.cursor()) as cursor:
-                cursor.execute(search, inputs)
+    with psycopg2.connect(host=_HOST_URL, database=_DATABASE,
+                          user=_USERNAME, password=_PASSWORD) as conn:
+        with conn.cursor() as cursor:
 
-                postgres_instert_query = """ INSERT INTO (id, title, url, timestamp) VALUES (%s, %s, %s, %s)"""
-                record_to_insert = ("hello", "aasdjfas", 50)
-                cursor.execute(postgres_instert_query, record_to_insert)
+            postgres_instert_query = """ INSERT INTO (id, title, url, timestamp) VALUES (%s, %s, %s, %s)"""
+            record_to_insert = ("hello", "aasdjfas", 50)
+            cursor.execute(postgres_instert_query, record_to_insert)
 
-                connection.commit()
-                count = cursor.rowcount
-                print(count, "Record inserted successfully into mobile table")
-    except (Exception, psycopg2.Error) as error:
-        print("Failed to insert record into mobile table", error)
-
-    finally:
-        # close database connection.
-        if connection:
-            cursor.close()
-            connection.close()
-            print("PostgreSQL connection is closed")
+            conn.commit()
+            count = cursor.rowcount
+            print(count, "Record inserted successfully into mobile table")
+    
 
 def insert_video(query):
 
