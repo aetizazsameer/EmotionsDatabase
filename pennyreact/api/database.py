@@ -40,6 +40,32 @@ def get_videos(query):
 # -----------------------------------------------------------------------
 
 def insert_video(query):
+    try:
+        connection = psycopg2.connect(host=_HOST_URL,
+                                      database=_DATABASE,
+                                      user=_USERNAME,
+                                      ) as connection:
+            with contextlib.closing(connection.cursor()) as cursor:
+                cursor.execute(search, inputs)
+
+                postgres_instert_query = """ INSERT INTO (id, title, url, timestamp) VALUES (%s, %s, %s, %s)"""
+                record_to_insert = ("hello", "aasdjfas", 50)
+                cursor.execute(postgres_instert_query, record_to_insert)
+
+                connection.commit()
+                count = cursor.rowcount
+                print(count, "Record inserted successfully into mobile table")
+    except (Exception, psycopg2.Error) as error:
+        print("Failed to insert record into mobile table", error)
+
+    finally:
+        # close database connection.
+        if connection:
+            cursor.close()
+            connection.close()
+            print("PostgreSQL connection is closed")
+
+def insert_video(query):
 
     videos = []
 
@@ -53,7 +79,12 @@ def insert_video(query):
             cursor.execute(query_str, [query+'%']*2)
             row = cursor.fetchone()
 
-            while
+            while row is not None:
+                print(row)
+                row = cursor.fetchone()
+
+            cursor.close()
+    # except (Exception, psycopg2.DatabaseError) as error:
 
 def _testhelp(query):
     videos = get_videos(query)

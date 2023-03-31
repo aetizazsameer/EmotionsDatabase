@@ -2,14 +2,8 @@ import psycopg2
 import sqlite3
 import contextlib
 import sys
-from .extensions import db
 
-
-class Video(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    username = db.Column(db.String(50))
-
-def access_database(search, inputs):
+def insert_video(search, inputs):
     try:
         with psycopg2.connect(database="emotionsdatabase",
                               host="dpg-cgifmlpr8t1g7lp9krfg-a.ohio-postgres.render.com",
@@ -19,8 +13,8 @@ def access_database(search, inputs):
             with contextlib.closing(connection.cursor()) as cursor:
                 cursor.execute(search, inputs)
 
-                postgres_instert_query = """ INSERT INTO (id, title, url, timestamp) VALUES (%s, %s, %s, %s)"""
-                record_to_insert = (1, "hello", "aasdjfas", 50)
+                postgres_instert_query = """ INSERT INTO videos (title, url, timestamp) VALUES (%s, %s, %s)"""
+                record_to_insert = ("hello", "aasdjfas", 50)
                 cursor.execute(postgres_instert_query, record_to_insert)
 
                 connection.commit()
@@ -36,3 +30,5 @@ def access_database(search, inputs):
             connection.close()
             print("PostgreSQL connection is closed")
 
+def main():
+    insert_video(search=1231, inputs=83818543)
