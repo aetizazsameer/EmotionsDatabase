@@ -1,4 +1,5 @@
 import psycopg2
+from datetime import datetime
 
 # -----------------------------------------------------------------------
 
@@ -10,7 +11,12 @@ _PORT = '5432'
 
 # -----------------------------------------------------------------------
 
-def insert_video(title, url, uploadtimestamp):
+
+def timestamp():
+    return str(datetime.now().replace(microsecond=0))
+
+
+def insert_video(title, url):
     try:
         with psycopg2.connect(database=_DATABASE,
                               host=_HOST_URL,
@@ -19,7 +25,7 @@ def insert_video(title, url, uploadtimestamp):
                               port=_PORT) as connection:
             with connection.cursor() as cursor:
                 postgres_insert_query = """ INSERT INTO videos (title, url, uploadtimestamp) VALUES (%s, %s, %s)"""
-                record_to_insert = (title, url, uploadtimestamp)
+                record_to_insert = (title, url, timestamp())
                 cursor.execute(postgres_insert_query, record_to_insert)
 
                 connection.commit()
@@ -34,6 +40,7 @@ def insert_video(title, url, uploadtimestamp):
             cursor.close()
             connection.close()
             print("PostgreSQL connection is closed")
+
 
 def delete_video(title):
     try:
@@ -59,14 +66,13 @@ def delete_video(title):
             connection.close()
             print("PostgreSQL connection is closed")
 
-def test():
-    title, url, uploadtimestamp = "testtitle", "testurl", "uploadtimestamp"
-    title1, url1, uploadtimestamp1 = "lol", "lol", "lol"
-    insert_video(title, url, uploadtimestamp)
-    insert_video(title1, url1, uploadtimestamp1)
-    insert_video(title1, url1, uploadtimestamp1)
-    delete_video(title1)
 
+def test():
+    title, url = "testtitle", "testurl"
+    title1, url1 = "lol", "lol"
+    insert_video(title, url)
+    insert_video(title1, url1)
+    delete_video(title1)
 
 
 if __name__ == '__main__':
