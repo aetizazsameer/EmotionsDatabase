@@ -26,8 +26,8 @@ def get_videos(query):
         with conn.cursor() as cursor:
 
             query_str = "SELECT * FROM videos WHERE title ILIKE " +\
-                "%(query)s OR url ILIKE %(query)s"
-            cursor.execute(query_str, {'query': query})
+                "%s OR url ILIKE %s"
+            cursor.execute(query_str, (query, query))
 
             table = cursor.fetchall()
             for row in table:
@@ -49,7 +49,8 @@ def _test_get_videos(query):
 
 
 def _test():
-    _test_get_videos('highlight')
+    _test_get_videos('h')
+    # _test_get_videos('highlight')
     # _test_get_videos('neutral')
 
 
