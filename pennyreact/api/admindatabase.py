@@ -9,7 +9,7 @@ _HOST_URL = 'dpg-cgifmlpr8t1g7lp9krfg-a.ohio-postgres.render.com'
 _DATABASE = 'emotionsdatabase'
 _USERNAME = 'emotionsdatabase_user'
 _PASSWORD = 'muO6WwujmxvrVuxwhYRcK1jOrQslGrTm'
-
+_PORT = '5432'
 
 def insert_video(title, url, uploadtimestamp):
     try:
@@ -17,7 +17,7 @@ def insert_video(title, url, uploadtimestamp):
                               host=_HOST_URL,
                               user=_USERNAME,
                               password=_PASSWORD,
-                              port="5432") as connection:
+                              port=_PORT) as connection:
             with connection.cursor() as cursor:
                 postgres_insert_query = """ INSERT INTO videos (title, url, uploadtimestamp) VALUES (%s, %s, %s)"""
                 record_to_insert = (title, url, uploadtimestamp)
@@ -25,7 +25,7 @@ def insert_video(title, url, uploadtimestamp):
 
                 connection.commit()
                 count = cursor.rowcount
-                print(count, "Record inserted successfully into mobile table")
+                print(count, "Record inserted successfully into video table")
     except (Exception, psycopg2.Error) as error:
         print("Failed to insert record into video table", error)
 
