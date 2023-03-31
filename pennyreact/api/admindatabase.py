@@ -31,6 +31,7 @@ def insert_video(title, url):
                 connection.commit()
                 count = cursor.rowcount
                 print(count, "Record inserted successfully into video table")
+
     except (Exception, psycopg2.Error) as error:
         print("Failed to insert record into video table", error)
 
@@ -42,16 +43,16 @@ def insert_video(title, url):
             print("PostgreSQL connection is closed")
 
 
-def delete_video(title):
+def delete_video(id):
     try:
         with psycopg2.connect(database=_DATABASE,
                               host=_HOST_URL,
                               user=_USERNAME,
                               password=_PASSWORD,
-                              port="5432") as connection:
+                              port=_PORT) as connection:
             with connection.cursor() as cursor:
                 postgres_delete_query = """ DELETE from videos where id = %s"""
-                cursor.execute(postgres_delete_query, (title))
+                cursor.execute(postgres_delete_query, (id))
 
                 connection.commit()
                 count = cursor.rowcount
@@ -70,9 +71,10 @@ def delete_video(title):
 def test():
     title, url = "testtitle", "testurl"
     title1, url1 = "lol", "lol"
+    id = 1
     insert_video(title, url)
     insert_video(title1, url1)
-    delete_video(title1)
+    delete_video(id)
 
 
 if __name__ == '__main__':
