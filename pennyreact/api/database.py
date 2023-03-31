@@ -32,7 +32,8 @@ def get_videos(query):
             query_str = "SELECT * FROM videos WHERE title='Vacancy'" +\
                         "OR title='Pride and Prejudice' OR title=" +\
                         "'Marley and Me' OR title='Blended' OR title" +\
-                        "='Vancouver City Highlight'"
+                        "='Vancouver City Highlight' OR title=" +\
+                        "'backpack'"
             cursor.execute(query_str)
 
             table = cursor.fetchall()
