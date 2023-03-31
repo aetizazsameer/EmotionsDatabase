@@ -1,15 +1,14 @@
 import psycopg2
-import sqlite3
-import contextlib
-import sys
-import video as videomod
 
+# -----------------------------------------------------------------------
 
 _HOST_URL = 'dpg-cgifmlpr8t1g7lp9krfg-a.ohio-postgres.render.com'
 _DATABASE = 'emotionsdatabase'
 _USERNAME = 'emotionsdatabase_user'
 _PASSWORD = 'muO6WwujmxvrVuxwhYRcK1jOrQslGrTm'
 _PORT = '5432'
+
+# -----------------------------------------------------------------------
 
 def insert_video(title, url, uploadtimestamp):
     try:
@@ -36,10 +35,38 @@ def insert_video(title, url, uploadtimestamp):
             connection.close()
             print("PostgreSQL connection is closed")
 
+def delete_video(title):
+    try:
+        with psycopg2.connect(database=_DATABASE,
+                              host=_HOST_URL,
+                              user=_USERNAME,
+                              password=_PASSWORD,
+                              port="5432") as connection:
+            with connection.cursor() as cursor:
+                postgres_delete_query = """ DELETE from videos where id = %s"""
+                cursor.execute(postgres_delete_query, (title))
+
+                connection.commit()
+                count = cursor.rowcount
+                print(count, "Record deleted successfully")
+
+    except (Exception, psycopg2.Error) as error:
+        print("Error in Delete operation", error)
+    finally:
+        # close database connection.
+        if connection:
+            cursor.close()
+            connection.close()
+            print("PostgreSQL connection is closed")
 
 def test():
     title, url, uploadtimestamp = "testtitle", "testurl", "uploadtimestamp"
+    title1, url1, uploadtimestamp1 = "lol", "lol", "lol"
     insert_video(title, url, uploadtimestamp)
+    insert_video(title1, url1, uploadtimestamp1)
+    insert_video(title1, url1, uploadtimestamp1)
+    delete_video(title1)
+
 
 
 if __name__ == '__main__':
