@@ -26,11 +26,12 @@ def get_videos(query):
         with conn.cursor() as cursor:
 
             query_str = "SELECT * FROM videos WHERE title ILIKE " +\
-                "%s OR url ILIKE %s"
+                "'%s' OR url ILIKE '%s'"
             cursor.execute(query_str, (query, query))
 
             table = cursor.fetchall()
             for row in table:
+                print('33333')
                 video = videomod.Video(row[1], row[2], row[3])
                 videos.append(video)
 

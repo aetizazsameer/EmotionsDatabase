@@ -12,7 +12,6 @@ _PASSWORD = 'muO6WwujmxvrVuxwhYRcK1jOrQslGrTm'
 
 
 def insert_video(title, url, uploadtimestamp):
-    print("stonks")
     try:
         with psycopg2.connect(database=_DATABASE,
                               host=_HOST_URL,
