@@ -7,7 +7,7 @@
 
 import flask
 import database
-from flask import Flask, request
+import flask
 import admindatabase
 
 # -----------------------------------------------------------------------
@@ -48,7 +48,12 @@ def search_results():
 @app.route('/api/insert_video', methods=['POST'])
 def insert_video_handler():
     # Handle the insertion of video into your database here
-    data = request.get_json()
+    data = flask.request.get_json()
     title = data.get('title')
     url = data.get('url')
     admindatabase.insert_video(title, url)
+
+@app.route('api/retrieve_video', methods=['GET'])
+def retrieve_video_handler():
+    query = flask.request.args.get('query')
+    # TODO

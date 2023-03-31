@@ -1,6 +1,0 @@
-{% for book in books: %}
-   <strong>{{book.get_author()}}</strong>:
-   {{book.get_title()}}
-   (${{'%.2f' % book.get_price()}})
-   <br>
-{% endfor %}

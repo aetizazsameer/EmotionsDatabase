@@ -1,10 +1,12 @@
 //----------------------------------------------------------------------
 // Table.jsx
-// Author: Tyler Vu
+// Author: Tyler Vu, Aetizaz Sameer
 //----------------------------------------------------------------------
 
 import React, { useState } from 'react';
 import './style.css';
+
+// TODO
 
 const data = [
   { title: 'Vancouver City Highlight', url: 'https://mediacentral.princeton.edu/media/Walk%20in%20the%20City%20(Neutral)/1_evlgwt6z', datetimeUploaded: 25 },
@@ -19,7 +21,7 @@ const SortableTable = () => {
   const [sortOrder, setSortOrder] = useState('asc');
   const [searchTerm, setSearchTerm] = useState('');
 
-  const sortedData = data.sort((a, b) => {
+  const sortedData = videos.sort((a, b) => {
     const aValue = a[sortField];
     const bValue = b[sortField];
     if (aValue < bValue) return sortOrder === 'asc' ? -1 : 1;

@@ -1,0 +1,7 @@
+{% for video in videos: %}
+   <strong>{{video.get_id()}}</strong>:
+   {{video.get_title()}}
+   ${{video.get_url()}}
+   {{video.get_uploadtimestamp()}}
+   <br>
+{% endfor %}
