@@ -17,7 +17,6 @@ const Form = () => {
         _title: title,
         _url: url,
       });
-      console.log(response.data);
       // Add code here to handle successful submission
     } catch (error) {
       console.log(error);
