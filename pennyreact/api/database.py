@@ -38,42 +38,7 @@ def get_videos(query):
 
 # -----------------------------------------------------------------------
 
-def insert_video(query):
-    with psycopg2.connect(host=_HOST_URL, database=_DATABASE,
-                          user=_USERNAME, password=_PASSWORD) as conn:
-        with conn.cursor() as cursor:
-
-            postgres_instert_query = """ INSERT INTO (id, title, url, timestamp) VALUES (%s, %s, %s, %s)"""
-            record_to_insert = ("hello", "aasdjfas", 50)
-            cursor.execute(postgres_instert_query, record_to_insert)
-
-            conn.commit()
-            count = cursor.rowcount
-            print(count, "Record inserted successfully into mobile table")
-    
-
-def insert_video(query):
-
-    videos = []
-
-    with psycopg2.connect(host=_HOST_URL, database=_DATABASE,
-                          user=_USERNAME, password=_PASSWORD) as conn:
-
-        with conn.cursor() as cursor:
-
-            query_str = "SELECT id, title, url FROM videos "
-            query_str += "WHERE title LIKE ? OR url LIKE ?"
-            cursor.execute(query_str, [query+'%']*2)
-            row = cursor.fetchone()
-
-            while row is not None:
-                print(row)
-                row = cursor.fetchone()
-
-            cursor.close()
-    # except (Exception, psycopg2.DatabaseError) as error:
-
-def _testhelp(query):
+def _test_get_videos(query):
     videos = get_videos(query)
     for video in videos:
         print(video.get_id)
@@ -84,8 +49,8 @@ def _testhelp(query):
 
 
 def _test():
-    _testhelp('highlight')
-    # _testhelp('neutral')
+    _test_get_videos('highlight')
+    # _test_get_videos('neutral')
 
 
 if __name__ == '__main__':
