@@ -25,14 +25,16 @@ def get_videos(query):
                           user=_USERNAME, password=_PASSWORD) as conn:
         with conn.cursor() as cursor:
 
-            query_str = "SELECT * FROM videos WHERE title LIKE " +\
-                "%s OR url LIKE %s"
-            cursor.execute(query_str, (query, query))
+            # query_str = "SELECT * FROM videos WHERE title LIKE " +\
+            #     "%s OR url LIKE %s"
+            # cursor.execute(query_str, (query, query))
+
+            query_str = "SELECT * FROM videos WHERE title='Vacancy'"
+            cursor.execute(query_str)
 
             table = cursor.fetchall()
             for row in table:
-                print('33333')
-                video = videomod.Video(row[1], row[2], row[3])
+                video = videomod.Video(row[0], row[1], row[2], row[3])
                 videos.append(video)
 
     return videos
@@ -42,7 +44,7 @@ def get_videos(query):
 def _test_get_videos(query):
     videos = get_videos(query)
     for video in videos:
-        print(video.get_id)
+        print(video.get_id())
         print(video.get_title())
         print(video.get_url())
         print(video.get_uploadtimestamp())
