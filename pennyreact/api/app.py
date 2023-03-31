@@ -30,17 +30,17 @@ def index():
 @app.route('/searchresults', methods=['GET'])
 def search_results():
 
-    author = flask.request.args.get('author')
-    if author is None:
-        author = ''
-    author = author.strip()
+    query = flask.request.args.get('query')
+    if query is None:
+        query = ''
+    query = query.strip()
 
-    if author == '':
-        books = []
+    if query == '':
+        videos = []
     else:
-        books = database.get_books(author)  # Exception handling omitted
+        videos = database.get_videos(query)  # Exception handling omitted
 
-    html_code = flask.render_template('books.html', books=books)
+    html_code = flask.render_template('videos.html', videos=videos)
     response = flask.make_response(html_code)
     return response
 
@@ -51,6 +51,4 @@ def insert_video_handler():
     data = request.get_json()
     title = data.get('title')
     url = data.get('url')
-    email = data.get('email')
     admindatabase.insert_video(title, url)
-    print('lsakjflkasfjklsadjf')

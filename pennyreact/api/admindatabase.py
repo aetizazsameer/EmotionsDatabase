@@ -1,3 +1,10 @@
+#!/usr/bin/env python
+
+# -----------------------------------------------------------------------
+# admindatabase.py
+# query: Andrew Hwang, Aetizaz Sameer
+# -----------------------------------------------------------------------
+
 from flask import Flask, request
 import psycopg2
 from datetime import datetime
