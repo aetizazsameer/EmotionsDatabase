@@ -11,7 +11,7 @@ _USERNAME = 'emotionsdatabase_user'
 _PASSWORD = 'muO6WwujmxvrVuxwhYRcK1jOrQslGrTm'
 
 
-def insert_video(search, inputs):
+def insert_video(title, url, uploadtimestamp):
     print("stonks")
     try:
         with psycopg2.connect(database=_DATABASE,
@@ -20,17 +20,8 @@ def insert_video(search, inputs):
                               password=_PASSWORD,
                               port="5432") as connection:
             with connection.cursor() as cursor:
-                # cursor.execute(search, inputs)
-
-                # query_str = "SELECT * FROM videos WHERE title ILIKE " +\
-                #     "%(query)s OR url ILIKE %(query)s"
-                # cursor.execute(query_str, {'query': query})
-
-                # table = cursor.fetchall()
-                # print(table)
-
                 postgres_insert_query = """ INSERT INTO videos (title, url, uploadtimestamp) VALUES (%s, %s, %s)"""
-                record_to_insert = ("title", "url", "timestamp")
+                record_to_insert = (title, url, uploadtimestamp)
                 cursor.execute(postgres_insert_query, record_to_insert)
 
                 connection.commit()
@@ -48,7 +39,8 @@ def insert_video(search, inputs):
 
 
 def test():
-    insert_video(search=1231, inputs=83818543)
+    title, url, uploadtimestamp = "testtitle", "testurl", "uploadtimestamp"
+    insert_video(title, url, uploadtimestamp)
 
 
 if __name__ == '__main__':
