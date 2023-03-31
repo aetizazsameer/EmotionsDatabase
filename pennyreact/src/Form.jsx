@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import 'admindatabase.py'
+// import 'admindatabase.py'
 
 const Form = () => {
   const [title, setFirstName] = useState('');
