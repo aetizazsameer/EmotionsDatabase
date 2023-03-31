@@ -25,8 +25,8 @@ def get_videos(query):
                           user=_USERNAME, password=_PASSWORD) as conn:
         with conn.cursor() as cursor:
 
-            query_str = "SELECT * FROM videos WHERE title ILIKE " +\
-                "'%s' OR url ILIKE '%s'"
+            query_str = "SELECT * FROM videos WHERE title LIKE " +\
+                "%s OR url LIKE %s"
             cursor.execute(query_str, (query, query))
 
             table = cursor.fetchall()
