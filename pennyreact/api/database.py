@@ -36,8 +36,9 @@ def get_videos(query):
 
             table = cursor.fetchall()
             for row in table:
-                video = videomod.Video(row[0], row[1], row[2], row[3])
-                videos.append(video)
+                # video = videomod.Video(row[0], row[1], row[2], row[3])
+                # videos.append(video)
+                videos.append(row)
 
     return videos
 

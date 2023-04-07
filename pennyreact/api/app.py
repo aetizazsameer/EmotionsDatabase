@@ -30,11 +30,6 @@ def index():
 @app.route('/searchresults', methods=['GET'])
 def search_results():
 
-    # query = flask.request.args.get('query')
-    # if query is None:
-    #     query = ''
-    # query = query.strip()
-
     # if query == '':
     #     videos = []
     # else:
@@ -58,8 +53,3 @@ def insert_video_handler():
     title = data.get('title')
     url = data.get('url')
     admindatabase.insert_video(title, url)
-
-@app.route('/api/retrieve_video', methods=['GET'])
-def retrieve_video_handler():
-    query = flask.request.args.get('query')
-    # TODO
