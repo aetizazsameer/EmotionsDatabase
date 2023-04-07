@@ -6,15 +6,10 @@
 import React, { useState } from 'react';
 import './style.css';
 
-// TODO
-
-const videos = [
-  { title: 'Vancouver City Highlight', url: 'https://mediacentral.princeton.edu/media/Walk%20in%20the%20City%20(Neutral)/1_evlgwt6z', datetimeUploaded: 25 },
-  { title: 'Blended', url: 'https://mediacentral.princeton.edu/media/Blended+%28Funny%29/1_v2sgkiqw', datetimeUploaded: 32 },
-  { title: 'Marley and Me', url: 'https://mediacentral.princeton.edu/media/Marley+and+Me+%28Sad%29/1_kn9ryovr', datetimeUploaded: 19 },
-  { title: 'Vacancy', url: 'https://mediacentral.princeton.edu/media/Vacancy+%28Fear%29/1_xyl6m690', datetimeUploaded: 28 },
-  { title: 'Pride and Prejudice', url: 'https://mediacentral.princeton.edu/media/Pride+and+Prejudice+%28Calm%29/1_nr0xosoo', datetimeUploaded: 35 },
-];
+fetch('/searchresults')
+  .then(response => response.json())
+  .then(data => videos = data)
+  .catch(console.log('error'))
 
 const SortableTable = () => {
   const [sortField, setSortField] = useState('title');
@@ -57,17 +52,19 @@ const SortableTable = () => {
       <table className="table">
         <thead>
           <tr>
+            <th onClick={() => handleSort('id')}>ID</th>
             <th onClick={() => handleSort('title')}>Title</th>
             <th onClick={() => handleSort('url')}>URL</th>
-            <th onClick={() => handleSort('datetimeUploaded')}>Timestamp</th>
+            <th onClick={() => handleSort('uploadtimestamp')}>Timestamp</th>
           </tr>
         </thead>
         <tbody>
           {filteredData.map(item => (
-            <tr key={item.title}>
+            <tr key={item.id}>
+              <td>{item.id}</td>
               <td>{item.title}</td>
               <td>{item.url}</td>
-              <td>{item.datetimeUploaded}</td>
+              <td>{item.uploadtimestamp}</td>
             </tr>
           ))}
         </tbody>

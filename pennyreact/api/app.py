@@ -30,19 +30,25 @@ def index():
 @app.route('/searchresults', methods=['GET'])
 def search_results():
 
+    # query = flask.request.args.get('query')
+    # if query is None:
+    #     query = ''
+    # query = query.strip()
+
+    # if query == '':
+    #     videos = []
+    # else:
+    #     videos = database.get_videos(query)  # Exception handling omitted
+
+    # html_code = flask.render_template('videos.html', videos=videos)
+    # response = flask.make_response(html_code)
+    # return response
+
     query = flask.request.args.get('query')
     if query is None:
         query = ''
     query = query.strip()
-
-    if query == '':
-        videos = []
-    else:
-        videos = database.get_videos(query)  # Exception handling omitted
-
-    html_code = flask.render_template('videos.html', videos=videos)
-    response = flask.make_response(html_code)
-    return response
+    return flask.jsonify(database.get_videos(query))
 
 
 @app.route('/api/insert_video', methods=['POST'])
