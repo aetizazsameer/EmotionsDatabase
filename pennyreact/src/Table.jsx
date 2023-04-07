@@ -6,10 +6,11 @@
 import React, { useState } from 'react';
 import './style.css';
 
+let videos;
 fetch('/searchresults')
   .then(response => response.json())
   .then(data => videos = data)
-  .catch(console.log('error'))
+  .catch(error => console.error(error))
 
 const SortableTable = () => {
   const [sortField, setSortField] = useState('title');
