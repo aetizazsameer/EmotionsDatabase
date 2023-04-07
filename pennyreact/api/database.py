@@ -34,25 +34,6 @@ def get_videos(query):
             query = (f'%{query}%', f'%{query}%')
             cursor.execute(query_str, query)
 
-            # query_str = "SELECT * FROM videos WHERE title='Vacancy'" +\
-            #             "OR title='Pride and Prejudice' OR title=" +\
-            #             "'Marley and Me' OR title='Blended' OR title" +\
-            #             "='Vancouver City Highlight' OR title=" +\
-            #             "'backpack'"
-
-            '''
-            stmt_str += " AND courses.area LIKE ? ESCAPE '\\'"
-        query = area.replace('_', '\\_').replace('%',
-                                                 '\\%')
-        arguments.append(f'%{query}%')
-
-    # sorting table (department, course number, class id)
-    stmt_str += " ORDER BY crosslistings.dept, \
-        crosslistings.coursenum, classes.classid"
-            '''
-
-            cursor.execute(query_str, query)
-
             table = cursor.fetchall()
             for row in table:
                 video = videomod.Video(row[0], row[1], row[2], row[3])
