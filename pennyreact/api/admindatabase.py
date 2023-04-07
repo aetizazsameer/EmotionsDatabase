@@ -67,10 +67,8 @@ def insert_video(title, url):
 
 def delete_video(id):
     try:
-        with psycopg2.connect(database=_DATABASE,
-                              host=_HOST_URL,
-                              user=_USERNAME,
-                              password=_PASSWORD,
+        with psycopg2.connect(database=_DATABASE, host=_HOST_URL,
+                              user=_USERNAME, password=_PASSWORD,
                               port=_PORT) as connection:
             with connection.cursor() as cursor:
                 postgres_delete_query = """ DELETE from videos where id = %s"""
@@ -91,7 +89,7 @@ def delete_video(id):
 
 #-----------------------------------------------------------------------
 
-def test():
+def _test():
     title, url = "testtitle", "testurl"
     title1, url1 = "lol", "lol"
     id = 6
@@ -102,4 +100,4 @@ def test():
 #-----------------------------------------------------------------------
 
 if __name__ == '__main__':
-    test()
+    _test()

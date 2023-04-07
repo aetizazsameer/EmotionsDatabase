@@ -17,6 +17,7 @@ _PASSWORD = 'muO6WwujmxvrVuxwhYRcK1jOrQslGrTm'
 
 # ----------------------------------------------------------------------
 
+
 def get_videos(query):
 
     videos = []
@@ -25,16 +26,32 @@ def get_videos(query):
                           user=_USERNAME, password=_PASSWORD) as conn:
         with conn.cursor() as cursor:
 
-            # query_str = "SELECT * FROM videos WHERE title LIKE " +\
-            #     "%s OR url LIKE %s"
-            # cursor.execute(query_str, (query, query))
+            query_str = "SELECT * FROM videos WHERE title ILIKE " +\
+                "(%s) OR url ILIKE (%s) ESCAPE '\\'"
+            query_str += " ORDER BY id"
 
-            query_str = "SELECT * FROM videos WHERE title='Vacancy'" +\
-                        "OR title='Pride and Prejudice' OR title=" +\
-                        "'Marley and Me' OR title='Blended' OR title" +\
-                        "='Vancouver City Highlight' OR title=" +\
-                        "'backpack'"
-            cursor.execute(query_str)
+            query = query.replace('_', '\\_').replace('%', '\\%')
+            query = (f'%{query}%', f'%{query}%')
+            cursor.execute(query_str, query)
+
+            # query_str = "SELECT * FROM videos WHERE title='Vacancy'" +\
+            #             "OR title='Pride and Prejudice' OR title=" +\
+            #             "'Marley and Me' OR title='Blended' OR title" +\
+            #             "='Vancouver City Highlight' OR title=" +\
+            #             "'backpack'"
+
+            '''
+            stmt_str += " AND courses.area LIKE ? ESCAPE '\\'"
+        query = area.replace('_', '\\_').replace('%',
+                                                 '\\%')
+        arguments.append(f'%{query}%')
+
+    # sorting table (department, course number, class id)
+    stmt_str += " ORDER BY crosslistings.dept, \
+        crosslistings.coursenum, classes.classid"
+            '''
+
+            cursor.execute(query_str, query)
 
             table = cursor.fetchall()
             for row in table:
@@ -44,6 +61,7 @@ def get_videos(query):
     return videos
 
 # ----------------------------------------------------------------------
+
 
 def _test_get_videos(query):
     videos = get_videos(query)
