@@ -1,6 +1,6 @@
 //----------------------------------------------------------------------
 // main.js
-// Author: Lucas Manning
+// Author: Aetizaz Sameer, Andrew Hwang, Tyler Vu
 //----------------------------------------------------------------------
 
 import React from 'react';
