@@ -20,7 +20,7 @@ pennyreact/node_modules
 /coverage
 
 # production
-
+pennyreact/build/
 
 # misc
 .DS_Store
