@@ -6,6 +6,7 @@
 # -----------------------------------------------------------------------
 
 import requests
+import re
 import psycopg2
 from datetime import datetime
 
@@ -42,9 +43,9 @@ def insert_video(title, url):
                               port=_PORT) as connection:
             with connection.cursor() as cursor:
 
-                response = requests.get(url).text
                 # extract video direct link from hosted link
-                match = response.search('<meta property="og:video" content="(.*?)">', response)
+                response = requests.get(url).text
+                match = re.search('<meta property="og:video:secure_url" content="(.*?)">', response)
                 match = match[35:-2]
 
                 postgres_insert_query = """ INSERT INTO videos (title, url, uploadtimestamp) VALUES (%s, %s, %s)"""
