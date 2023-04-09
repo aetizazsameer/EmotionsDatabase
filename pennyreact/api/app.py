@@ -13,7 +13,7 @@ import admindatabase
 
 app = flask.Flask(__name__,
                   template_folder='.',
-                  static_folder='../build',
+                  static_folder='../build/static',
                   static_url_path='/')
 
 # ----------------------------------------------------------------------
