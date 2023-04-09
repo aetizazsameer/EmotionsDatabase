@@ -46,10 +46,10 @@ def insert_video(title, url):
                 # extract video direct link from hosted link
                 response = requests.get(url).text
                 match = re.search('<meta property="og:video:secure_url" content="(.*?)">', response)
-                match = match.group(1)[35:-2]
+                video_url = match.group(1)[35:-2]
 
                 postgres_insert_query = """ INSERT INTO videos (title, url, uploadtimestamp) VALUES (%s, %s, %s)"""
-                record_to_insert = (title, url, timestamp())
+                record_to_insert = (title, video_url, timestamp())
                 cursor.execute(postgres_insert_query, record_to_insert)
 
                 connection.commit()
