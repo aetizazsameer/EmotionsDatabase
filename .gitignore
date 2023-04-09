@@ -6,6 +6,7 @@ instance/
 pennyreact/node_modules
 /pennyreact/api/__pycache__
 /pennyreact/node_modules
+/penny/react/build
 
 # See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
 
