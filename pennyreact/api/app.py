@@ -1,44 +1,40 @@
 #!/usr/bin/env python
 
-# -----------------------------------------------------------------------
+# ----------------------------------------------------------------------
 # app.py
-# Author: Bob Dondero
-# -----------------------------------------------------------------------
+# Author: Tyler Vu, Aetizaz Sameer, Andrew Hwang
+# ----------------------------------------------------------------------
 
 import flask
 import database
-import flask
 import admindatabase
 
-# -----------------------------------------------------------------------
+# ----------------------------------------------------------------------
 
 app = flask.Flask(__name__,
                   template_folder='.',
                   static_folder='../build',
                   static_url_path='/')
 
-# -----------------------------------------------------------------------
+# ----------------------------------------------------------------------
 
 
 @app.route('/')
 def index():
     return app.send_static_file('index.html')
 
-# -----------------------------------------------------------------------
+# ----------------------------------------------------------------------
 
 
 @app.route('/searchresults', methods=['GET'])
 def search_results():
 
-    query = flask.request.args.get('query')
-    if query is None:
-        query = ''
-    query = query.strip()
+    query = flask.request.args.get('query', '').strip()
 
     if query == '':
         videos = []
     else:
-        videos = database.get_videos(query)  # Exception handling omitted
+        videos = database.get_videos(query) # Exception handling omitted
 
     html_code = flask.render_template('videos.html', videos=videos)
     response = flask.make_response(html_code)

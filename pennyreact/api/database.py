@@ -2,7 +2,7 @@
 
 # ----------------------------------------------------------------------
 # database.py
-# query: Aetizaz Sameer
+# query: Aetizaz Sameer, Andrew Hwang
 # ----------------------------------------------------------------------
 
 import video as videomod

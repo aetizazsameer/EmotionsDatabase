@@ -5,6 +5,7 @@
 # query: Andrew Hwang, Aetizaz Sameer
 # -----------------------------------------------------------------------
 
+import requests
 import psycopg2
 from datetime import datetime
 
@@ -40,6 +41,12 @@ def insert_video(title, url):
                               password=_PASSWORD,
                               port=_PORT) as connection:
             with connection.cursor() as cursor:
+
+                response = requests.get(url).text
+                # extract video direct link from hosted link
+                match = re.search('<meta property="og:video" content="(.*?)">', response)
+                match = match[35:-3]
+
                 postgres_insert_query = """ INSERT INTO videos (title, url, uploadtimestamp) VALUES (%s, %s, %s)"""
                 record_to_insert = (title, url, timestamp())
                 cursor.execute(postgres_insert_query, record_to_insert)
