@@ -4,7 +4,7 @@ function Grid() {
   const [gridData, setGridData] = useState(Array(50).fill(Array(50).fill(false)));
 
   const handleClick = (row, col) => {
-    console.log(`Clicked on row ${row} and column ${col}`);
+    console.log(`(${row}, ${col})`);
   };
 
   return (
@@ -15,7 +15,7 @@ function Grid() {
             <span
               key={colIndex}
               onClick={() => handleClick(rowIndex, colIndex)}
-              style={{ display: 'inline-block', width: '20px', height: '20px', backgroundColor: colData ? 'black' : 'white', border: '1px solid black' }}
+              style={{  width: '30px', height: '10px',  border: '10px solid white' }}
             />
           ))}
         </div>
