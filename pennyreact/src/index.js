@@ -10,10 +10,12 @@ import PennySearch from './PennySearch.jsx';
 import PennyFooter from './PennyFooter.jsx';
 import Table from './Table.jsx';
 import Form from './Form.jsx';
+import Grid from './Grid.jsx';
 
 ReactDOM.render(
     <div>
         <PennyHeader />
+        <Grid />,
         <PennySearch />
         <Form />
         <Table />
