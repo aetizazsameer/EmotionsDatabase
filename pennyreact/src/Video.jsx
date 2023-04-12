@@ -3,6 +3,7 @@
 // Author: Aetizaz Sameer, Andrew Hwang, Tyler Vu
 //----------------------------------------------------------------------
 
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
 const Video = () => {
