@@ -10,9 +10,9 @@ import Landing from './Landing';
 import Admin from './Admin';
 import Researcher from './Researcher';
 import Participant from './Participant';
-import PreSurvey from './presurvey';
+import PreSurvey from './PreSurvey';
 import VideoPage from './VideoPage';
-import PostSurvey from './postsurvey';
+import PostSurvey from './PostSurvey';
 
 ReactDOM.render(
     <BrowserRouter>
