@@ -32,30 +32,11 @@ def index():
 
 
 @app.route('/participant/presurvey', methods=['GET'])
-def presurvey():
-
-    html_code = flask.render_template('presurvey.html')
-    response = flask.make_response(html_code)
-    response.set_cookie('last_query', flask.request.url)
-
-    return response
-
-
 @app.route('/participant/video', methods=['GET'])
-def participant_video():
-    html_code = flask.render_template('participant_video.html')
-    response = flask.make_response(html_code)
-    response.set_cookie('last_query', flask.request.url) 
-
-    return response
-
-
 @app.route('/participant/postsurvey', methods=['GET'])
-def postsurvey():
-    html_code = flask.render_template('postsurvey.html')
-    response = flask.make_response(html_code)
-    response.set_cookie('last_query', flask.request.url) 
-
+def participant_sequence():
+    response = app.send_static_file('index.html')
+    response.set_cookie('last_query', flask.request.url)
     return response
 
 

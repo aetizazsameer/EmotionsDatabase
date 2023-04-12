@@ -6,19 +6,25 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter, Routes, Route, Outlet } from 'react-router-dom';
-import Landing from './landing';
-import Admin from './admin';
-import Researcher from './researcher';
-import Participant from './participant';
+import Landing from './Landing';
+import Admin from './Admin';
+import Researcher from './Researcher';
+import Participant from './Participant';
+import PreSurvey from './presurvey';
+import VideoPage from './VideoPage';
+import PostSurvey from './postsurvey';
 
 ReactDOM.render(
     <BrowserRouter>
         <Routes>
-            <Route path="/" element={<Landing/>}/>
+            <Route path="/" element={<Landing />} />
             <Route path="/index" element={<Landing />} />
             <Route path="/admin" element={<Admin />} />
             <Route path="/researcher" element={<Researcher />} />
             <Route path="/participant" element={<Participant />} />
+            <Route path="/presurvey" element={<PreSurvey />} />
+            <Route path="/videopage" element={<VideoPage />} />
+            <Route path="/postsurvey" element={<PostSurvey />} />
         </Routes>
         <Outlet />
     </BrowserRouter>,

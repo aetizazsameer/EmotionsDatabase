@@ -7,15 +7,17 @@ import React from 'react';
 import Link from 'react-router-dom';
 import PennyHeader from './PennyHeader';
 import PennyFooter from './PennyFooter';
+import Video from './Video';
 
-function Participant() {
+function VideoPage() {
     return (
         <div>
             <PennyHeader />
-            <Link to="/participant/presurvey">Start</Link>
+            <Video />
+            <Link to="/participant/postsurvey">Video Page</Link>
             <PennyFooter />
         </div >
     );
 }
 
-export default Participant;
+export default VideoPage;

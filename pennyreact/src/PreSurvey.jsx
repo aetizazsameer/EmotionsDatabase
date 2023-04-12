@@ -8,14 +8,15 @@ import Link from 'react-router-dom';
 import PennyHeader from './PennyHeader';
 import PennyFooter from './PennyFooter';
 
-function Participant() {
+function PreSurvey() {
     return (
         <div>
             <PennyHeader />
-            <Link to="/participant/presurvey">Start</Link>
+            <Grid />
+            <Link to="/participant/video">Video Page</Link>
             <PennyFooter />
-        </div >
+        </div>
     );
 }
 
-export default Participant;
+export default PreSurvey;
