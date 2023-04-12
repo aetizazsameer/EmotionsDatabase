@@ -19,8 +19,8 @@ app = flask.Flask(__name__,
 # ----------------------------------------------------------------------
 
 
-@app.route('/index', methods=['GET'])
 @app.route('/', methods=['GET'])
+@app.route('/index', methods=['GET'])
 @app.route('/admin', methods=['GET'])
 @app.route('/researcher', methods=['GET'])
 @app.route('/participant', methods=['GET'])
@@ -30,6 +30,31 @@ def index():
 
 # ----------------------------------------------------------------------
 
+
+@app.route('/participant/presurvey', methods=['GET'])
+def presurvey():
+
+    html_code = flask.render_template('presurvey.html')
+    response = flask.make_response(html_code)
+    response.set_cookie('last_query', flask.request.url)
+
+    return response
+
+@app.route('/paricipant/video', methods=['GET'])
+def participant_video():
+    html_code = flask.render_template('participant_video.html')
+    response = flask.make_response(html_code)
+    response.set_cookie('last_query', flask.request.url) 
+
+    return response
+
+@app.route('/paricipant/postsurvey', methods=['GET'])
+def postsurvey():
+    html_code = flask.render_template('postsurvey.html')
+    response = flask.make_response(html_code)
+    response.set_cookie('last_query', flask.request.url) 
+
+    return response
 
 @app.route('/searchresults', methods=['GET'])
 def search_results():
