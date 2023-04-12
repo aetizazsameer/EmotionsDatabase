@@ -131,8 +131,10 @@ def insert_response(sessionid, vi, vf, ai, af):
                               password=_PASSWORD,
                               port=_PORT) as connection:
             with connection.cursor() as cursor:
-                postgres_insert_query = """ INSERT INTO responses (sessionid, valence_initial, valence_final,
-                                            arousal_initial, arousal_final, responsetimestamp) VALUES (%s, %s, %s)"""
+                postgres_insert_query = """ INSERT INTO responses (sessionid, 
+                                            valence_initial, valence_final,
+                                            arousal_initial, arousal_final, 
+                                            responsetimestamp) VALUES (%s, %s, %s, %s, %s, %s)"""
                 record_to_insert = (sessionid, vi, vf, ai, af, timestamp())
                 cursor.execute(postgres_insert_query, record_to_insert)
 
