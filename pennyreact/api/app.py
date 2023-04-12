@@ -7,7 +7,6 @@
 
 import flask
 import database
-import admindatabase
 from video_selector import selector
 
 # ----------------------------------------------------------------------
@@ -63,7 +62,7 @@ def insert_video_handler():
     data = flask.request.get_json()
     title = data.get('title')
     url = data.get('url')
-    success = admindatabase.insert_video(title, url)
+    success = database.insert_video(title, url)
 
     html_code = flask.render_template('video_insert.html',
                                       success=success)
