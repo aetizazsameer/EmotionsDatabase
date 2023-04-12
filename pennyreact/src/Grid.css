@@ -1,12 +1,57 @@
-.grid { margin:1em auto; border-collapse:collapse }
-.grid td {
-    cursor:pointer;
-    width:30px; height:30px;
-    border:1px solid #ccc;
-    text-align:center;
-    font-family:sans-serif; font-size:13px
-}
-.grid td.clicked {
-    background-color:yellow;
-    font-weight:bold; color:red;
-}
+.grid {
+    display: flex;
+    justify-content: center;
+  }
+
+  .grid-container {
+    position: relative;
+  }
+
+  .grid-row {
+    display: flex;
+  }
+
+  .grid-cell {
+    width: 10px;
+    height: 10px;
+    box-sizing: border-box;
+    flex-shrink: 0;
+  }
+
+  .grid-cell--top {
+    border-top: 1px solid black;
+  }
+
+  .grid-cell--right {
+    border-right: 1px solid black;
+  }
+
+  .grid-cell--bottom {
+    border-bottom: 1px solid black;
+  }
+
+  .grid-cell--left {
+    border-left: 1px solid black;
+  }
+
+  .grid-line--horizontal {
+    position: absolute;
+    top: 50%;
+    left: 0;
+    width: 500px;
+    height: 1px;
+    background-color: black;
+    border-top: none;
+    border-bottom: none;
+  }
+
+  .grid-line--vertical {
+    position: absolute;
+    top: 0;
+    left: 249px;
+    width: 1px;
+    height: 100%;
+    background-color: black;
+    border-left: none;
+    border-right: none;
+  }
