@@ -156,8 +156,3 @@ def insert_response(sessionid, vi, vf, vd, ai, af, ad):
             connection.close()
             print("PostgreSQL connection is closed")
 
-
-@app.route('/getcookie')
-def getcookie():
-   name = request.cookies.get('userID')
-   return '<h1>welcome ' + name + '</h1>'
