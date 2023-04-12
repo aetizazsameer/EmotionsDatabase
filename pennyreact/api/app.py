@@ -38,7 +38,7 @@ def index():
 @app.route('/participant/get_URL', methods=['GET'])
 def get_URL():
     url = selector()
-    return flask.jsonify({'URL': url})
+    return flask.jsonify({'url': url})
 
 
 @app.route('/searchresults', methods=['GET'])
