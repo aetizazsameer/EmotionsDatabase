@@ -109,3 +109,41 @@ def _test():
 
 if __name__ == '__main__':
     _test()
+
+#-----------------------------------------------------------------------
+# insert_response
+# Accesses the database and returns the results of the query.
+# Parameters: sessionid - the session number
+#             vi - initial valence
+#             vf - final valence
+#             ai - initial arousal
+#             vf - final valence
+# Returns: the results of the query
+#-----------------------------------------------------------------------
+
+def insert_response(sessionid, vi, vf, ai, af):
+    try:
+        with psycopg2.connect(database=_DATABASE,
+                              host=_HOST_URL,
+                              user=_USERNAME,
+                              password=_PASSWORD,
+                              port=_PORT) as connection:
+            with connection.cursor() as cursor:
+                postgres_insert_query = """ INSERT INTO responses (sessionid, valence_initial, valence_final,
+                                            arousal_initial, arousal_final, responsetimestamp) VALUES (%s, %s, %s)"""
+                record_to_insert = (sessionid, vi, vf, ai, af, timestamp())
+                cursor.execute(postgres_insert_query, record_to_insert)
+
+                connection.commit()
+                count = cursor.rowcount
+                print(count, "Record inserted successfully into responses table")
+
+    except (Exception, psycopg2.Error) as error:
+        print("Failed to insert record into responses table", error)
+
+    finally:
+        # close database connection.
+        if connection:
+            cursor.close()
+            connection.close()
+            print("PostgreSQL connection is closed")
