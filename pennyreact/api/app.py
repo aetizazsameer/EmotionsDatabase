@@ -8,6 +8,7 @@
 import flask
 import database
 import admindatabase
+from video_selector import selector
 
 # ----------------------------------------------------------------------
 
@@ -34,6 +35,11 @@ def index():
 
 
 # ----------------------------------------------------------------------
+
+@app.route('/participant/get_URL', methods=['GET'])
+def get_URL():
+    url = selector()
+    return flask.jsonify({'URL': url})
 
 
 @app.route('/searchresults', methods=['GET'])
