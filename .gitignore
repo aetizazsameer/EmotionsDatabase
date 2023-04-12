@@ -3,17 +3,17 @@
 .venv/
 instance/
 /__pycache__
-pennyreact/node_modules
+# pennyreact/node_modules
 /pennyreact/api/__pycache__
-/pennyreact/node_modules
-/pennyreact/build/
-/pennyreact/build/*
-/pennyreact/build*
+# /pennyreact/node_modules
+# /pennyreact/build/
+# /pennyreact/build/*
+# /pennyreact/build*
 
 # See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
 
 # dependencies
-/node_modules
+# /node_modules
 /.pnp
 .pnp.js
 
