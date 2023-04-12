@@ -18,7 +18,6 @@ function Landing() {
             <br />
             <a href="/participant">Participant login</a>
             <br />
-            <Grid />
             <PennyFooter />
         </div >
     );
