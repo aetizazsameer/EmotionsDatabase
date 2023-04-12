@@ -19,9 +19,26 @@ app = flask.Flask(__name__,
 # ----------------------------------------------------------------------
 
 
-@app.route('/')
+@app.route('/index', methods=['GET'])
+@app.route('/', methods=['GET'])
 def index():
     return app.send_static_file('index.html')
+
+
+@app.route('/admin', methods=['GET'])
+def admin():
+    return app.send_static_file('admin.html')
+
+
+@app.route('/researcher', methods=['GET'])
+def researcher():
+    return app.send_static_file('researcher.html')
+
+
+@app.route('/participant', methods=['GET'])
+def participant():
+    return app.send_static_file('participant.html')
+
 
 # ----------------------------------------------------------------------
 
@@ -34,7 +51,7 @@ def search_results():
     if query == '':
         videos = []
     else:
-        videos = database.get_videos(query) # Exception handling omitted
+        videos = database.get_videos(query)  # Exception handling omitted
 
     html_code = flask.render_template('videos.html', videos=videos)
     response = flask.make_response(html_code)
@@ -47,9 +64,9 @@ def insert_video_handler():
     data = flask.request.get_json()
     title = data.get('title')
     url = data.get('url')
-    admindatabase.insert_video(title, url)
+    success = admindatabase.insert_video(title, url)
 
-@app.route('/api/retrieve_video', methods=['GET'])
-def retrieve_video_handler():
-    query = flask.request.args.get('query')
-    # TODO
+    html_code = flask.render_template('video_insert.html',
+                                      success=success)
+    response = flask.make_response(html_code)
+    return response

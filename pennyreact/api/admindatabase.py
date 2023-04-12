@@ -55,9 +55,11 @@ def insert_video(title, url):
                 connection.commit()
                 count = cursor.rowcount
                 print(count, "Record inserted successfully into video table")
+                return True
 
     except (Exception, psycopg2.Error) as error:
         print("Failed to insert record into video table", error)
+        return False
 
     finally:
         # close database connection.
