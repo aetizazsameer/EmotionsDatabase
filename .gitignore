@@ -3,9 +3,9 @@
 .venv/
 instance/
 /__pycache__
-# pennyreact/node_modules
+pennyreact/node_modules
 /pennyreact/api/__pycache__
-# /pennyreact/node_modules
+/pennyreact/node_modules
 # /pennyreact/build/
 # /pennyreact/build/*
 # /pennyreact/build*
