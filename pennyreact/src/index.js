@@ -22,9 +22,9 @@ ReactDOM.render(
             <Route path="/admin" element={<Admin />} />
             <Route path="/researcher" element={<Researcher />} />
             <Route path="/participant" element={<Participant />} />
-            <Route path="/presurvey" element={<PreSurvey />} />
-            <Route path="/videopage" element={<VideoPage />} />
-            <Route path="/postsurvey" element={<PostSurvey />} />
+            <Route path="/participant/presurvey" element={<PreSurvey />} />
+            <Route path="/participant/video" element={<VideoPage />} />
+            <Route path="/participant/postsurvey" element={<PostSurvey />} />
         </Routes>
         <Outlet />
     </BrowserRouter>,
