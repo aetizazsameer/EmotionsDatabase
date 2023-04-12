@@ -14,21 +14,11 @@ import Participant from './participant';
 ReactDOM.render(
     <BrowserRouter>
         <Routes>
-            <Route path="/">
-                <Landing />
-            </Route>
-            <Route path="/index">,
-                <Landing />
-            </Route>
-            <Route path="/admin">
-                <Admin />
-            </Route>
-            <Route path="/researcher">
-                <Researcher />
-            </Route>
-            <Route path="/participant">
-                <Participant />
-            </Route>
+            <Route path="/" element={<Landing/>}/>
+            <Route path="/index" element={<Landing />} />
+            <Route path="/admin" element={<Admin />} />
+            <Route path="/researcher" element={<Researcher />} />
+            <Route path="/participant" element={<Participant />} />
         </Routes>
         <Outlet />
     </BrowserRouter>,
