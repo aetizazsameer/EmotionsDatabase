@@ -108,11 +108,6 @@ def _test():
     delete_video(id)
 
 #-----------------------------------------------------------------------
-
-if __name__ == '__main__':
-    _test()
-
-#-----------------------------------------------------------------------
 # insert_response
 # Accesses the database and returns the results of the query.
 # Parameters: sessionid - the session number
@@ -156,3 +151,15 @@ def insert_response(sessionid, vi, vf, vd, ai, af, ad):
             connection.close()
             print("PostgreSQL connection is closed")
 
+#-----------------------------------------------------------------------
+
+def _testresponse():
+    sessionid = "testtitle"
+    vi, vf, vd, ai, af, ad = "vi", "vf" , "vd", "ai", "af", "ad"
+    insert_response(sessionid, vi, vf, vd, ai, af, ad)
+
+#-----------------------------------------------------------------------
+
+if __name__ == '__main__':
+    _test()
+    _testresponse()
