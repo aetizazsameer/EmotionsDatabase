@@ -40,6 +40,7 @@ def presurvey():
 
     return response
 
+
 @app.route('/paricipant/video', methods=['GET'])
 def participant_video():
     html_code = flask.render_template('participant_video.html')
@@ -48,6 +49,7 @@ def participant_video():
 
     return response
 
+
 @app.route('/paricipant/postsurvey', methods=['GET'])
 def postsurvey():
     html_code = flask.render_template('postsurvey.html')
@@ -55,6 +57,7 @@ def postsurvey():
     response.set_cookie('last_query', flask.request.url) 
 
     return response
+
 
 @app.route('/searchresults', methods=['GET'])
 def search_results():
