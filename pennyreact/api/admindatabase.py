@@ -118,12 +118,14 @@ if __name__ == '__main__':
 # Parameters: sessionid - the session number
 #             vi - initial valence
 #             vf - final valence
+#             vd - delta valence
 #             ai - initial arousal
-#             vf - final valence
+#             af - final arousal
+#             ad - delta arousal
 # Returns: the results of the query
 #-----------------------------------------------------------------------
 
-def insert_response(sessionid, vi, vf, ai, af):
+def insert_response(sessionid, vi, vf, vd, ai, af, ad):
     try:
         with psycopg2.connect(database=_DATABASE,
                               host=_HOST_URL,
@@ -132,10 +134,12 @@ def insert_response(sessionid, vi, vf, ai, af):
                               port=_PORT) as connection:
             with connection.cursor() as cursor:
                 postgres_insert_query = """ INSERT INTO responses (sessionid, 
-                                            valence_initial, valence_final,
-                                            arousal_initial, arousal_final, 
-                                            responsetimestamp) VALUES (%s, %s, %s, %s, %s, %s)"""
-                record_to_insert = (sessionid, vi, vf, ai, af, timestamp())
+                                            valence_initial, valence_final, 
+                                            valence_delta, arousal_initial, 
+                                            arousal_final, arousal_delta, 
+                                            responsetimestamp) VALUES 
+                                            (%s, %s, %s, %s, %s, %s, %s, %s)"""
+                record_to_insert = (sessionid, vi, vf, vd, ai, af, ad, timestamp())
                 cursor.execute(postgres_insert_query, record_to_insert)
 
                 connection.commit()
@@ -151,3 +155,9 @@ def insert_response(sessionid, vi, vf, ai, af):
             cursor.close()
             connection.close()
             print("PostgreSQL connection is closed")
+
+
+@app.route('/getcookie')
+def getcookie():
+   name = request.cookies.get('userID')
+   return '<h1>welcome ' + name + '</h1>'
