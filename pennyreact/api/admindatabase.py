@@ -154,12 +154,12 @@ def insert_response(sessionid, vi, vf, vd, ai, af, ad):
 #-----------------------------------------------------------------------
 
 def _testresponse():
-    sessionid = "testtitle"
-    vi, vf, vd, ai, af, ad = "vi", "vf" , "vd", "ai", "af", "ad"
+    sessionid = 69
+    vi, vf, vd, ai, af, ad = 1, 2, 3, 4, 5, 6
     insert_response(sessionid, vi, vf, vd, ai, af, ad)
 
 #-----------------------------------------------------------------------
 
 if __name__ == '__main__':
-    _test()
+    #_test()
     _testresponse()
