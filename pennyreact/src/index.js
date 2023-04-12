@@ -17,7 +17,7 @@ ReactDOM.render(
             <Route path="/">
                 <Landing />
             </Route>
-            <Route path="/index">
+            <Route path="/index">,
                 <Landing />
             </Route>
             <Route path="/admin">
