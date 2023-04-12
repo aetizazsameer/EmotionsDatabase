@@ -24,20 +24,16 @@ app = flask.Flask(__name__,
 @app.route('/admin', methods=['GET'])
 @app.route('/researcher', methods=['GET'])
 @app.route('/participant', methods=['GET'])
-def index():
-    return app.send_static_file('index.html')
-
-
-# ----------------------------------------------------------------------
-
-
 @app.route('/participant/presurvey', methods=['GET'])
 @app.route('/participant/video', methods=['GET'])
 @app.route('/participant/postsurvey', methods=['GET'])
-def participant_sequence():
+def index():
     response = app.send_static_file('index.html')
     response.set_cookie('last_query', flask.request.url)
     return response
+
+
+# ----------------------------------------------------------------------
 
 
 @app.route('/searchresults', methods=['GET'])
