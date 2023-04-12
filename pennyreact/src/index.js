@@ -5,21 +5,21 @@
 
 import React from 'react';
 import ReactDOM from 'react-dom';
-import PennyHeader from './PennyHeader';
-import PennyFooter from './PennyFooter';
-import Grid from './Grid';
+import { BrowserRouter, Switch, Route } from 'react-router-dom';
+import Landing from './landing';
+import Admin from './admin';
+import Researcher from './researcher';
+import Participant from './participant';
 
 ReactDOM.render(
-    <div>
-        <PennyHeader />
-        <a href="/admin">Admin login</a>
-        <br/>
-        <a href="/researcher">Researcher login</a>
-        <br/>
-        <a href="/participant">Participant login</a>
-        <br />
-        <Grid />
-        <PennyFooter />
-    </div>,
+    <BrowserRouter>
+        <Switch>
+            <Route exact path="/" component={Landing} />
+            <Route exact path="/index" component={Landing} />
+            <Route exact path="/admin" component={Admin} />
+            <Route exact path="/researcher" component={Researcher} />
+            <Route exact path="/participant" component={Participant} />
+        </Switch>
+    </BrowserRouter>,
     document.getElementById('root')
 );

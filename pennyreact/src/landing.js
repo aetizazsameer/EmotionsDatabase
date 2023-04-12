@@ -1,20 +1,27 @@
 //----------------------------------------------------------------------
-// participant.js
+// landing.js
 // Author: Aetizaz Sameer, Andrew Hwang, Tyler Vu
 //----------------------------------------------------------------------
 
 import React from 'react';
 import PennyHeader from './PennyHeader';
 import PennyFooter from './PennyFooter';
+import Grid from './Grid';
 
-function Participant() {
+function Landing() {
     return (
         <div>
             <PennyHeader />
-            participant
+            <a href="/admin">Admin login</a>
+            <br />
+            <a href="/researcher">Researcher login</a>
+            <br />
+            <a href="/participant">Participant login</a>
+            <br />
+            <Grid />
             <PennyFooter />
         </div >
     );
 }
 
-export default Participant;
+export default Landing;

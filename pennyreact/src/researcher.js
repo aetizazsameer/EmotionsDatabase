@@ -4,15 +4,17 @@
 //----------------------------------------------------------------------
 
 import React from 'react';
-import ReactDOM from 'react-dom';
 import PennyHeader from './PennyHeader';
 import PennyFooter from './PennyFooter';
 
-ReactDOM.render(
-    <div>
-        <PennyHeader />
-        researcher
-        <PennyFooter />
-    </div>,
-    document.getElementById('root_researcher')
-);
+function Researcher() {
+    return (
+        <div>
+            <PennyHeader />
+            researcher
+            <PennyFooter />
+        </div>
+    )
+}
+
+export default Researcher;
