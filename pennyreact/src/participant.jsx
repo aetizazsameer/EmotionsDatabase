@@ -6,12 +6,13 @@
 import React from 'react';
 import PennyHeader from './PennyHeader';
 import PennyFooter from './PennyFooter';
+import Video from './Video';
 
 function Participant() {
     return (
         <div>
             <PennyHeader />
-            participant
+            <Video />
             <PennyFooter />
         </div >
     );
