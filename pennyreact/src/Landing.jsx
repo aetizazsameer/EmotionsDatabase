@@ -6,7 +6,6 @@
 import React from 'react';
 import PennyHeader from './PennyHeader';
 import PennyFooter from './PennyFooter';
-import Grid from './Grid';
 
 function Landing() {
     return (

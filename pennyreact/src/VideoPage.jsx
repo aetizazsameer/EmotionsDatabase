@@ -14,7 +14,7 @@ function VideoPage() {
         <div>
             <PennyHeader />
             <Video />
-            <Link to="/participant/postsurvey">Video Page</Link>
+            <Link to="/participant/postsurvey">Post-survey</Link>
             <PennyFooter />
         </div >
     );
