@@ -21,23 +21,11 @@ app = flask.Flask(__name__,
 
 @app.route('/index', methods=['GET'])
 @app.route('/', methods=['GET'])
+@app.route('/admin', methods=['GET'])
+@app.route('/researcher', methods=['GET'])
+@app.route('/participant', methods=['GET'])
 def index():
     return app.send_static_file('index.html')
-
-
-@app.route('/admin', methods=['GET'])
-def admin():
-    return app.send_static_file('admin.html')
-
-
-@app.route('/researcher', methods=['GET'])
-def researcher():
-    return app.send_static_file('researcher.html')
-
-
-@app.route('/participant', methods=['GET'])
-def participant():
-    return app.send_static_file('participant.html')
 
 
 # ----------------------------------------------------------------------
