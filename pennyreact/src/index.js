@@ -17,6 +17,7 @@ ReactDOM.render(
         <br/>
         <a href="/participant">Participant login</a>
         <br />
+        <Grid />
         <PennyFooter />
     </div>,
     document.getElementById('root')
