@@ -12,24 +12,28 @@ import Researcher from './researcher';
 import Participant from './participant';
 
 ReactDOM.render(
-    <BrowserRouter>
-        <Routes>
-            <Route path="/">
-                <Landing />
-            </Route>
-            <Route path="/index">,
-                <Landing />
-            </Route>
-            <Route path="/admin">
-                <Admin />
-            </Route>
-            <Route path="/researcher">
-                <Researcher />
-            </Route>
-            <Route path="/participant">
-                <Participant />
-            </Route>
-        </Routes>
-    </BrowserRouter>,
+
+    <div>
+        <strong>text</strong>
+        <BrowserRouter>
+            <Routes>
+                <Route path="/">
+                    <Landing />
+                </Route>
+                <Route path="/index">,
+                    <Landing />
+                </Route>
+                <Route path="/admin">
+                    <Admin />
+                </Route>
+                <Route path="/researcher">
+                    <Researcher />
+                </Route>
+                <Route path="/participant">
+                    <Participant />
+                </Route>
+            </Routes>
+        </BrowserRouter>
+    </div>,
     document.getElementById('root')
 );
