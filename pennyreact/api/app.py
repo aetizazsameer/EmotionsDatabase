@@ -41,7 +41,7 @@ def presurvey():
     return response
 
 
-@app.route('/paricipant/video', methods=['GET'])
+@app.route('/participant/video', methods=['GET'])
 def participant_video():
     html_code = flask.render_template('participant_video.html')
     response = flask.make_response(html_code)
@@ -50,7 +50,7 @@ def participant_video():
     return response
 
 
-@app.route('/paricipant/postsurvey', methods=['GET'])
+@app.route('/participant/postsurvey', methods=['GET'])
 def postsurvey():
     html_code = flask.render_template('postsurvey.html')
     response = flask.make_response(html_code)
