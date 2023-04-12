@@ -9,16 +9,16 @@ import PennySearch from './PennySearch.jsx';
 import PennyFooter from './PennyFooter.jsx';
 import Table from './Table.jsx';
 import Form from './Form.jsx';
-import Grid from './Grid.jsx';
 
 function Admin() {
     return (
         <div>
             <PennyHeader />
-            <Grid />,
             <PennySearch />
-            <Form />
+            <hr />
             <Table />
+            <hr />
+            <Form />
             <PennyFooter />
         </div>
     );
