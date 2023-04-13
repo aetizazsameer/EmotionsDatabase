@@ -21,8 +21,7 @@ const Video = () => {
 
     return (
         <video controls width="100%">
-        <source src={src} type="video/mp4" />
-            Sorry, your browser doesn't support embedded videos.
+        {src ? <source src={src} type="video/mp4" /> : <p>No video found</p>}
         </video>
     );
 };
