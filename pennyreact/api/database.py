@@ -42,14 +42,16 @@ def get_videos(query):
                           user=_USERNAME, password=_PASSWORD) as conn:
         with conn.cursor() as cursor:
 
-            query_str = "SELECT * FROM videos"
-            if query != '':
+            query_str = "SELECT * FROM videos ESCAPE '\\' ORDER BY id"
+            if query == '':
+                cursor.execute(query_str)
+            else:
                 query_str += " WHERE title ILIKE (%s) OR url ILIKE (%s)"
-            query_str += " ESCAPE '\\' ORDER BY id"
+                query_str += " ESCAPE '\\' ORDER BY id"
 
-            query = query.replace('_', '\\_').replace('%', '\\%')
-            query = (f'%{query}%', f'%{query}%')
-            cursor.execute(query_str, query)
+                query = query.replace('_', '\\_').replace('%', '\\%')
+                query = (f'%{query}%', f'%{query}%')
+                cursor.execute(query_str, query)
 
             table = cursor.fetchall()
             for row in table:
