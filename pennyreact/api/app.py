@@ -51,15 +51,8 @@ def search_results():
     else:
         videos = database.get_videos(query)
 
-    for i, video in enumerate(videos):
-        videos[i] = flask.jsonify({
-            'id': video.get_id(),
-            'title': video.get_title(),
-            'url': video.get_url(),
-            'uploadtimestamp': video.get_uploadtimestamp()
-        })
-
-    return flask.jsonify({'videos': videos})
+    videos = [video.to_dict() for video in videos]
+    return flask.jsonify(videos)
 
 @app.route('/api/insert_video', methods=['POST'])
 def insert_video_handler():

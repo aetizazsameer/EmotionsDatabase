@@ -28,6 +28,14 @@ class Video:
     def to_tuple(self):
         return (self._id, self._title, self._url, self._uploadtimestamp)
 
+    def to_dict(self):
+        return {
+            'id': self._id,
+            'title': self._title,
+            'url': self._url,
+            'uploadtimestamp': self._uploadtimestamp
+        }
+
 #-----------------------------------------------------------------------
 
 def _test():
