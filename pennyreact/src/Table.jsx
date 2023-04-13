@@ -31,7 +31,7 @@ const SortableTable = () => {
   });
 
   const filter = field => {
-    return field.toLowerCase().includes(searchTerm.toLowerCase());
+      return String(field).toLowerCase().includes(searchTerm.toLowerCase());
   }
 
   const filteredData = searchTerm
