@@ -73,7 +73,7 @@ const SortableTable = () => {
             <tr key={item.id}>
               <td>{item.id}</td>
               <td>{item.title}</td>
-              <td>{item.url}</td>
+              <td><a href={item.url}>{item.url}</a></td>
               <td>{item.uploadtimestamp}</td>
             </tr>
           ))}

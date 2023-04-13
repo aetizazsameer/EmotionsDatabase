@@ -42,9 +42,10 @@ def get_videos(query):
                           user=_USERNAME, password=_PASSWORD) as conn:
         with conn.cursor() as cursor:
 
-            query_str = "SELECT * FROM videos WHERE title ILIKE " +\
-                "(%s) OR url ILIKE (%s) ESCAPE '\\'"
-            query_str += " ORDER BY id"
+            query_str = "SELECT * FROM videos"
+            if query != '':
+                query_str += " WHERE title ILIKE (%s) OR url ILIKE (%s)"
+            query_str += " ESCAPE '\\' ORDER BY id"
 
             query = query.replace('_', '\\_').replace('%', '\\%')
             query = (f'%{query}%', f'%{query}%')
@@ -149,11 +150,11 @@ def insert_response(sessionid, vi, vf, vd, ai, af, ad):
                               password=_PASSWORD,
                               port=_PORT) as connection:
             with connection.cursor() as cursor:
-                postgres_insert_query = """ INSERT INTO responses (sessionid, 
-                                            valence_initial, valence_final, 
-                                            valence_delta, arousal_initial, 
-                                            arousal_final, arousal_delta, 
-                                            responsetimestamp) VALUES 
+                postgres_insert_query = """ INSERT INTO responses (sessionid,
+                                            valence_initial, valence_final,
+                                            valence_delta, arousal_initial,
+                                            arousal_final, arousal_delta,
+                                            responsetimestamp) VALUES
                                             (%s, %s, %s, %s, %s, %s, %s, %s)"""
                 record_to_insert = (sessionid, vi, vf, vd, ai, af, ad, timestamp())
                 cursor.execute(postgres_insert_query, record_to_insert)
