@@ -49,12 +49,17 @@ def search_results():
     if query == '':
         videos = []
     else:
-        videos = database.get_videos(query)  # Exception handling omitted
+        videos = database.get_videos(query)
 
-    html_code = flask.render_template('videos.html', videos=videos)
-    response = flask.make_response(html_code)
-    return response
+    for i, video in enumerate(videos):
+        videos[i] = flask.jsonify({
+            'id': video.get_id(),
+            'title': video.get_title(),
+            'url': video.get_url(),
+            'uploadtimestamp': video.get_uploadtimestamp()
+        })
 
+    return flask.jsonify({'videos': videos})
 
 @app.route('/api/insert_video', methods=['POST'])
 def insert_video_handler():
