@@ -42,8 +42,9 @@ def get_videos(query):
                           user=_USERNAME, password=_PASSWORD) as conn:
         with conn.cursor() as cursor:
 
-            query_str = "SELECT * FROM videos ORDER BY id"
+            query_str = "SELECT * FROM videos"
             if query == '':
+                query_str += " ORDER BY id"
                 cursor.execute(query_str)
             else:
                 query_str += " WHERE title ILIKE (%s) OR url ILIKE (%s)"
