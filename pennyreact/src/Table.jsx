@@ -4,21 +4,23 @@
 //----------------------------------------------------------------------
 
 import React, { useState } from 'react';
-
-// TODO
-
-const videos = [
-  { title: 'Vancouver City Highlight', url: 'https://mediacentral.princeton.edu/media/Walk%20in%20the%20City%20(Neutral)/1_evlgwt6z', datetimeUploaded: 25 },
-  { title: 'Blended', url: 'https://mediacentral.princeton.edu/media/Blended+%28Funny%29/1_v2sgkiqw', datetimeUploaded: 32 },
-  { title: 'Marley and Me', url: 'https://mediacentral.princeton.edu/media/Marley+and+Me+%28Sad%29/1_kn9ryovr', datetimeUploaded: 19 },
-  { title: 'Vacancy', url: 'https://mediacentral.princeton.edu/media/Vacancy+%28Fear%29/1_xyl6m690', datetimeUploaded: 28 },
-  { title: 'Pride and Prejudice', url: 'https://mediacentral.princeton.edu/media/Pride+and+Prejudice+%28Calm%29/1_nr0xosoo', datetimeUploaded: 35 },
-];
+import axios from 'axios';
 
 const SortableTable = () => {
   const [sortField, setSortField] = useState('title');
   const [sortOrder, setSortOrder] = useState('asc');
   const [searchTerm, setSearchTerm] = useState('');
+  const [videos, setVideos] = useState([]);
+
+  useEffect(() => {
+    axios.get('/searchresults?query='+searchTerm)
+      .then(response => {
+        setVideos(response.data.videos);
+      })
+      .catch(error => {
+        console.error(error);
+      });
+  }, []);
 
   const sortedData = videos.sort((a, b) => {
     const aValue = a[sortField];
@@ -28,12 +30,16 @@ const SortableTable = () => {
     return 0;
   });
 
+  const filter = field => {
+    return field.toLowerCase().includes(searchTerm.toLowerCase());
+  }
+
   const filteredData = searchTerm
     ? sortedData.filter(
-        item =>
-          item.url.toLowerCase().includes(searchTerm.toLowerCase()) ||
-          item.datetimeUploaded.toString().includes(searchTerm)
-      )
+      item => {
+        return filter(item.id) || filter(item.title) ||
+          filter(item.url) || filter(item.uploadtimestamp);
+      })
     : sortedData;
 
   const handleSort = field => {
@@ -56,14 +62,16 @@ const SortableTable = () => {
       <table className="table">
         <thead>
           <tr>
+            <th onClick={() => handleSort('id')}>Video ID</th>
             <th onClick={() => handleSort('title')}>Title</th>
             <th onClick={() => handleSort('url')}>URL</th>
-            <th onClick={() => handleSort('datetimeUploaded')}>Timestamp</th>
+            <th onClick={() => handleSort('uploadtimestamp')}>Timestamp</th>
           </tr>
         </thead>
         <tbody>
           {filteredData.map(item => (
-            <tr key={item.title}>
+            <tr key={item.id}>
+              <td>{item.id}</td>
               <td>{item.title}</td>
               <td>{item.url}</td>
               <td>{item.datetimeUploaded}</td>
