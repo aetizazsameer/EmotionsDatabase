@@ -13,14 +13,14 @@ const SortableTable = () => {
   const [videos, setVideos] = useState([]);
 
   useEffect(() => {
-    axios.get('/searchresults?query='+searchTerm)
+      axios.get('/searchresults?query='+searchTerm)
       .then(response => {
-        setVideos(response.data.videos);
+          setVideos(response.data);
       })
       .catch(error => {
         console.error(error);
       });
-  }, []);
+  }, [searchTerm, setVideos]);
 
   const sortedData = videos.sort((a, b) => {
     const aValue = a[sortField];
@@ -74,7 +74,7 @@ const SortableTable = () => {
               <td>{item.id}</td>
               <td>{item.title}</td>
               <td>{item.url}</td>
-              <td>{item.datetimeUploaded}</td>
+              <td>{item.uploadtimestamp}</td>
             </tr>
           ))}
         </tbody>
