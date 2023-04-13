@@ -45,11 +45,7 @@ def get_URL():
 def search_results():
 
     query = flask.request.args.get('query', '').strip()
-
-    if query == '':
-        videos = []
-    else:
-        videos = database.get_videos(query)
+    videos = database.get_videos(query)
 
     videos = [video.to_dict() for video in videos]
     return flask.jsonify(videos)

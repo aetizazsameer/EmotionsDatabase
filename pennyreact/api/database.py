@@ -42,7 +42,7 @@ def get_videos(query):
                           user=_USERNAME, password=_PASSWORD) as conn:
         with conn.cursor() as cursor:
 
-            query_str = "SELECT * FROM videos ESCAPE '\\' ORDER BY id"
+            query_str = "SELECT * FROM videos ORDER BY id"
             if query == '':
                 cursor.execute(query_str)
             else:
