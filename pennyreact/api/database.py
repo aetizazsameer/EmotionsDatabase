@@ -174,7 +174,7 @@ def delete_video(id):
 # Returns: the videos that match the search term
 # -----------------------------------------------------------------------
 
-def get_responses():
+def get_responses(query):
 
     responses = []
 
@@ -183,17 +183,9 @@ def get_responses():
         with conn.cursor() as cursor:
 
             query_str = "SELECT * FROM responses"
-            if query == '':
-                query_str += " ORDER BY id"
-                cursor.execute(query_str)
-            else:
-                query_str += " WHERE title ILIKE (%s) OR url ILIKE (%s)"
-                query_str += " ESCAPE '\\' ORDER BY id"
-
-                query = query.replace('_', '\\_').replace('%', '\\%')
-                query = (f'%{query}%', f'%{query}%')
-                cursor.execute(query_str, query)
-
+            query_str += " ORDER BY id"
+            cursor.execute(query_str)
+            
             table = cursor.fetchall()
             for row in table:
                 response = responsemod.Response(row[0], row[1], row[2], row[3])

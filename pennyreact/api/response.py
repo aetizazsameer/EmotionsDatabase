@@ -7,11 +7,12 @@
 
 class Response:
 
-    def __init__(self, id, sessionid, valence_initial, valence_final,
+    def __init__(self, id, sessionid, videoid, valence_initial, valence_final,
                  valence_delta, arousal_initial, arousal_final,
                  arousal_delta, responsetimestamp):
         self._id = id
         self._sessionid = sessionid
+        self._videoid = videoid
         self._valence_initial = valence_initial
         self._valence_final = valence_final
         self._valence_delta = valence_delta
@@ -67,8 +68,9 @@ class Response:
 #-----------------------------------------------------------------------
 
 def _test():
-    response = Response(1, 2, 3, 8, 5, 4, 10, 6, '2023-04-14 00:03:54')
+    response = Response(1, 2, 3, 10, 11, 12, 21, 22, 23, '2023-04-14 00:03:54')
     print(response.get_id())
+    print(response.get_videoid())
     print(response.get_sessionid())
     print(response.get_valence_initial())
     print(response.get_valence_final())
