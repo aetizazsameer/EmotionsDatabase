@@ -23,15 +23,18 @@ const ResearcherTable = () => {
   }, [id, setResponses]);
 
   const sortedData = responses.sort((a, b) => {
-    aValue = a['videoid'];
-    bValue = b['videoid'];
+    let aValue = a[sortField];
+    let bValue = b[sortField];
     if (aValue < bValue) return sortOrder === 'asc' ? -1 : 1;
     if (aValue > bValue) return sortOrder === 'asc' ? 1 : -1;
-    
-    aValue = a[sortField];
-    bValue = b[sortField];
-    if (aValue < bValue) return sortOrder === 'asc' ? -1 : 1;
-    if (aValue > bValue) return sortOrder === 'asc' ? 1 : -1;
+
+    if (sortField != 'videoid') {
+	aValue = a['videoid'];
+	bValue = b['videoid'];
+	if (aValue < bValue) return -1;
+	if (aValue > bValue) return 1;
+    }
+
     return 0;
   });
 
