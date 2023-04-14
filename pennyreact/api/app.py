@@ -37,11 +37,6 @@ def index():
     return response
 
 
-@app.route('/participant/video', methods=['GET'])
-@csrf.exempt
-def exempt_index():
-    return index()
-
 # ----------------------------------------------------------------------
 
 
