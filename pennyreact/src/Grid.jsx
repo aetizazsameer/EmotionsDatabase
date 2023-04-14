@@ -15,14 +15,20 @@ function Grid() {
   };
 
   const handleSubmitButton = (row, col) => {
-    console.log(`Clicked on row ${row} and column ${col}`);
-    // axios to send row and col (either to cookies or db)
-    
+    console.log(`Submitting row ${selectedRow} and column ${selectedCol}`);
+    // send selected row and column to backend
     axios.post('/api/insert_response', {
-      // handle presurvey cookies
-      row,
-      col,
+      row: selectedRow,
+      col: selectedCol,
     })
+      .then(response => {
+        console.log(response);
+        // handle successful response
+      })
+      .catch(error => {
+        console.error(error);
+        // handle error
+      });
   };
 
   return (
@@ -42,7 +48,7 @@ function Grid() {
         <div className="grid-line--horizontal" />
         <div className="grid-line--vertical" />
       </div>
-      <button onClick={()=> handleSubmitButton(selectedRow, selectedCol)}></button> 
+      <button onClick={()=> handleSubmitButton(selectedRow, selectedCol)}></button>
     </div>
 
   );
