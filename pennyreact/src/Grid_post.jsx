@@ -15,12 +15,69 @@ function Grid_post() {
     setCol(col);
   };
 
-  const handleSubmitButton = (row, col) => {
-    const valence_delta = valence_final - valence_initial
-    const arousal_delta = arousal_final - arousal_initial
-    
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      await axios.post('/api/insert_video', {
+        title,
+        url,
+      });
+      console.log('Data submitted successfully');
+      await axios.post('/api/insert_video', {
+        _title: title,
+        _url: url,
+      });
+      // Add code here to handle successful submission
+    } catch (error) {
+      console.log(error);
+      // Add code here to handle submission error
+    }
+  };
+
+  const handleSubmitButton = async (e) => {
     console.log(`Submitting row ${selectedRow} and column ${selectedCol}`);
-    Cookies.set('gridSelection', JSON.stringify({ row, col }));
+
+    data = document.cookie()
+    // ai and vi from cookies
+    const vi = 1;
+    const ai = 2;
+    const id = '';
+    const sessionid = '';
+
+    const vf = selectedRow;
+    const af = selectedCol;
+    const vd = vf - vi;
+    const ad = af - ai;
+
+    e.preventDefault();
+    try {
+      await axios.post('/api/insert_response', {
+        id,
+        sessionid,
+        vi,
+        vf,
+        vd,
+        ai,
+        af,
+        ad
+      });
+      console.log('Data submitted successfully');
+      await axios.post('/api/insert_response', {
+        _id: id,
+        _sessionid: sessionid,
+        _vi: vi,
+        _vf: vf,
+        _vd: vd,
+        _ai: ai,
+        _af: af,
+        _ad: ad
+      });
+      // Add code here to handle successful submission
+    } catch (error) {
+      console.log(error);
+      // Add code here to handle submission error
+    }
+  
   };
 
   return (
