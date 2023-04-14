@@ -6,6 +6,7 @@ function Grid() {
 
   const handleClick = (row, col) => {
     console.log(`Clicked on row ${row} and column ${col}`);
+    // axios to send row and col (either to cookies or db)
   };
 
   return (
@@ -26,6 +27,7 @@ function Grid() {
         <div className="grid-line--vertical" />
       </div>
     </div>
+    // button here
   );
 }
 
