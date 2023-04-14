@@ -48,7 +48,7 @@ function Grid() {
         <div className="grid-line--horizontal" />
         <div className="grid-line--vertical" />
       </div>
-      <button onClick={()=> handleSubmitButton(selectedRow, selectedCol)}></button>
+      <button onClick={()=> handleSubmitButton(selectedRow, selectedCol)}>Submit</button>
     </div>
 
   );
