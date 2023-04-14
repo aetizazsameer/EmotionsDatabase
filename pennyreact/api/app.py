@@ -6,7 +6,7 @@
 # ----------------------------------------------------------------------
 
 import flask
-import flask_wtf.csrf
+# import flask_wtf.csrf
 import flask_talisman
 import database
 from video_selector import selector
@@ -17,8 +17,8 @@ app = flask.Flask(__name__,
                   template_folder='.',
                   static_folder='../build',
                   static_url_path='/')
-csrf = flask_wtf.csrf.CSRFProtect(app) # handle CSRF
-flask_talisman.Talisman(app) # require HTTPS
+# csrf = flask_wtf.csrf.CSRFProtect(app)
+flask_talisman.Talisman(app)  # require HTTPS
 
 # ----------------------------------------------------------------------
 
@@ -29,18 +29,15 @@ flask_talisman.Talisman(app) # require HTTPS
 @app.route('/researcher', methods=['GET'])
 @app.route('/participant', methods=['GET'])
 @app.route('/participant/presurvey', methods=['GET'])
+@app.route('/participant/video', methods=['GET'])
 @app.route('/participant/postsurvey', methods=['GET'])
 def index():
     response = app.send_static_file('index.html')
     response.set_cookie('last_query', flask.request.url)
     return response
 
-@app.route('/participant/video', methods=['GET'])
-@csrf.exempt
-def exempt_index():
-    return index()
-
 # ----------------------------------------------------------------------
+
 
 @app.route('/participant/get_URL', methods=['GET'])
 def get_URL():
@@ -56,6 +53,7 @@ def search_results():
 
     videos = [video.to_dict() for video in videos]
     return flask.jsonify(videos)
+
 
 @app.route('/api/insert_video', methods=['POST'])
 def insert_video_handler():
