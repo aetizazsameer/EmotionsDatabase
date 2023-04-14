@@ -6,14 +6,14 @@
 import React from 'react';
 import PennyHeader from './PennyHeader.jsx';
 import PennyFooter from './PennyFooter.jsx';
-import Table from './Table.jsx';
+import AdminTable from './AdminTable.jsx';
 import Form from './Form.jsx';
 
 function Admin() {
     return (
         <div>
             <PennyHeader />
-            <Table />
+            <AdminTable />
             <hr />
             <Form />
             <PennyFooter />

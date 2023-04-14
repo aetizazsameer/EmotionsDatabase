@@ -6,7 +6,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
-const SortableTable = () => {
+const AdminTable = () => {
   const [sortField, setSortField] = useState('id');
   const [sortOrder, setSortOrder] = useState('asc');
   const [searchTerm, setSearchTerm] = useState('');
@@ -83,4 +83,4 @@ const SortableTable = () => {
   );
 };
 
-export default SortableTable;
+export default AdminTable;
