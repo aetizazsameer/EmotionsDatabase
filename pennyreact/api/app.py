@@ -6,7 +6,7 @@
 # ----------------------------------------------------------------------
 
 import flask
-import flask_wtf.csrf as csrf
+import flask_wtf.csrf
 import flask_talisman
 import database
 from video_selector import selector
@@ -17,7 +17,7 @@ app = flask.Flask(__name__,
                   template_folder='.',
                   static_folder='../build',
                   static_url_path='/')
-csrf.CSRFProtect(app) # handle CSRF
+csrf = flask_wtf.csrf.CSRFProtect(app) # handle CSRF
 flask_talisman.Talisman(app) # require HTTPS
 
 # ----------------------------------------------------------------------
