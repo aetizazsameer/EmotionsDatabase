@@ -4,7 +4,7 @@ import axios from 'axios';
 import './Grid.css';
 
 
-function Grid() {
+function Grid_post() {
   const [selectedRow, setRow] = useState(null);
   const [selectedCol, setCol] = useState(null);
   const [gridData, setGridData] = useState(Array(50).fill(Array(50).fill(false)));
@@ -16,6 +16,9 @@ function Grid() {
   };
 
   const handleSubmitButton = (row, col) => {
+    const valence_delta = valence_final - valence_initial
+    const arousal_delta = arousal_final - arousal_initial
+    
     console.log(`Submitting row ${selectedRow} and column ${selectedCol}`);
     Cookies.set('gridSelection', JSON.stringify({ row, col }));
   };
