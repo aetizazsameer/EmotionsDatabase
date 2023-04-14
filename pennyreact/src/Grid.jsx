@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import axios from 'axios';
 import './Grid.css';
 
 function Grid() {
@@ -7,6 +8,17 @@ function Grid() {
   const handleClick = (row, col) => {
     console.log(`Clicked on row ${row} and column ${col}`);
     // axios to send row and col (either to cookies or db)
+  };
+
+  const handleSubmitButton = (row, col) => {
+    console.log(`Clicked on row ${row} and column ${col}`);
+    // axios to send row and col (either to cookies or db)
+    
+    axios.post('/api/insert_response', {
+      // handle presurvey cookies
+      row,
+      col,
+    })
   };
 
   return (
@@ -21,6 +33,7 @@ function Grid() {
                 className={`grid-cell ${rowIndex === 0 ? 'grid-cell--top' : ''} ${colIndex === 49 ? 'grid-cell--right' : ''} ${rowIndex === 49 ? 'grid-cell--bottom' : ''} ${colIndex === 0 ? 'grid-cell--left' : ''}`}
               />
             ))}
+           <button onClick={()=> handleSubmitButton(rowIndex, colIndex)}></button> 
           </div>
         ))}
         <div className="grid-line--horizontal" />
@@ -28,6 +41,7 @@ function Grid() {
       </div>
     </div>
     // button here
+    
   );
 }
 
