@@ -1,10 +1,13 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import Cookies from 'js-cookie';
 import axios from 'axios';
 import './Grid.css';
 
 
 function Grid() {
+  const navigate = useNavigate();
+
   const [selectedRow, setRow] = useState(null);
   const [selectedCol, setCol] = useState(null);
   const [gridData, setGridData] = useState(Array(50).fill(Array(50).fill(false)));
@@ -18,6 +21,7 @@ function Grid() {
   const handleSubmitButton = (row, col) => {
     console.log(`Submitting row ${selectedRow} and column ${selectedCol}`);
     Cookies.set('gridSelection', JSON.stringify({ row, col }));
+    navigate('/participant/video');
   };
 
   return (
@@ -77,7 +81,7 @@ export default Grid;
 //     //     console.error(error);
 //     //     // handle error
 //     //   });
-    
+
 //     Cookies.set('row', row);
 //     Cookies.set('col', col);
 //   };
