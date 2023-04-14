@@ -3,10 +3,14 @@ import axios from 'axios';
 import './Grid.css';
 
 function Grid() {
+  const [selectedRow, setRow] = useState(null);
+  const [selectedCol, setCol] = useState(null);
   const [gridData, setGridData] = useState(Array(50).fill(Array(50).fill(false)));
 
   const handleClick = (row, col) => {
     console.log(`Clicked on row ${row} and column ${col}`);
+    setRow(row);
+    setCol(col);
     // axios to send row and col (either to cookies or db)
   };
 
@@ -30,18 +34,17 @@ function Grid() {
               <span
                 key={colIndex}
                 onClick={() => handleClick(rowIndex, colIndex)}
-                className={`grid-cell ${rowIndex === 0 ? 'grid-cell--top' : ''} ${colIndex === 49 ? 'grid-cell--right' : ''} ${rowIndex === 49 ? 'grid-cell--bottom' : ''} ${colIndex === 0 ? 'grid-cell--left' : ''}`}
+                className={`grid-cell ${rowIndex === 0 ? 'grid-cell--top' : ''} ${colIndex === 49 ? 'grid-cell--right' : ''} ${rowIndex === 49 ? 'grid-cell--bottom' : ''} ${colIndex === 0 ? 'grid-cell--left' : ''} ${selectedRow === rowIndex && selectedCol === colIndex ? 'grid-cell--selected' : ''}`}
               />
             ))}
-           <button onClick={()=> handleSubmitButton(rowIndex, colIndex)}></button> 
           </div>
         ))}
         <div className="grid-line--horizontal" />
         <div className="grid-line--vertical" />
       </div>
+      <button onClick={()=> handleSubmitButton(selectedRow, selectedCol)}></button> 
     </div>
-    // button here
-    
+
   );
 }
 
