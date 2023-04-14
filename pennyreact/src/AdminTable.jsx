@@ -1,5 +1,5 @@
 //----------------------------------------------------------------------
-// Table.jsx
+// AdminTable.jsx
 // Author: Tyler Vu, Aetizaz Sameer
 //----------------------------------------------------------------------
 
@@ -13,7 +13,7 @@ const AdminTable = () => {
   const [videos, setVideos] = useState([]);
 
   useEffect(() => {
-      axios.get('/searchresults?query='+searchTerm)
+      axios.get('/api/videosearch?query='+searchTerm)
       .then(response => {
           setVideos(response.data);
       })

@@ -46,14 +46,30 @@ def get_URL():
     return flask.jsonify({'url': url})
 
 
-@app.route('/searchresults', methods=['GET'])
-def search_results():
+@app.route('/api/videosearchid', methods=['GET'])
+def video_search_byid():
+
+    id = flask.request.args.get('id', '').strip()
+    video = database.get_video(id)
+    return flask.jsonify(video)
+
+
+@app.route('/api/videosearch', methods=['GET'])
+def video_search():
 
     query = flask.request.args.get('query', '').strip()
     videos = database.get_videos(query)
 
     videos = [video.to_dict() for video in videos]
     return flask.jsonify(videos)
+
+
+@app.route('/api/responsesearch', methods=['GET'])
+def response_search():
+
+    responses = database.get_responses()
+    responses = [response.to_dict() for response in responses]
+    return flask.jsonify(responses)
 
 
 @app.route('/api/insert_video', methods=['POST'])
