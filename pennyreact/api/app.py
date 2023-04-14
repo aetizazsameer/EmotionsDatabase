@@ -36,6 +36,12 @@ def index():
     response.set_cookie('last_query', flask.request.url)
     return response
 
+
+@app.route('/participant/video', methods=['GET'])
+@csrf.exempt
+def exempt_index():
+    return index()
+
 # ----------------------------------------------------------------------
 
 
@@ -64,6 +70,27 @@ def insert_video_handler():
     success = database.insert_video(title, url)
 
     html_code = flask.render_template('video_insert.html',
+                                      success=success)
+    response = flask.make_response(html_code)
+    return response
+
+
+@app.route('/api/insert_response', methods=['POST'])
+def insert_response_handler():
+    # Handle the insertion of video into your database here
+    data = flask.request.get_json()
+    id = data.get('id')
+    sessionid = data.get('sessionid')
+    vi = data.get('valence_initial')
+    vf = data.get('valence_final')
+    vd = data.get('valence_delta')
+    ai = data.get('arousal_initial')
+    af = data.get('arousal_final')
+    ad = data.get('arousal_delta')
+
+    success = database.insert_response(sessionid, vi, vf, vd, ai, af, ad)
+
+    html_code = flask.render_template('response_insert.html',
                                       success=success)
     response = flask.make_response(html_code)
     return response
