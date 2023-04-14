@@ -6,7 +6,7 @@
 # ----------------------------------------------------------------------
 
 import flask
-import flask_wtf.csrf
+import flask_wtf.csrf as csrf
 import flask_talisman
 import database
 from video_selector import selector
@@ -17,7 +17,7 @@ app = flask.Flask(__name__,
                   template_folder='.',
                   static_folder='../build',
                   static_url_path='/')
-flask_wtf.csrf.CSRFProtect(app) # handle CSRF
+csrf.CSRFProtect(app) # handle CSRF
 flask_talisman.Talisman(app) # require HTTPS
 
 # ----------------------------------------------------------------------
@@ -29,13 +29,16 @@ flask_talisman.Talisman(app) # require HTTPS
 @app.route('/researcher', methods=['GET'])
 @app.route('/participant', methods=['GET'])
 @app.route('/participant/presurvey', methods=['GET'])
-@app.route('/participant/video', methods=['GET'])
 @app.route('/participant/postsurvey', methods=['GET'])
 def index():
     response = app.send_static_file('index.html')
     response.set_cookie('last_query', flask.request.url)
     return response
 
+@app.route('/participant/video', methods=['GET'])
+@csrf.exempt
+def exempt_index():
+    return index()
 
 # ----------------------------------------------------------------------
 
