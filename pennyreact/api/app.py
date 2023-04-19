@@ -88,7 +88,7 @@ def insert_video_handler():
 
 @app.route('/api/insert_response', methods=['POST'])
 def insert_response_handler():
-    # Handle the insertion of video into your database here
+    # Handle the insertion of response into your database here
     data = flask.request.get_json()
     id = data.get('id')
     sessionid = data.get('sessionid')
@@ -105,3 +105,19 @@ def insert_response_handler():
                                       success=success)
     response = flask.make_response(html_code)
     return response
+
+@app.route('/api/update_response', methods=['POST'])
+def update_response_handler():
+    # Handle the update of response into your database here
+    data = flask.request.get_json()
+
+    sessionid = data.get('sessionid')
+    feedback = data.get('feedback')
+
+    success = database.update_response(sessionid, feedback)
+
+    html_code = flask.render_template('response_insert.html',
+                                      success=success)
+    response = flask.make_response(html_code)
+    return response
+

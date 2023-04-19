@@ -40,9 +40,11 @@ def timestamp():
 
 def get_video(id):
 
-    with psycopg2.connect(host=_HOST_URL, database=_DATABASE,
-                          user=_USERNAME, password=_PASSWORD) as conn:
-        with conn.cursor() as cursor:
+    with psycopg2.connect(host=_HOST_URL,
+                          database=_DATABASE,
+                          user=_USERNAME,
+                          password=_PASSWORD) as connection:
+        with connection.cursor() as cursor:
 
             query_str = "SELECT * FROM videos"
             query_str += " WHERE id=(%s) ESCAPE '\\'"
@@ -57,6 +59,7 @@ def get_video(id):
             video = videomod.Video(row[0], row[1], row[2], row[3])
             return [video]
 
+
 # -----------------------------------------------------------------------
 # get_videos
 # Gets the videos that match the search terms.
@@ -69,9 +72,11 @@ def get_videos(query):
 
     videos = []
 
-    with psycopg2.connect(host=_HOST_URL, database=_DATABASE,
-                          user=_USERNAME, password=_PASSWORD) as conn:
-        with conn.cursor() as cursor:
+    with psycopg2.connect(host=_HOST_URL,
+                          database=_DATABASE,
+                          user=_USERNAME,
+                          password=_PASSWORD) as connection:
+        with connection.cursor() as cursor:
 
             query_str = "SELECT * FROM videos"
             if query == '':
@@ -91,6 +96,7 @@ def get_videos(query):
                 videos.append(video)
 
     return videos
+
 
 # -----------------------------------------------------------------------
 # insert_video
@@ -136,6 +142,7 @@ def insert_video(title, url):
             connection.close()
             print("PostgreSQL connection is closed")
 
+
 # -----------------------------------------------------------------------
 # delete_video
 # Accesses the database and returns the results of the query.
@@ -146,8 +153,10 @@ def insert_video(title, url):
 
 def delete_video(id):
     try:
-        with psycopg2.connect(database=_DATABASE, host=_HOST_URL,
-                              user=_USERNAME, password=_PASSWORD,
+        with psycopg2.connect(database=_DATABASE,
+                              host=_HOST_URL,
+                              user=_USERNAME,
+                              password=_PASSWORD,
                               port=_PORT) as connection:
             with connection.cursor() as cursor:
                 postgres_delete_query = """ DELETE from videos where id = %s"""
@@ -174,13 +183,16 @@ def delete_video(id):
 # Returns: the videos that match the search term
 # -----------------------------------------------------------------------
 
+
 def get_responses():
 
     responses = []
 
-    with psycopg2.connect(host=_HOST_URL, database=_DATABASE,
-                          user=_USERNAME, password=_PASSWORD) as conn:
-        with conn.cursor() as cursor:
+    with psycopg2.connect(host=_HOST_URL,
+                          database=_DATABASE,
+                          user=_USERNAME,
+                          password=_PASSWORD) as connection:
+        with connection.cursor() as cursor:
 
             query_str = "SELECT * FROM responses"
             query_str += " ORDER BY id"
@@ -195,6 +207,7 @@ def get_responses():
                 responses.append(response)
 
     return responses
+
 
 # -----------------------------------------------------------------------
 # insert_response
@@ -242,6 +255,54 @@ def insert_response(sessionid, vi, vf, vd, ai, af, ad):
             connection.close()
             print("PostgreSQL connection is closed")
 
+
+# -----------------------------------------------------------------------
+# update_response
+# Accesses the database and returns the results of the query.
+# Parameters: sessionid - the session number
+#             response - optional emotions associated with video
+# Returns: the results of the query
+# -----------------------------------------------------------------------
+
+
+def update_response(sessionid, feedback):
+    try:
+        with psycopg2.connect(database=_DATABASE,
+                              host=_HOST_URL,
+                              user=_USERNAME,
+                              password=_PASSWORD,
+                              port=_PORT) as connection:
+            with connection.cursor() as cursor:
+                print("Table Before updating record ")
+                sql_select_query = """select * from responses where sessionid = %s"""
+                cursor.execute(sql_select_query, (sessionid,))
+                record = cursor.fetchone()
+                print(record)
+
+                # Update single record now
+                sql_update_query = """Update responses set feedback = %s where sessionid = %s"""
+                cursor.execute(sql_update_query, (feedback, sessionid))
+                connection.commit()
+                count = cursor.rowcount
+                print(count, "Record Updated successfully ")
+
+                print("Table After updating record ")
+                sql_select_query = """select * from responses where sessionid = %s"""
+                cursor.execute(sql_select_query, (sessionid,))
+                record = cursor.fetchone()
+                print(record)
+
+    except (Exception, psycopg2.Error) as error:
+        print("Error in update operation", error)
+
+    finally:
+        # closing database connection.
+        if connection:
+            cursor.close()
+            connection.close()
+            print("PostgreSQL connection is closed")
+
+
 # -----------------------------------------------------------------------
 
 
@@ -274,6 +335,7 @@ def _testresponse():
     sessionid = 69
     vi, vf, vd, ai, af, ad = 1, 2, 3, 4, 5, 6
     insert_response(sessionid, vi, vf, vd, ai, af, ad)
+
 
 # -----------------------------------------------------------------------
 
