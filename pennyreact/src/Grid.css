@@ -55,3 +55,6 @@
     border-left: none;
     border-right: none;
   }
+  .grid-cell--selected {
+    background-color: black;
+  }
