@@ -1,15 +1,15 @@
   @font-face {
     font-family: 'Inter';
-    src: url('/pennyreact/inter-fonts/Inter-Black.woff2') format('woff2'),
-         url('/pennyreact/inter-fonts/Inter-Black.woff') format('woff');
+    src: url('../inter-fonts/Inter-Black.woff2') format('woff2'),
+         url('../inter-fonts/Inter-Black.woff') format('woff');
     font-weight: normal;
     font-style: normal;
   }
 
   @font-face {
     font-family: 'Inter';
-    src: url('/pennyreact/inter-fonts/Inter-Bold.woff2') format('woff2'),
-         url('/pennyreact/inter-fonts/Inter-Bold.woff2') format('woff');
+    src: url('../inter-fonts/Inter-Bold.woff2') format('woff2'),
+         url('../inter-fonts/Inter-Bold.woff2') format('woff');
     font-weight: bold;
     font-style: normal;
   }
