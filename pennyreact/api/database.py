@@ -223,7 +223,7 @@ def get_responses():
 # -----------------------------------------------------------------------
 
 
-def insert_response(sessionid, vi, vf, vd, ai, af, ad):
+def insert_response(sessionid, video_id, vi, vf, vd, ai, af, ad):
     try:
         with psycopg2.connect(database=_DATABASE,
                               host=_HOST_URL,
@@ -232,12 +232,13 @@ def insert_response(sessionid, vi, vf, vd, ai, af, ad):
                               port=_PORT) as connection:
             with connection.cursor() as cursor:
                 postgres_insert_query = """ INSERT INTO responses (sessionid,
+                                            videoid,
                                             valence_initial, valence_final,
                                             valence_delta, arousal_initial,
                                             arousal_final, arousal_delta,
                                             responsetimestamp) VALUES
-                                            (%s, %s, %s, %s, %s, %s, %s, %s)"""
-                record_to_insert = (sessionid, vi, vf, vd,
+                                            (%s, %s, %s, %s, %s, %s, %s, %s, %s)"""
+                record_to_insert = (sessionid, video_id, vi, vf, vd,
                                     ai, af, ad, timestamp())
                 cursor.execute(postgres_insert_query, record_to_insert)
 

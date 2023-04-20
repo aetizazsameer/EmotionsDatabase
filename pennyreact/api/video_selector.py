@@ -13,7 +13,9 @@ def selector():
     videos = get_videos('')
     n = len(videos)
     randomIndex = random.randint(0, n-1)
-    return videos[randomIndex].get_url()
+    url = videos[randomIndex].get_url()
+    id = videos[randomIndex].get_id()
+    return url, id
 
 # -----------------------------------------------------------------------
 

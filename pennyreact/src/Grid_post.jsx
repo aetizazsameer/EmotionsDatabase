@@ -21,6 +21,7 @@ function Grid() {
   const [valenceFinal, setValenceFinal] = useState(null);
   const [arousalInitial, setArousalInitial] = useState(null);
   const [valenceInitial, setValenceInitial] = useState(null);
+  const videoId = parseInt(Cookies.get('video_id'));
   const [gridData, setGridData] = useState(Array(50).fill(Array(50).fill(false)));
 
   useEffect(() => {
@@ -44,8 +45,8 @@ function Grid() {
 
     try {
       const response = await axios.post('/api/insert_response', {
-        id: 9999999,
-        sessionid: 'your-session-id-here',
+        sessionid: 1234,
+        video_id: videoId,
         valence_initial: valenceInitial,
         valence_final: valenceFinal,
         valence_delta: valenceDelta,

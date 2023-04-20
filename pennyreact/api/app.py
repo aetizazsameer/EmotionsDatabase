@@ -17,7 +17,7 @@ app = flask.Flask(__name__,
                   template_folder='.',
                   static_folder='../build',
                   static_url_path='/')
-csrf = flask_wtf.csrf.CSRFProtect(app)
+# csrf = flask_wtf.csrf.CSRFProtect(app)
 # flask_talisman.Talisman(app)  # require HTTPS
 
 # ----------------------------------------------------------------------
@@ -42,8 +42,8 @@ def index():
 
 @app.route('/participant/get_URL', methods=['GET'])
 def get_URL():
-    url = selector()
-    return flask.jsonify({'url': url})
+    url, id = selector()
+    return flask.jsonify({'url': url, 'id': id})
 
 
 @app.route('/api/videosearchid', methods=['GET'])
@@ -90,8 +90,8 @@ def insert_video_handler():
 def insert_response_handler():
     # Handle the insertion of response into your database here
     data = flask.request.get_json()
-    id = data.get('id')
     sessionid = data.get('sessionid')
+    videoid = data.get('video_id')
     vi = data.get('valence_initial')
     vf = data.get('valence_final')
     vd = data.get('valence_delta')
@@ -99,12 +99,14 @@ def insert_response_handler():
     af = data.get('arousal_final')
     ad = data.get('arousal_delta')
 
-    success = database.insert_response(sessionid, vi, vf, vd, ai, af, ad)
+    success = database.insert_response(
+        sessionid, videoid, vi, vf, vd, ai, af, ad)
 
     html_code = flask.render_template('response_insert.html',
                                       success=success)
     response = flask.make_response(html_code)
     return response
+
 
 @app.route('/api/update_response', methods=['POST'])
 def update_response_handler():
@@ -120,4 +122,3 @@ def update_response_handler():
                                       success=success)
     response = flask.make_response(html_code)
     return response
-
