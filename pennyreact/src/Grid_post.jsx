@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import Cookies from 'js-cookie';
 import axios from 'axios';
 import './Grid.css';
@@ -17,12 +18,15 @@ function getCookieData() {
 }
 
 function Grid() {
+  const navigate = useNavigate();
+
   const [arousalFinal, setArousalFinal] = useState(null);
   const [valenceFinal, setValenceFinal] = useState(null);
   const [arousalInitial, setArousalInitial] = useState(null);
   const [valenceInitial, setValenceInitial] = useState(null);
   const videoId = parseInt(Cookies.get('video_id'));
   const [gridData, setGridData] = useState(Array(50).fill(Array(50).fill(false)));
+  const [showSubmitButton, setShowSubmitButton] = useState(false);
 
   useEffect(() => {
     const { preRow, preCol } = getCookieData();
@@ -34,6 +38,7 @@ function Grid() {
     console.log(`Clicked on row ${row} and column ${col}`);
     setArousalFinal(row);
     setValenceFinal(col);
+    setShowSubmitButton(true);
   };
 
   const handleSubmitButton = async () => {
@@ -58,26 +63,34 @@ function Grid() {
     } catch (error) {
       console.error(error);
     }
+
+    navigate('/participant');
   };
 
   return (
-    <div className="grid">
-      <div className="grid-container">
-        {gridData.map((rowData, rowIndex) => (
-          <div key={rowIndex} className="grid-row">
-            {rowData.map((colData, colIndex) => (
-              <span
-                key={colIndex}
-                onClick={() => handleClick(rowIndex, colIndex)}
-                className={`grid-cell ${rowIndex === 0 ? 'grid-cell--top' : ''} ${colIndex === 49 ? 'grid-cell--right' : ''} ${rowIndex === 49 ? 'grid-cell--bottom' : ''} ${colIndex === 0 ? 'grid-cell--left' : ''} ${arousalFinal === rowIndex && valenceFinal === colIndex ? 'grid-cell--selected' : ''}`}
-              />
-            ))}
-          </div>
-        ))}
-        <div className="grid-line--horizontal" />
-        <div className="grid-line--vertical" />
+    <div>
+      <div className="grid">
+        <div className="grid-container">
+          {gridData.map((rowData, rowIndex) => (
+            <div key={rowIndex} className="grid-row">
+              {rowData.map((colData, colIndex) => (
+                <span
+                  key={colIndex}
+                  onClick={() => handleClick(rowIndex, colIndex)}
+                  className={`grid-cell ${rowIndex === 0 ? 'grid-cell--top' : ''} ${colIndex === 49 ? 'grid-cell--right' : ''} ${rowIndex === 49 ? 'grid-cell--bottom' : ''} ${colIndex === 0 ? 'grid-cell--left' : ''} ${arousalFinal === rowIndex && valenceFinal === colIndex ? 'grid-cell--selected' : ''}`}
+                />
+              ))}
+            </div>
+          ))}
+          <div className="grid-line--horizontal" />
+          <div className="grid-line--vertical" />
+        </div>
       </div>
-      <button onClick={()=> handleSubmitButton()}>Submit</button>
+      {showSubmitButton && (
+          <div className="submit-button-container">
+            <button className="submit-button" onClick={()=> handleSubmitButton()}>Submit</button>
+          </div>
+        )}
     </div>
   );
 }
