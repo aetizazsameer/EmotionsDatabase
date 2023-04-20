@@ -337,6 +337,11 @@ def _testresponse():
     insert_response(sessionid, vi, vf, vd, ai, af, ad)
 
 
+def _testupdate():
+    sessionid = 69
+    feedback = "happy"
+    update_response(sessionid, feedback)
+
 # -----------------------------------------------------------------------
 
 
@@ -344,3 +349,4 @@ if __name__ == '__main__':
     _test()
     _test_insert_remove_video()
     _testresponse()
+    _testupdate()
