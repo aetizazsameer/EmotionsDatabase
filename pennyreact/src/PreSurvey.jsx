@@ -6,6 +6,7 @@
 import React from 'react';
 import Grid from './Grid';
 import './PreSurvey.css';
+import Navbar from './Navbar';
 
 function PreSurvey() {
     return (
