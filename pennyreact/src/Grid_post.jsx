@@ -2,32 +2,44 @@ import React, { useState, useEffect } from 'react';
 import Cookies from 'js-cookie';
 import './Grid.css';
 
+function getCookieData() {
+  const cookieValue = Cookies.get('gridSelection');
+  let preRow = null;
+  let preCol = null;
+  if (cookieValue) {
+    const decodedCookie = decodeURIComponent(cookieValue);
+    const jsonCookie = JSON.parse(decodedCookie);
+    preRow = jsonCookie.row;
+    preCol = jsonCookie.col;
+  }
+  return { preRow, preCol };
+}
+
 function Grid() {
-  const [selectedRow, setRow] = useState(null);
-  const [selectedCol, setCol] = useState(null);
+  const [arousalFinal, setArousalFinal] = useState(null);
+  const [valenceFinal, setValenceFinal] = useState(null);
+  const [arousalInitial, setArousalInitial] = useState(null);
+  const [valenceInitial, setValenceInitial] = useState(null);
   const [gridData, setGridData] = useState(Array(50).fill(Array(50).fill(false)));
 
   useEffect(() => {
-    const arousalInitial = Cookies.get('arousal_initial');
-    const valenceInitial = Cookies.get('valence_initial');
-    setRow(arousalInitial);
-    setCol(valenceInitial);
+    const { preRow, preCol } = getCookieData();
+    setArousalInitial(preRow);
+    setValenceInitial(preCol);
   }, []);
 
   const handleClick = (row, col) => {
     console.log(`Clicked on row ${row} and column ${col}`);
-    setRow(row);
-    setCol(col);
-    // axios to send row and col (either to cookies or db)
+    setArousalFinal(row);
+    setValenceFinal(col);
   };
 
-  const handleSubmitButton = (row, col) => {
-    console.log(`Submitting row ${selectedRow} and column ${selectedCol}`);
-    const arousalDelta = selectedRow - Cookies.get('arousal_initial');
-    const valenceDelta = selectedCol - Cookies.get('valence_initial');
+  const handleSubmitButton = () => {
+    console.log(`Submitting row ${arousalFinal} and column ${valenceFinal}`);
+    let arousalDelta = arousalFinal - arousalInitial;
+    let valenceDelta = valenceFinal - valenceInitial;
     console.log(`Arousal delta: ${arousalDelta}`);
     console.log(`Valence delta: ${valenceDelta}`);
-    // set cookies with arousal_final and valence_final
   };
 
   return (
@@ -39,7 +51,7 @@ function Grid() {
               <span
                 key={colIndex}
                 onClick={() => handleClick(rowIndex, colIndex)}
-                className={`grid-cell ${rowIndex === 0 ? 'grid-cell--top' : ''} ${colIndex === 49 ? 'grid-cell--right' : ''} ${rowIndex === 49 ? 'grid-cell--bottom' : ''} ${colIndex === 0 ? 'grid-cell--left' : ''} ${selectedRow === rowIndex && selectedCol === colIndex ? 'grid-cell--selected' : ''}`}
+                className={`grid-cell ${rowIndex === 0 ? 'grid-cell--top' : ''} ${colIndex === 49 ? 'grid-cell--right' : ''} ${rowIndex === 49 ? 'grid-cell--bottom' : ''} ${colIndex === 0 ? 'grid-cell--left' : ''} ${arousalFinal === rowIndex && valenceFinal === colIndex ? 'grid-cell--selected' : ''}`}
               />
             ))}
           </div>
@@ -47,7 +59,7 @@ function Grid() {
         <div className="grid-line--horizontal" />
         <div className="grid-line--vertical" />
       </div>
-      <button onClick={()=> handleSubmitButton(selectedRow, selectedCol)}>Submit</button>
+      <button onClick={()=> handleSubmitButton()}>Submit</button>
     </div>
   );
 }

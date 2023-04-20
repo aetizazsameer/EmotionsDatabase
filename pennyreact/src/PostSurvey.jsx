@@ -7,7 +7,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import PennyHeader from './PennyHeader';
 import PennyFooter from './PennyFooter';
-import Grid from './Grid';
+import Grid from './Grid_post';
 
 function PostSurvey() {
     return (
@@ -16,7 +16,7 @@ function PostSurvey() {
             <Grid />
             <Link to="/">Home Page</Link>
             <PennyFooter />
-        </div >
+        </div>
     );
 }
 
