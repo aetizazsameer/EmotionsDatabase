@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import Cookies from 'js-cookie';
+import axios from 'axios';
 import './Grid.css';
 
 function getCookieData() {
@@ -34,12 +35,28 @@ function Grid() {
     setValenceFinal(col);
   };
 
-  const handleSubmitButton = () => {
+  const handleSubmitButton = async () => {
     console.log(`Submitting row ${arousalFinal} and column ${valenceFinal}`);
     let arousalDelta = arousalFinal - arousalInitial;
     let valenceDelta = valenceFinal - valenceInitial;
     console.log(`Arousal delta: ${arousalDelta}`);
     console.log(`Valence delta: ${valenceDelta}`);
+
+    try {
+      const response = await axios.post('/api/insert_response', {
+        id: 9999999,
+        sessionid: 'your-session-id-here',
+        valence_initial: valenceInitial,
+        valence_final: valenceFinal,
+        valence_delta: valenceDelta,
+        arousal_initial: arousalInitial,
+        arousal_final: arousalFinal,
+        arousal_delta: arousalDelta
+      });
+      console.log(response.data);
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   return (
