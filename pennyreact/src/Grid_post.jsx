@@ -64,6 +64,11 @@ function Grid() {
       console.error(error);
     }
 
+    Cookies.remove('video_id')
+    Cookies.remove('last_query')
+    Cookies.remove('gridSelection')
+
+
     navigate('/participant');
   };
 
