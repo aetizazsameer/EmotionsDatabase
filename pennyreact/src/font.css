@@ -1,0 +1,21 @@
+  @font-face {
+    font-family: 'Inter';
+    src: url('/pennyreact/inter-fonts/Inter-Black.woff2') format('woff2'),
+         url('/pennyreact/inter-fonts/Inter-Black.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+  }
+
+  @font-face {
+    font-family: 'Inter';
+    src: url('/pennyreact/inter-fonts/Inter-Bold.woff2') format('woff2'),
+         url('/pennyreact/inter-fonts/Inter-Bold.woff2') format('woff');
+    font-weight: bold;
+    font-style: normal;
+  }
+
+  /* Add additional @font-face rules for other font weights and styles */
+
+  body {
+    font-family: 'Inter', sans-serif;
+  }
