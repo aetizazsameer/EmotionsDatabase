@@ -2,27 +2,28 @@
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-    align-items: center;
-    margin: 50px;
+    align-items: start;
+    margin: 200px;
   }
 
   .instructions {
     width: 30%;
-    margin-right: 50px;
+    margin-right: 0px;
   }
 
   .instructions h1 {
-    font-size: 32px;
+    font-size: 36px;
     margin-bottom: 20px;
   }
 
   .instructions p {
-    font-size: 18px;
+    font-size: 24px;
     line-height: 1.5;
   }
 
   .grid {
     width: 70%;
+    margin-left: 120px;
   }
 
   @media (max-width: 768px) {
