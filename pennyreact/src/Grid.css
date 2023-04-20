@@ -58,3 +58,39 @@
   .grid-cell--selected {
     background-color: black;
   }
+
+  .submit-button-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+    margin-right: 150px;
+  }
+
+  .submit-button {
+    display: inline-block;
+    padding: 12px 24px;
+    font-size: 16px;
+    font-weight: bold;
+    text-align: center;
+    color: #fff;
+    background-color: #007bff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.2s ease-in-out;
+  }
+
+  .submit-button:hover {
+    background-color: #0069d9;
+  }
+
+  .submit-button:focus {
+    outline: none;
+    box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.5);
+  }
+
+  .submit-button:active {
+    background-color: #0062cc;
+    transform: translateY(1px);
+  }
