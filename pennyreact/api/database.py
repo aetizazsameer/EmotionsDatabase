@@ -8,6 +8,7 @@
 import requests
 import re
 import psycopg2
+import pandas as pd
 import video as videomod
 import response as responsemod
 from datetime import datetime
@@ -302,6 +303,57 @@ def update_response(sessionid, feedback):
             cursor.close()
             connection.close()
             print("PostgreSQL connection is closed")
+
+
+# -----------------------------------------------------------------------
+# get_dataframe
+# Connects to database and gets dataframe
+# Parameters: 
+# Returns: the results of the query
+# -----------------------------------------------------------------------
+
+
+def get_dataframe():
+    try:
+        with psycopg2.connect(database=_DATABASE,
+                              host=_HOST_URL,
+                              user=_USERNAME,
+                              password=_PASSWORD,
+                              port=_PORT) as connection:
+            with connection.cursor() as cursor:
+                query_str = "SELECT * FROM responses"
+                cursor.execute(query_str)
+            
+            tupples = cursor.fetchall()
+            cursor.close()
+
+            df = pd.DataFrame(tupples)
+
+            return df
+
+    except (Exception, psycopg2.Error) as error:
+        print("Failed to insert record into responses table", error)
+
+    finally:
+        # close database connection.
+        if connection:
+            cursor.close()
+            connection.close()
+            print("PostgreSQL connection is closed")
+
+
+# -----------------------------------------------------------------------
+# download_csv
+# Connects to database and gets dataframe
+# Parameters: 
+# Returns: the results of the query
+# -----------------------------------------------------------------------
+
+
+def download_csv():
+    df = get_dataframe()
+    df.head()
+    df.to_csv(index=False)
 
 
 # -----------------------------------------------------------------------
