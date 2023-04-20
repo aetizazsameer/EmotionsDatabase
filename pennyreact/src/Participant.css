@@ -1,0 +1,55 @@
+  .Participant {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    padding: 0 2rem;
+    text-align: center;
+    background: #F8F8F8;
+    font-family: Inter, sans-serif;
+  }
+
+  .Participant h1 {
+    font-size: 5rem;
+    text-align: center;
+    font-weight: bold;
+    line-height: 1.1;
+    margin-bottom: 1.5rem;
+    color: #000000;
+  }
+
+  .Participant p {
+    font-size: 2rem;
+    font-weight: normal;
+    line-height: 1.5;
+    margin-bottom: 2rem;
+    color: #808080;
+  }
+
+  .Participant button {
+    padding: 1rem 2rem;
+    font-size: 1.8rem;
+    font-weight: bold;
+    background-color: #000000;
+    color: #FFFFFF;
+    border: none;
+    border-radius: 0.5rem;
+    cursor: pointer;
+  }
+
+  .my-button {
+    display: inline-block;
+    padding: 12px 24px;
+    background-color: #007bff;
+    color: #fff;
+    font-size: 16px;
+    font-weight: 500;
+    text-decoration: none;
+    border-radius: 4px;
+    transition: background-color 0.3s ease;
+  }
+
+  .my-button:hover {
+    background-color: #0069d9;
+  }
