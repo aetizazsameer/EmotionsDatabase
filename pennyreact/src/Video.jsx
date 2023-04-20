@@ -6,29 +6,38 @@
 import React, { useState, useEffect } from 'react';
 import Cookies from 'js-cookie';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 const Video = () => {
-    const [src, setSrc] = useState('');
-    const [id, setId] = useState('');
+  const navigate = useNavigate();
 
-    useEffect(() => {
-      axios.get('/participant/get_URL')
-        .then(response => {
-          setSrc(response.data.url);
-          setId(response.data.id);
-        })
-        .catch(error => {
-          console.error(error);
-        });
-    }, []);
+  const [src, setSrc] = useState('');
+  const [id, setId] = useState('');
 
-    Cookies.set('video_id', id);
+  useEffect(() => {
+    axios.get('/participant/get_URL')
+      .then(response => {
+        setSrc(response.data.url);
+        setId(response.data.id);
+      })
+      .catch(error => {
+        console.error(error);
+      });
+  }, []);
 
-    return (
-        <video controls width="100%">
+  Cookies.set('video_id', id);
+
+  const handleVideoEnd = () => {
+    navigate('/participant/postsurvey');
+  };
+
+  return (
+    <div>
+      <video onEnded={handleVideoEnd} controls width="100%">
         {src ? <source src={src} type="video/mp4" /> : <p>No video found</p>}
-        </video>
-    );
+      </video>
+    </div>
+  );
 };
 
 export default Video;
