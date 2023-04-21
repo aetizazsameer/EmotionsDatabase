@@ -121,7 +121,7 @@ def insert_video(title, url):
                 url = requests.get(url).text.trim()
 
                 if not re.fullmatch(
-                        '(https:\/\/)?mediacentral\.princeton\.edu\/media\/[a-zA-Z0-9_]+\/[a-zA-Z0-9_]+', url):
+                        '(https:\/\/)?mediacentral\.princeton\.edu\/media\/[a-zA-Z0-9_\(\)\+]+\/[a-zA-Z0-9_]+', url):
                     raise Exception('Could not verify URL for insertion')
 
                 match = re.search(
