@@ -7,7 +7,6 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
 const ResearcherTable = () => {
-  const [videoTitles, setVideoTitles] = useState({});
   const [sortField, setSortField] = useState('id');
   const [sortOrder, setSortOrder] = useState('asc');
   const [id, setId] = useState('');
@@ -25,22 +24,10 @@ const ResearcherTable = () => {
       });
   }
 
-  // get object mapping from id to video_title for all responded videos
-  const get_video_titles = () => {
-    var vids = {};
-    for (let i = 0; i < responses.length; i++) {
-      let videoid = responses[i].videoid;
-      if (!vids.hasOwnProperty(videoid))
-        vids[videoid] = get_video_title(videoid);
-    }
-    return vids;
-  }
-
   useEffect(() => {
       axios.get('/api/responsesearch?id='+id)
       .then(response => {
         setResponses(response.data);
-        setVideoTitles(get_video_titles())
       })
       .catch(error => {
         console.error(error);
@@ -110,7 +97,7 @@ const ResearcherTable = () => {
               <td>{item.id}</td>
               <td>{item.sessionid}</td>
               <td>{item.videoid}</td>
-              <td>{videoTitles[item.videoid]}</td>
+              <td>{get_video_title(item.videoid)}</td>
               <td>{item.valence_initial}</td>
               <td>{item.valence_final}</td>
               <td>{item.valence_delta}</td>
