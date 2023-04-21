@@ -32,9 +32,8 @@ const ResearcherTable = () => {
     .catch(error => {
       console.error(error);
     });
-    responses[0];
-    responses['0']
-
+    console.log(responses[i].id)
+    console.log(get_video_title(responses[i].id))
     for (let i = 0; i < responses.length; i++) {
       responses[i].videotitle = get_video_title(responses[i].id);
     }
