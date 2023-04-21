@@ -16,7 +16,7 @@ const ResearcherTable = () => {
   const get_video_title = videoid => {
     axios.get('/api/videosearchid?id='+videoid)
       .then(response => {
-        return response.data['title'];
+        return response.data.title;
       })
       .catch(error => {
         console.error(error);
@@ -25,17 +25,17 @@ const ResearcherTable = () => {
   }
 
   useEffect(() => {
-      axios.get('/api/responsesearch')
-      .then(response => {
-        setResponses(response.data);
-      })
-      .catch(error => {
-        console.error(error);
-      });
+    axios.get('/api/responsesearch')
+    .then(response => {
+      setResponses(response.data);
+    })
+    .catch(error => {
+      console.error(error);
+    });
 
-      for (var response in responses) {
-        response['video_title'] = get_video_title(response['id']);
-      }
+    for (let i = 0; i < responses.length; i++) {
+      responses[i].videotitle = get_video_title(responses[i].id);
+    }
   }, [setResponses]);
 
   const sortedData = responses.sort((a, b) => {
