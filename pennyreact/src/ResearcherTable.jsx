@@ -16,7 +16,7 @@ const ResearcherTable = () => {
   const get_video_title = videoid => {
     axios.get('/api/videosearchid?id='+videoid)
       .then(response => {
-        return response.data.title;
+        return response.data['title'];
       })
       .catch(error => {
         console.error(error);
@@ -25,14 +25,18 @@ const ResearcherTable = () => {
   }
 
   useEffect(() => {
-      axios.get('/api/responsesearch?id='+id)
+      axios.get('/api/responsesearch')
       .then(response => {
         setResponses(response.data);
       })
       .catch(error => {
         console.error(error);
       });
-  }, [id, setResponses]);
+
+      for (var response in responses) {
+        response['video_title'] = get_video_title(response['id']);
+      }
+  }, [setResponses]);
 
   const sortedData = responses.sort((a, b) => {
     let aValue = a[sortField];
@@ -97,7 +101,7 @@ const ResearcherTable = () => {
               <td>{item.id}</td>
               <td>{item.sessionid}</td>
               <td>{item.videoid}</td>
-              <td>{get_video_title(item.videoid)}</td>
+              <td>{item.video_title}</td>
               <td>{item.valence_initial}</td>
               <td>{item.valence_final}</td>
               <td>{item.valence_delta}</td>
