@@ -118,17 +118,14 @@ def insert_video(title, url):
             with connection.cursor() as cursor:
 
                 # extract video direct link from hosted link
-                url = requests.get(url).text.strip()
-
-                if re.match('\(', url):
-                    raise Exception('Parentheses are present in URL')
+                response = requests.get(url).text.strip()
 
                 if not re.fullmatch(
                         '(https:\/\/)?mediacentral\.princeton\.edu\/media\/[a-zA-Z0-9_\(\)\+]+\/[a-zA-Z0-9_]+', url):
                     raise Exception('Could not verify URL for insertion')
 
                 match = re.search(
-                    '<meta property="og:video:secure_url" content="(.*?)">', url)
+                    '<meta property="og:video:secure_url" content="(.*?)">', response)
                 if match is None:
                     raise Exception(
                         'Could not extract video link from verified URL')
