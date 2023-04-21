@@ -50,15 +50,15 @@ def get_video(id):
             query_str = "SELECT * FROM videos"
             query_str += " WHERE id=(%s) ESCAPE '\\'"
             id = id.replace('_', '\\_').replace('%', '\\%')
-            cursor.execute(query_str, (f'%{id}%',))
+            cursor.execute(query_str, (f'{id}',))
 
             table = cursor.fetchall()
             if len(table) == 0:
-                return []
+                return None
 
             row = table[0]
             video = videomod.Video(row[0], row[1], row[2], row[3])
-            return [video]
+            return video
 
 
 # -----------------------------------------------------------------------
@@ -121,13 +121,14 @@ def insert_video(title, url):
                 url = requests.get(url).text
 
                 if not re.fullmatch(
-                    '(https://)?media\.princeton\.edu/media/[a-zA-Z0-9_]+/[a-zA-Z0-9_]+', url):
+                        '(https:\/\/)?mediacentral\.princeton\.edu\/media\/[a-zA-Z0-9_]+\/[a-zA-Z0-9_]+', url):
                     raise Exception('Could not verify URL for insertion')
 
                 match = re.search(
                     '<meta property="og:video:secure_url" content="(.*?)">', url)
                 if match is None:
-                    raise Exception('Could not extract video link from verified URL')
+                    raise Exception(
+                        'Could not extract video link from verified URL')
 
                 video_url = match.group(1)
 
