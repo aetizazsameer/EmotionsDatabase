@@ -250,6 +250,7 @@ def get_responses():
 
 
 def insert_response(sessionid, video_id, vi, vf, vd, ai, af, ad):
+    status = None
     try:
         with psycopg2.connect(database=_DATABASE,
                               host=_HOST_URL,
@@ -271,9 +272,11 @@ def insert_response(sessionid, video_id, vi, vf, vd, ai, af, ad):
                 connection.commit()
                 count = cursor.rowcount
                 print(count, "Record inserted successfully into responses table")
+                status = True
 
     except (Exception, psycopg2.Error) as error:
         print("Failed to insert record into responses table", error)
+        status = False
 
     finally:
         # close database connection.
@@ -281,7 +284,7 @@ def insert_response(sessionid, video_id, vi, vf, vd, ai, af, ad):
             cursor.close()
             connection.close()
             print("PostgreSQL connection is closed")
-
+        return status
 
 # ----------------------------------------------------------------------
 # update_response
