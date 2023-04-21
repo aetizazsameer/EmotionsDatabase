@@ -5,6 +5,7 @@
 # query: Andrew Hwang, Aetizaz Sameer
 # -----------------------------------------------------------------------
 
+import flask
 import requests
 import re
 import psycopg2
@@ -117,6 +118,7 @@ def insert_video(title, url):
                               port=_PORT) as connection:
             with connection.cursor() as cursor:
 
+                flask.flash(url)
                 # extract video direct link from hosted link
                 response = requests.get(url).text.strip()
 
