@@ -31,10 +31,11 @@ _PORT = '5432'
 
 
 def get_title(id):
-    video = get_video(id.strip())
+    video = get_video(id)
     if video is None:
         return None
     return video.get_title()
+
 
 # ----------------------------------------------------------------------
 # timestamp
@@ -63,7 +64,6 @@ def get_video(id):
         with connection.cursor() as cursor:
 
             query_str = "SELECT * FROM videos WHERE id=(%s)"
-            id = id.replace('_', '\\_').replace('%', '\\%')
             cursor.execute(query_str, (f'{id}',))
 
             table = cursor.fetchall()

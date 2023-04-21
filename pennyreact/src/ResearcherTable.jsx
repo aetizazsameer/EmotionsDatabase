@@ -12,18 +12,6 @@ const ResearcherTable = () => {
   const [id, setId] = useState('');
   const [responseAvg, setResponseAvg] = useState([]);
 
-  // get title of video with given ID
-  const get_video_title = videoid => {
-    axios.get('/api/videosearchid?id='+videoid)
-      .then(response => {
-        return response.data.title;
-      })
-      .catch(error => {
-        console.error(error);
-        return null;
-      });
-  }
-
   useEffect(() => {
     axios.get('/api/responseavg')
     .then(response => {
@@ -41,10 +29,10 @@ const ResearcherTable = () => {
     if (aValue > bValue) return sortOrder === 'asc' ? 1 : -1;
 
     if (sortField != 'videoid') {
-	aValue = a['videoid'];
-	bValue = b['videoid'];
-	if (aValue < bValue) return -1;
-	if (aValue > bValue) return 1;
+      aValue = a['videoid'];
+      bValue = b['videoid'];
+      if (aValue < bValue) return -1;
+      if (aValue > bValue) return 1;
     }
 
     return 0;
@@ -75,7 +63,7 @@ const ResearcherTable = () => {
       />
       <table className="table">
         <thead>
-          <tr>\
+          <tr>
             <th onClick={() => handleSort('videoid')}>Video ID</th>
             <th onClick={() => handleSort('videotitle')}>Video Title</th>
             <th onClick={() => handleSort('valence_initial')}>Valence (initial)</th>

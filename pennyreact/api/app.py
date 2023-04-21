@@ -90,13 +90,13 @@ def video_search():
 def response_search():
 
     responses = database.get_responses()
-    sorted_responses = sorted(responses, key=lambda v: v.videoid)
+    sorted_responses = sorted(responses, key=lambda v: v._videoid)
 
     # split responses into subarrays by video id
     response_dict = {}
     for response in sorted_responses:
-        videotitle = database.get_title(response.videoid)
-        key = response.videoid, videotitle
+        videotitle = database.get_title(response._videoid)
+        key = response._videoid, videotitle
         if key not in response_dict:
             response_dict[key] = []
         response_dict[key].append(response)
@@ -105,19 +105,19 @@ def response_search():
     averages = []
     for (videoid, videotitle), subarray in response_dict.items():
         n = len(subarray)
-        valence_initial = sum(v.valence_initial for v in subarray) / n
-        valence_final = sum(v.valence_final for v in subarray) / n
-        valence_delta = sum(v.valence_delta for v in subarray) / n
-        arousal_initial = sum(v.arousal_initial for v in subarray) / n
-        arousal_final = sum(v.arousal_final for v in subarray) / n
-        arousal_delta = sum(v.arousal_delta for v in subarray) / n
+        valence_initial = sum(v._valence_initial for v in subarray) / n
+        valence_final = sum(v._valence_final for v in subarray) / n
+        valence_delta = sum(v._valence_delta for v in subarray) / n
+        arousal_initial = sum(v._arousal_initial for v in subarray) / n
+        arousal_final = sum(v._arousal_final for v in subarray) / n
+        arousal_delta = sum(v._arousal_delta for v in subarray) / n
         averages.append(response_avg.ResponseAvg(videoid, videotitle,
                                                  valence_initial, valence_final,
                                                  valence_delta, arousal_initial,
                                                  arousal_final, arousal_delta))
 
-    for i in len(averages):
-        averages[i] = response_avg.to_dict()
+    for i in range(len(averages)):
+        averages[i] = averages[i].to_dict()
 
     return flask.jsonify(averages)
 

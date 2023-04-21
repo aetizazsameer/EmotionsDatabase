@@ -36,7 +36,7 @@ def login():
         redirect_uri=flask.request.base_url + '/callback',
         scope=['openid', 'email', 'profile'],
         )
-    
+
     # Redirect to the request URL.
     return flask.redirect(request_uri)
 
@@ -71,7 +71,7 @@ def callback():
     # Parse the tokens.
     client.parse_request_body_response(
         json.dumps(token_response.json()))
-    
+
     # Using the tokens, fetch the user's profile data,
     # including user's Google profile image and email address.
     userinfo_endpoint = google_provider_cfg['userinfo_endpoint']
@@ -110,7 +110,7 @@ def logoutgoogle():
     # Log out of Google.
     flask.abort(flask.redirect(
         'https://mail.google.com/mail/u/0/?logout&hl=en'))
-    
+
 # ----------------------------------------------------------------------
 
 def authentication():
