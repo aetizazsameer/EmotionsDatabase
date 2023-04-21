@@ -5,7 +5,6 @@
 # query: Andrew Hwang, Aetizaz Sameer
 # -----------------------------------------------------------------------
 
-import logging
 import requests
 import re
 import psycopg2
@@ -119,8 +118,7 @@ def insert_video(title, url):
             with connection.cursor() as cursor:
 
                 url = url.strip()
-                logger = logging.getLogger('werkzeug')
-                logger.info(url)
+                
                 # extract video direct link from hosted link
                 response = requests.get(url).text
 
@@ -134,7 +132,7 @@ def insert_video(title, url):
                     raise Exception(
                         'Could not extract video link from verified URL')
 
-                video_url = match.group(0)
+                video_url = match.group(1)
 
                 postgres_insert_query = """ INSERT INTO videos (title, url, uploadtimestamp) VALUES (%s, %s, %s)"""
                 record_to_insert = (title, video_url, timestamp())
