@@ -5,7 +5,7 @@
 # query: Andrew Hwang, Aetizaz Sameer
 # -----------------------------------------------------------------------
 
-import flask
+import logging
 import requests
 import re
 import psycopg2
@@ -118,9 +118,11 @@ def insert_video(title, url):
                               port=_PORT) as connection:
             with connection.cursor() as cursor:
 
-                flask.flash(url)
+                url = url.strip()
+                logger = logging.getLogger('werkzeug')
+                logger.info('url')
                 # extract video direct link from hosted link
-                response = requests.get(url).text.strip()
+                response = requests.get(url).text
 
                 if not re.fullmatch(
                         '(https:\/\/)?mediacentral\.princeton\.edu\/media\/[a-zA-Z0-9_\(\)\+]+\/[a-zA-Z0-9_]+', url):
