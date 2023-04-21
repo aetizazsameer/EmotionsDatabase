@@ -120,6 +120,9 @@ def insert_video(title, url):
                 # extract video direct link from hosted link
                 url = requests.get(url).text.strip()
 
+                if re.match('\(', url):
+                    raise Exception('Parentheses are present in URL')
+
                 if not re.fullmatch(
                         '(https:\/\/)?mediacentral\.princeton\.edu\/media\/[a-zA-Z0-9_\(\)\+]+\/[a-zA-Z0-9_]+', url):
                     raise Exception('Could not verify URL for insertion')
