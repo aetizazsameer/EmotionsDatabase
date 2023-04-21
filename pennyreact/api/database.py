@@ -47,8 +47,7 @@ def get_video(id):
                           password=_PASSWORD) as connection:
         with connection.cursor() as cursor:
 
-            query_str = "SELECT * FROM videos"
-            query_str += " WHERE id=(%s) ESCAPE '\\'"
+            query_str = "SELECT * FROM videos WHERE id=(%s)"
             id = id.replace('_', '\\_').replace('%', '\\%')
             cursor.execute(query_str, (f'{id}',))
 
@@ -118,7 +117,7 @@ def insert_video(title, url):
             with connection.cursor() as cursor:
 
                 url = url.strip()
-                
+
                 # extract video direct link from hosted link
                 response = requests.get(url).text
 

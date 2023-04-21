@@ -6,7 +6,7 @@
 # ----------------------------------------------------------------------
 
 import flask
-import flask_wtf.csrf
+# import flask_wtf.csrf
 # import flask_talisman
 import database
 from video_selector import selector
@@ -51,7 +51,9 @@ def video_search_byid():
 
     id = flask.request.args.get('id', '').strip()
     video = database.get_video(id)
-    return flask.jsonify(video)
+    if video is None:
+        return flask.jsonify(video)
+    return flask.jsonify(video.to_dict())
 
 
 @app.route('/api/videosearch', methods=['GET'])
@@ -80,6 +82,7 @@ def insert_video_handler():
     url = data.get('url')
     success = database.insert_video(title, url)
 
+    # not displayed
     html_code = flask.render_template('video_insert.html',
                                       success=success)
     response = flask.make_response(html_code)
@@ -102,6 +105,7 @@ def insert_response_handler():
     success = database.insert_response(
         sessionid, videoid, vi, vf, vd, ai, af, ad)
 
+    # not displayed
     html_code = flask.render_template('response_insert.html',
                                       success=success)
     response = flask.make_response(html_code)
@@ -118,6 +122,7 @@ def update_response_handler():
 
     success = database.update_response(sessionid, feedback)
 
+    # not displayed
     html_code = flask.render_template('response_insert.html',
                                       success=success)
     response = flask.make_response(html_code)
