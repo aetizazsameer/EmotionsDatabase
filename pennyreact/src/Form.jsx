@@ -22,6 +22,9 @@ const Form = () => {
       console.log(error);
       // Add code here to handle submission error
     }
+
+    setTitle('');
+    setUrl('');
   };
 
   return (
