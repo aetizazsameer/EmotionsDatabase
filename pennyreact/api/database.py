@@ -130,7 +130,7 @@ def insert_video(title, url):
                     raise Exception(
                         'Could not extract video link from verified URL')
 
-                video_url = match.group(1)
+                video_url = match.group(0)
 
                 postgres_insert_query = """ INSERT INTO videos (title, url, uploadtimestamp) VALUES (%s, %s, %s)"""
                 record_to_insert = (title, video_url, timestamp())
