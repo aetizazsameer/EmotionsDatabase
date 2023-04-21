@@ -118,9 +118,17 @@ def insert_video(title, url):
             with connection.cursor() as cursor:
 
                 # extract video direct link from hosted link
-                response = requests.get(url).text
+                url = requests.get(url).text
+
+                if not re.fullmatch(
+                    '(https://)?media\.princeton\.edu/media/[a-zA-Z0-9_]+/[a-zA-Z0-9_]+', url):
+                    raise Exception('Could not verify URL for insertion')
+
                 match = re.search(
-                    '<meta property="og:video:secure_url" content="(.*?)">', response)
+                    '<meta property="og:video:secure_url" content="(.*?)">', url)
+                if match is None:
+                    raise Exception('Could not extract video link from verified URL')
+
                 video_url = match.group(1)
 
                 postgres_insert_query = """ INSERT INTO videos (title, url, uploadtimestamp) VALUES (%s, %s, %s)"""
@@ -308,7 +316,7 @@ def update_response(sessionid, feedback):
 # -----------------------------------------------------------------------
 # get_dataframe
 # Connects to database and gets dataframe
-# Parameters: 
+# Parameters:
 # Returns: the results of the query
 # -----------------------------------------------------------------------
 
@@ -323,7 +331,7 @@ def get_dataframe():
             with connection.cursor() as cursor:
                 query_str = "SELECT * FROM responses"
                 cursor.execute(query_str)
-            
+
             tupples = cursor.fetchall()
             cursor.close()
 
@@ -345,7 +353,7 @@ def get_dataframe():
 # -----------------------------------------------------------------------
 # download_csv
 # Connects to database and gets dataframe
-# Parameters: 
+# Parameters:
 # Returns: the results of the query
 # -----------------------------------------------------------------------
 
