@@ -32,10 +32,11 @@ const ResearcherTable = () => {
     .catch(error => {
       console.error(error);
     });
-    print(responses.length)
+    responses[0];
+    responses['0']
 
     for (let i = 0; i < responses.length; i++) {
-      responses[String(i)].videotitle = get_video_title(responses[String(i)].id);
+      responses[i].videotitle = get_video_title(responses[i].id);
     }
   }, [setResponses]);
 

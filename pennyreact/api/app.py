@@ -53,7 +53,7 @@ def video_search_byid():
     video = database.get_video(id)
     if video is None:
         return flask.jsonify(video)
-    return flask.jsonify(video.to_dict())
+    return flask.jsonify(video.get_title())
 
 
 @app.route('/api/videosearch', methods=['GET'])
