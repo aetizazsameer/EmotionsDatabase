@@ -8,6 +8,43 @@
     margin-top: 30px;
   }
 
+  .label-container {
+    position: relative;
+    margin-right: 10px;
+  }
+
+  .valence-label {
+    position: absolute;
+    width: 80px;
+    text-align: center;
+  }
+
+  .valence-label.negative {
+    top: 50%;
+    left: -10px;
+    transform: translateY(260px);
+  }
+
+  .valence-label.positive {
+    top: 50%;
+    right: -60px;
+    transform: translateY(260px);
+  }
+
+  .arousal-label {
+    position: absolute;
+    text-align: center;
+  }
+
+  .arousal-label.positive {
+    top: -10px;
+    left: 285px;
+  }
+
+  .arousal-label.negative {
+    bottom: -560px;
+    left: 285px;
+  }
 
   .grid-row {
     display: flex;
@@ -65,7 +102,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-top: 20px;
+    margin-top: 50px;
     margin-left: 60px;
   }
 
@@ -95,4 +132,8 @@
   .submit-button:active {
     background-color: #0062cc;
     transform: translateY(1px);
+  }
+
+  .valence- {
+    margin-right: 10px;
   }

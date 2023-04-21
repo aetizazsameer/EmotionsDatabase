@@ -10,11 +10,19 @@ import Navbar from './Navbar';
 function PostSurvey() {
     return (
         <div>
-        <Navbar />
+            <Navbar />
             <div className="container">
                 <div className="instructions">
                     <h1>Instructions</h1>
-                    <p>These are the instructions for the survey. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut in ipsum eu lorem malesuada efficitur at quis dolor. Donec varius quam ac felis consectetur, eget fringilla lorem fringilla. Vestibulum in ultricies ex. Praesent malesuada odio vel nunc hendrerit, ac luctus nulla dapibus. Sed euismod aliquet urna, sit amet imperdiet augue bibendum sed. Vivamus semper massa et libero venenatis, id euismod lectus lobortis. </p>
+                    <p>Select on the grid where it best fits your current emotions after the video.</p>
+                    <p>
+                    Valence is a measure of how positive or negative an emotion is.
+                    The left represents negative valence and the right represents positive valence.
+                    </p>
+                    <p>
+                    Arousal is defined as a state of alertness and activation in your body that is linked to an emotion.
+                    The top represents emotions that are high arousal and the bottom represents emotions that are low arousal:
+                    </p>
                 </div>
                 <div className="grid">
                     <Grid />

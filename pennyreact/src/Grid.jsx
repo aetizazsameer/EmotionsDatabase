@@ -27,6 +27,12 @@ function Grid() {
 
   return (
     <div>
+      <div className="label-container">
+        <div className="valence-label negative">Negative Valence</div>
+        <div className="valence-label positive">Positive Valence</div>
+        <div className="arousal-label negative">Negative Arousal</div>
+        <div className="arousal-label positive">Positive Arousal</div>
+      </div>
       <div className="grid">
         <div className="grid-container">
           {gridData.map((rowData, rowIndex) => (
