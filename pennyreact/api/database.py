@@ -118,7 +118,7 @@ def insert_video(title, url):
             with connection.cursor() as cursor:
 
                 # extract video direct link from hosted link
-                url = requests.get(url).text
+                url = requests.get(url).text.trim()
 
                 if not re.fullmatch(
                         '(https:\/\/)?mediacentral\.princeton\.edu\/media\/[a-zA-Z0-9_]+\/[a-zA-Z0-9_]+', url):
