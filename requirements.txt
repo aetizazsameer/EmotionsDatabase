@@ -6,3 +6,4 @@ SQLAlchemy
 requests
 flask_wtf
 flask_talisman
+pandas
