@@ -13,7 +13,7 @@ import video as videomod
 import response as responsemod
 from datetime import datetime
 
-# -----------------------------------------------------------------------
+# ----------------------------------------------------------------------
 
 _HOST_URL = 'dpg-cgifmlpr8t1g7lp9krfg-a.ohio-postgres.render.com'
 _DATABASE = 'emotionsdatabase'
@@ -21,22 +21,37 @@ _USERNAME = 'emotionsdatabase_user'
 _PASSWORD = 'muO6WwujmxvrVuxwhYRcK1jOrQslGrTm'
 _PORT = '5432'
 
-# -----------------------------------------------------------------------
+
+# ----------------------------------------------------------------------
+# get_title
+# Gets the title of the video with the given id
+# Parameters: id -- an integer
+# Returns: the title of the video that matches the id, None otherwise
+# ----------------------------------------------------------------------
+
+
+def get_title(id):
+    video = get_video(id.strip())
+    if video is None:
+        return None
+    return video.get_title()
+
+# ----------------------------------------------------------------------
 # timestamp
 # Returns: the date and time of the timestamp
-# -----------------------------------------------------------------------
+# ----------------------------------------------------------------------
 
 
 def timestamp():
     return str(datetime.now().replace(microsecond=0))
 
 
-# -----------------------------------------------------------------------
+# ----------------------------------------------------------------------
 # get_video
 # Gets the video with the given id
 # Parameters: id -- an integer
 # Returns: the video that matches the id
-# -----------------------------------------------------------------------
+# ----------------------------------------------------------------------
 
 
 def get_video(id):
@@ -60,12 +75,12 @@ def get_video(id):
             return video
 
 
-# -----------------------------------------------------------------------
+# ----------------------------------------------------------------------
 # get_videos
 # Gets the videos that match the search terms.
 # Parameters: query - a search term
 # Returns: the videos that match the search term
-# -----------------------------------------------------------------------
+# ----------------------------------------------------------------------
 
 
 def get_videos(query):
@@ -98,13 +113,13 @@ def get_videos(query):
     return videos
 
 
-# -----------------------------------------------------------------------
+# ----------------------------------------------------------------------
 # insert_video
 # Accesses the database and returns the results of the query.
 # Parameters: title - the title of the video to be added
 #             url - the url of the video to be added
 # Returns: the results of the query
-# -----------------------------------------------------------------------
+# ----------------------------------------------------------------------
 
 
 def insert_video(title, url):
@@ -154,12 +169,12 @@ def insert_video(title, url):
             print("PostgreSQL connection is closed")
 
 
-# -----------------------------------------------------------------------
+# ----------------------------------------------------------------------
 # delete_video
 # Accesses the database and returns the results of the query.
 # Parameters: id - the id number of the video to be deleted
 # Returns: the results of the query
-# -----------------------------------------------------------------------
+# ----------------------------------------------------------------------
 
 
 def delete_video(id):
@@ -220,7 +235,7 @@ def get_responses():
     return responses
 
 
-# -----------------------------------------------------------------------
+# ----------------------------------------------------------------------
 # insert_response
 # Accesses the database and returns the results of the query.
 # Parameters: sessionid - the session number
@@ -231,7 +246,7 @@ def get_responses():
 #             af - final arousal
 #             ad - delta arousal
 # Returns: the results of the query
-# -----------------------------------------------------------------------
+# ----------------------------------------------------------------------
 
 
 def insert_response(sessionid, video_id, vi, vf, vd, ai, af, ad):
@@ -268,13 +283,13 @@ def insert_response(sessionid, video_id, vi, vf, vd, ai, af, ad):
             print("PostgreSQL connection is closed")
 
 
-# -----------------------------------------------------------------------
+# ----------------------------------------------------------------------
 # update_response
 # Accesses the database and returns the results of the query.
 # Parameters: sessionid - the session number
 #             response - optional emotions associated with video
 # Returns: the results of the query
-# -----------------------------------------------------------------------
+# ----------------------------------------------------------------------
 
 
 def update_response(sessionid, feedback):
@@ -315,12 +330,12 @@ def update_response(sessionid, feedback):
             print("PostgreSQL connection is closed")
 
 
-# -----------------------------------------------------------------------
+# ----------------------------------------------------------------------
 # get_dataframe
 # Connects to database and gets dataframe
 # Parameters:
 # Returns: the results of the query
-# -----------------------------------------------------------------------
+# ----------------------------------------------------------------------
 
 
 def get_dataframe():
@@ -352,12 +367,12 @@ def get_dataframe():
             print("PostgreSQL connection is closed")
 
 
-# -----------------------------------------------------------------------
+# ----------------------------------------------------------------------
 # download_csv
 # Connects to database and gets dataframe
 # Parameters:
 # Returns: the results of the query
-# -----------------------------------------------------------------------
+# ----------------------------------------------------------------------
 
 
 def download_csv():
@@ -366,7 +381,7 @@ def download_csv():
     df.to_csv(index=False)
 
 
-# -----------------------------------------------------------------------
+# ----------------------------------------------------------------------
 
 
 def _test_get_videos(query):
@@ -405,7 +420,7 @@ def _testupdate():
     feedback = "happy"
     update_response(sessionid, feedback)
 
-# -----------------------------------------------------------------------
+# ----------------------------------------------------------------------
 
 
 if __name__ == '__main__':

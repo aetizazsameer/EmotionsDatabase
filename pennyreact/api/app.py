@@ -11,6 +11,7 @@ import flask
 import database
 import auth
 from video_selector import selector
+import response_avg
 
 # ----------------------------------------------------------------------
 
@@ -22,6 +23,7 @@ app = flask.Flask(__name__,
 # flask_talisman.Talisman(app)  # require HTTPS
 
 # ----------------------------------------------------------------------
+
 
 @app.route('/', methods=['GET'])
 @app.route('/index', methods=['GET'])
@@ -38,21 +40,26 @@ def index():
 
 # ----------------------------------------------------------------------
 
+
 @app.route('/login', methods=['GET'])
 def login():
     return auth.login()
+
 
 @app.route('/login/callback', methods=['GET'])
 def callback():
     return auth.callback()
 
+
 @app.route('/logoutapp', methods=['GET'])
 def logoutapp():
     return auth.logoutapp()
 
+
 @app.route('/logoutgoogle', methods=['GET'])
 def logoutgoogle():
     return auth.logoutgoogle()
+
 
 def authorize(username):
     if not database.is_authorized(username):
@@ -62,20 +69,11 @@ def authorize(username):
 
 # ----------------------------------------------------------------------
 
+
 @app.route('/participant/get_URL', methods=['GET'])
 def get_URL():
     url, id = selector()
     return flask.jsonify({'url': url, 'id': id})
-
-
-@app.route('/api/videosearchid', methods=['GET'])
-def video_search_byid():
-
-    id = flask.request.args.get('id', '').strip()
-    video = database.get_video(id)
-    if video is None:
-        return flask.jsonify(video)
-    return flask.jsonify(video.get_title())
 
 
 @app.route('/api/videosearch', methods=['GET'])
@@ -88,12 +86,40 @@ def video_search():
     return flask.jsonify(videos)
 
 
-@app.route('/api/responsesearch', methods=['GET'])
+@app.route('/api/responseavg', methods=['GET'])
 def response_search():
 
     responses = database.get_responses()
-    responses = [response.to_dict() for response in responses]
-    return flask.jsonify(responses)
+    sorted_responses = sorted(responses, key=lambda v: v.videoid)
+
+    # split responses into subarrays by video id
+    response_dict = {}
+    for response in sorted_responses:
+        videotitle = database.get_title(response.videoid)
+        key = response.videoid, videotitle
+        if key not in response_dict:
+            response_dict[key] = []
+        response_dict[key].append(response)
+
+    # compute averages per subarray
+    averages = []
+    for (videoid, videotitle), subarray in response_dict.items():
+        n = len(subarray)
+        valence_initial = sum(v.valence_initial for v in subarray) / n
+        valence_final = sum(v.valence_final for v in subarray) / n
+        valence_delta = sum(v.valence_delta for v in subarray) / n
+        arousal_initial = sum(v.arousal_initial for v in subarray) / n
+        arousal_final = sum(v.arousal_final for v in subarray) / n
+        arousal_delta = sum(v.arousal_delta for v in subarray) / n
+        averages.append(response_avg.ResponseAvg(videoid, videotitle,
+                                                 valence_initial, valence_final,
+                                                 valence_delta, arousal_initial,
+                                                 arousal_final, arousal_delta))
+
+    for i in len(averages):
+        averages[i] = response_avg.to_dict()
+
+    return flask.jsonify(averages)
 
 
 @app.route('/api/insert_video', methods=['POST'])
