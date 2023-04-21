@@ -9,6 +9,7 @@ import flask
 # import flask_wtf.csrf
 # import flask_talisman
 import database
+import auth
 from video_selector import selector
 
 # ----------------------------------------------------------------------
@@ -21,7 +22,6 @@ app = flask.Flask(__name__,
 # flask_talisman.Talisman(app)  # require HTTPS
 
 # ----------------------------------------------------------------------
-
 
 @app.route('/', methods=['GET'])
 @app.route('/index', methods=['GET'])
@@ -36,9 +36,31 @@ def index():
     response.set_cookie('last_query', flask.request.url)
     return response
 
-
 # ----------------------------------------------------------------------
 
+@app.route('/login', methods=['GET'])
+def login():
+    return auth.login()
+
+@app.route('/login/callback', methods=['GET'])
+def callback():
+    return auth.callback()
+
+@app.route('/logoutapp', methods=['GET'])
+def logoutapp():
+    return auth.logoutapp()
+
+@app.route('/logoutgoogle', methods=['GET'])
+def logoutgoogle():
+    return auth.logoutgoogle()
+
+def authorize(username):
+    if not database.is_authorized(username):
+        html_code = 'You are not authorized to use this application.'
+        response = flask.make_response(html_code)
+        flask.abort(response)
+
+# ----------------------------------------------------------------------
 
 @app.route('/participant/get_URL', methods=['GET'])
 def get_URL():
