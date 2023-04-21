@@ -28,7 +28,7 @@ const ResearcherTable = () => {
     if (aValue < bValue) return sortOrder === 'asc' ? -1 : 1;
     if (aValue > bValue) return sortOrder === 'asc' ? 1 : -1;
 
-    if (sortField != 'videoid') {
+    if (sortField !== 'videoid') {
       aValue = a['videoid'];
       bValue = b['videoid'];
       if (aValue < bValue) return -1;
