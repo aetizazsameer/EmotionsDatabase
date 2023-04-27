@@ -26,6 +26,33 @@ app.secret_key = os.environ['SECRET_KEY']
 
 # ----------------------------------------------------------------------
 
+@app.route('/login', methods=['GET'])
+def login():
+    return auth.login()
+
+
+@app.route('/login/callback', methods=['GET'])
+def callback():
+    return auth.callback()
+
+
+@app.route('/logoutapp', methods=['GET'])
+def logoutapp():
+    return auth.logoutapp()
+
+
+@app.route('/logoutgoogle', methods=['GET'])
+def logoutgoogle():
+    return auth.logoutgoogle()
+
+
+def authorize(username):
+    if not database.is_authorized(username):
+        html_code = 'You are not authorized to use this application.'
+        response = flask.make_response(html_code)
+        flask.abort(response)
+
+# ----------------------------------------------------------------------
 
 @app.route('/', methods=['GET'])
 @app.route('/index', methods=['GET'])
@@ -34,13 +61,14 @@ app.secret_key = os.environ['SECRET_KEY']
 @app.route('/participant', methods=['GET'])
 @app.route('/participant/presurvey', methods=['GET'])
 def index():
+    username = auth.authentication()
+    authorize(username)
+
     flask.session['path'] = flask.request.path
-    response = app.send_static_file('index.html')
+    response = app.send_static_file('index.html', username=username)
     return response
 
-
 # ----------------------------------------------------------------------
-
 
 @app.route('/participant/video', methods=['GET'])
 @app.route('/participant/postsurvey', methods=['GET'])
@@ -72,35 +100,6 @@ def participant_sequence():
     return index()
 
 # ----------------------------------------------------------------------
-
-@app.route('/login', methods=['GET'])
-def login():
-    return auth.login()
-
-
-@app.route('/login/callback', methods=['GET'])
-def callback():
-    return auth.callback()
-
-
-@app.route('/logoutapp', methods=['GET'])
-def logoutapp():
-    return auth.logoutapp()
-
-
-@app.route('/logoutgoogle', methods=['GET'])
-def logoutgoogle():
-    return auth.logoutgoogle()
-
-
-def authorize(username):
-    if not database.is_authorized(username):
-        html_code = 'You are not authorized to use this application.'
-        response = flask.make_response(html_code)
-        flask.abort(response)
-
-# ----------------------------------------------------------------------
-
 
 @app.route('/participant/get_URL', methods=['GET'])
 def get_URL():
