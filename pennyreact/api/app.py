@@ -6,7 +6,7 @@
 # ----------------------------------------------------------------------
 
 import flask
-# import flask_wtf.csrf
+import flask_wtf.csrf
 # import flask_talisman
 import database
 import auth
@@ -19,7 +19,7 @@ app = flask.Flask(__name__,
                   template_folder='.',
                   static_folder='../build',
                   static_url_path='/')
-# csrf = flask_wtf.csrf.CSRFProtect(app)
+csrf = flask_wtf.csrf.CSRFProtect(app)
 # flask_talisman.Talisman(app)  # require HTTPS
 
 # ----------------------------------------------------------------------
