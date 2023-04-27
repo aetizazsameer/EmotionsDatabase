@@ -5,6 +5,7 @@
 # Author: Tyler Vu, Aetizaz Sameer, Andrew Hwang
 # ----------------------------------------------------------------------
 
+import os
 import flask
 import flask_wtf.csrf
 # import flask_talisman
@@ -20,7 +21,8 @@ app = flask.Flask(__name__,
                   static_folder='../build',
                   static_url_path='/')
 csrf = flask_wtf.csrf.CSRFProtect(app)
-# flask_talisman.Talisman(app)  # require HTTPS
+# flask_talisman.Talisman(app)  # require HTTPS (use only in production)
+app.secret_key = os.environ['SECRET_KEY']
 
 # ----------------------------------------------------------------------
 
