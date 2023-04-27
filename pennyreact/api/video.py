@@ -12,6 +12,14 @@ class Video:
         self._title = title
         self._url = url
         self._uploadtimestamp = uploadtimestamp
+        self._sums = {
+            'sum_arousal_initial': 0,
+            'sum_arousal_final': 0,
+            'sum_arousal_delta': 0,
+            'sum_valence_initial': 0,
+            'sum_valence_final': 0,
+            'sum_valence_delta': 0
+        }
 
     def get_id(self):
         return self._id
@@ -33,7 +41,13 @@ class Video:
             'id': self._id,
             'title': self._title,
             'url': self._url,
-            'uploadtimestamp': self._uploadtimestamp
+            'uploadtimestamp': self._uploadtimestamp,
+            'sum_arousal_initial': self._sums.sum_arousal_initial,
+            'sum_arousal_final': self._sums.sum_arousal_final,
+            'sum_arousal_delta': self._sums.sum_arousal_delta,
+            'sum_valence_initial': self._sums.sum_valence_initial,
+            'sum_valence_final': self._sums.sum_valence_final,
+            'sum_valence_delta': self._sums.sum_valence_delta
         }
 
 #-----------------------------------------------------------------------
