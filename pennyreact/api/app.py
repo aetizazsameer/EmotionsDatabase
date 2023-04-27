@@ -31,15 +31,45 @@ app = flask.Flask(__name__,
 @app.route('/researcher', methods=['GET'])
 @app.route('/participant', methods=['GET'])
 @app.route('/participant/presurvey', methods=['GET'])
-@app.route('/participant/video', methods=['GET'])
-@app.route('/participant/postsurvey', methods=['GET'])
 def index():
+    flask.session['path'] = flask.request.path
     response = app.send_static_file('index.html')
-    response.set_cookie('last_query', flask.request.url)
     return response
+
 
 # ----------------------------------------------------------------------
 
+
+@app.route('/participant/video', methods=['GET'])
+@app.route('/participant/postsurvey', methods=['GET'])
+def participant_sequence():
+    # sequence paths
+    path = flask.request.path
+    presurvey = '/participant/presurvey'
+    video = '/participant/video'
+    postsurvey = '/participant/postsurvey'
+
+    # redirect to presurvey if it has not been completed
+    if flask.session is None:
+        return flask.redirect(presurvey)
+
+    # existing session without path
+    stored_path = flask.session.get('path')
+    if stored_path is None:
+        return flask.redirect(presurvey)
+
+    # video without having completed presurvey
+    if path == video and stored_path != presurvey:
+        return flask.redirect(presurvey)
+
+    # postsurvey without having completed video
+    elif path == postsurvey and stored_path != video:
+        return flask.redirect(presurvey)
+
+    flask.session['path'] = path
+    return index()
+
+# ----------------------------------------------------------------------
 
 @app.route('/login', methods=['GET'])
 def login():

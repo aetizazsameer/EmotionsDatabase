@@ -65,7 +65,6 @@ function Grid() {
     }
 
     Cookies.remove('video_id')
-    Cookies.remove('last_query')
     Cookies.remove('gridSelection')
 
 
