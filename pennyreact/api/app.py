@@ -188,7 +188,7 @@ def insert_response_handler():
 
     success = database.insert_response(
         sessionid, videoid, vi, vf, vd, ai, af, ad)
-    database.update_sum(videoid, ai, vi, af, vf, ad, vd)
+    # database.update_sum(videoid, ai, vi, af, vf, ad, vd)
 
     # not displayed
     html_code = flask.render_template('response_insert.html',
