@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import Cookies from 'js-cookie';
+import axios from 'axios';
 import './Grid.css';
 
 
@@ -19,9 +19,19 @@ function Grid() {
     setShowSubmitButton(true);
   };
 
+  const insertCookie = data => {
+    axios.post('/insert_coord', { data: data })
+      .then(response => {
+        console.log('Submitted grid selection successfully');
+      })
+      .catch(error => {
+        console.log('Error submitting grid selection', error);
+      });
+  };
+
   const handleSubmitButton = (row, col) => {
-    console.log(`Submitting row ${selectedRow} and column ${selectedCol}`);
-    Cookies.set('gridSelection', JSON.stringify({ row, col }));
+    console.log(`Submitting row ${selectedRow} and column ${selectedCol}...`);
+    insertCookie(JSON.stringify({row, col}))
     navigate('/participant/video');
   };
 

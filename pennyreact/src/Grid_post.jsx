@@ -1,21 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import Cookies from 'js-cookie';
 import axios from 'axios';
 import './Grid.css';
-
-function getCookieData() {
-  const cookieValue = Cookies.get('gridSelection');
-  let preRow = null;
-  let preCol = null;
-  if (cookieValue) {
-    const decodedCookie = decodeURIComponent(cookieValue);
-    const jsonCookie = JSON.parse(decodedCookie);
-    preRow = jsonCookie.row;
-    preCol = jsonCookie.col;
-  }
-  return { preRow, preCol };
-}
 
 function Grid() {
   const navigate = useNavigate();
@@ -24,15 +10,34 @@ function Grid() {
   const [valenceFinal, setValenceFinal] = useState(null);
   const [arousalInitial, setArousalInitial] = useState(null);
   const [valenceInitial, setValenceInitial] = useState(null);
-  const videoId = parseInt(Cookies.get('video_id'));
+  const [videoId, setVideoId] = useState(null)
   const [gridData, setGridData] = useState(Array(50).fill(Array(50).fill(false)));
   const [showSubmitButton, setShowSubmitButton] = useState(false);
 
   useEffect(() => {
-    const { preRow, preCol } = getCookieData();
-    setArousalInitial(preRow);
-    setValenceInitial(preCol);
+    getCookieData();
   }, []);
+
+  const getCookieData = () => {
+    axios.get('/get_coord')
+      .then((response) => {
+        const { row, col } = response.data;
+        setArousalInitial(row);
+        setValenceInitial(col);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+
+    axios.get('/get_videoid')
+      .then((response) => {
+          const { videoid } = response.data;
+          setVideoId(videoid)
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+  }
 
   const handleClick = (row, col) => {
     console.log(`Clicked on row ${row} and column ${col}`);
@@ -42,7 +47,7 @@ function Grid() {
   };
 
   const handleSubmitButton = async () => {
-    console.log(`Submitting row ${arousalFinal} and column ${valenceFinal}`);
+    console.log(`Submitting row ${arousalFinal} and column ${valenceFinal}...`);
     let arousalDelta = arousalFinal - arousalInitial;
     let valenceDelta = valenceFinal - valenceInitial;
     console.log(`Arousal delta: ${arousalDelta}`);
@@ -64,8 +69,13 @@ function Grid() {
       console.error(error);
     }
 
-    Cookies.remove('video_id')
-    Cookies.remove('gridSelection')
+    axios.post('/remove_cookies')
+    .then(response => {
+        console.log('Removed selection coordinates and videoid')
+    })
+    .catch(error => {
+        console.log('Error removing selection coordinates and/or videoid')
+    });
 
 
     navigate('/participant');
@@ -103,6 +113,6 @@ function Grid() {
         )}
     </div>
   );
-}
+};
 
 export default Grid;

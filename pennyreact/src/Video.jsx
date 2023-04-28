@@ -4,17 +4,27 @@
 //----------------------------------------------------------------------
 
 import React, { useState, useEffect } from 'react';
-import Cookies from 'js-cookie';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 
-const Video = () => {
+function Video()
+{
   const navigate = useNavigate();
 
   const [src, setSrc] = useState('');
   const [id, setId] = useState('');
 
+
   useEffect(() => {
+    getVideo();
+  }, []);
+
+  useEffect(() => {
+    let videoid = id;
+    insertVideoId(JSON.stringify({videoid}));
+  }, [id])
+
+  const getVideo = () => {
     axios.get('/participant/get_URL')
       .then(response => {
         setSrc(response.data.url);
@@ -23,9 +33,18 @@ const Video = () => {
       .catch(error => {
         console.error(error);
       });
-  }, []);
+  };
 
-  Cookies.set('video_id', id);
+  const insertVideoId = data => {
+    axios.post('/insert_videoid', { data: data })
+
+      .then(response => {
+        console.log('Submitted videoid successfully');
+      })
+      .catch(error => {
+        console.log('Error submitting videoid', error);
+      });
+  };
 
   const handleVideoEnd = () => {
     navigate('/participant/postsurvey');

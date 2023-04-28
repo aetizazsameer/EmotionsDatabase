@@ -13,6 +13,7 @@ import database
 import auth
 from video_selector import selector
 import response_avg
+import json
 
 # ----------------------------------------------------------------------
 
@@ -20,11 +21,12 @@ app = flask.Flask(__name__,
                   template_folder='.',
                   static_folder='../build',
                   static_url_path='/')
-# csrf = flask_wtf.csrf.CSRFProtect(app)
+# csrf = flask_wtf.csrf.CSRFProtect(app) # conflicts with participant
 # flask_talisman.Talisman(app)  # require HTTPS (use only in production)
 app.secret_key = os.environ['SECRET_KEY']
 
 # ----------------------------------------------------------------------
+
 
 @app.route('/login', methods=['GET'])
 def login():
@@ -54,6 +56,7 @@ def authorize(username):
 
 # ----------------------------------------------------------------------
 
+
 @app.route('/', methods=['GET'])
 @app.route('/index', methods=['GET'])
 @app.route('/participant', methods=['GET'])
@@ -62,6 +65,7 @@ def index():
     flask.session['path'] = flask.request.path
     response = app.send_static_file('index.html')
     return response
+
 
 @app.route('/admin', methods=['GET'])
 @app.route('/researcher', methods=['GET'])
@@ -75,6 +79,7 @@ def admin():
     return response
 
 # ----------------------------------------------------------------------
+
 
 @app.route('/participant/video', methods=['GET'])
 @app.route('/participant/postsurvey', methods=['GET'])
@@ -106,6 +111,52 @@ def participant_sequence():
     return index()
 
 # ----------------------------------------------------------------------
+
+
+@app.route('/insert_coord', methods=['POST'])
+def insert_coord_cookie():
+    data = json.loads(flask.request.json['data'])
+
+    flask.session['row'] = data['row']
+    flask.session['col'] = data['col']
+    return 'Saved selection coordinates'
+
+
+@app.route('/get_coord', methods=['GET'])
+def get_coord_cookie():
+    return flask.jsonify({
+        'row': flask.session.get('row'),
+        'col': flask.session.get('col')
+    })
+
+
+@app.route('/insert_videoid', methods=['POST'])
+def insert_videoid_cookie():
+    data = json.loads(flask.request.json['data'])
+
+    videoid = data.get('videoid')
+    if videoid is None:
+        return 'Error saving videoid'
+
+    flask.session['videoid'] = videoid
+    return 'Saved videoid'
+
+
+@app.route('/get_videoid', methods=['GET'])
+def get_videoid_cookie():
+    return flask.jsonify({
+        'videoid': flask.session.get('videoid'),
+    })
+
+
+@app.route('/remove_cookies', methods=['POST'])
+def remove_coord_cookie():
+    if flask.session.pop('row', None) and \
+            flask.session.pop('col', None) and \
+            flask.session.pop('videoid', None):
+        return 'Removed selection coordinates and videoid'
+    return 'Error removing selection coordinates and/or videoid'
+
 
 @app.route('/participant/get_URL', methods=['GET'])
 def get_URL():
@@ -160,10 +211,12 @@ def response_search():
 
     # return flask.jsonify(averages)
 
+
 @app.route('/api/responses/<int:video_id>', methods=['GET'])
 def response_search_individual(video_id):
     responses = database.get_responses_individual(video_id)
     return flask.jsonify(responses)
+
 
 @app.route('/api/insert_video', methods=['POST'])
 def insert_video_handler():
