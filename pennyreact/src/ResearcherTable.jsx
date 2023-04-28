@@ -52,8 +52,37 @@ const ResearcherTable = () => {
     video.title.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
+  const handleDownloadCSV = () => {
+    axios
+      .get("/api/downloadcsv", {
+        responseType: "arraybuffer", // Set responseType to 'arraybuffer' to handle binary data
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "text/csv",
+        },
+      })
+      .then((response) => {
+        // Create a temporary link to download the CSV file
+        const url = window.URL.createObjectURL(
+          new Blob([response.data], { type: "text/csv" })
+        );
+        const link = document.createElement("a");
+        link.href = url;
+        link.setAttribute("download", "data.csv");
+        document.body.appendChild(link);
+        link.click();
+
+        // Remove the temporary link
+        link.parentNode.removeChild(link);
+      })
+      .catch((error) => {
+        console.error("Error downloading CSV:", error);
+      });
+  };
+
   return (
     <div>
+      <button onClick={handleDownloadCSV}>Download CSV</button>
       <input
         type="text"
         placeholder="Search by title"
