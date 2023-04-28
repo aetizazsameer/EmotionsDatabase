@@ -18,6 +18,7 @@ GOOGLE_DISCOVERY_URL = ()
 GOOGLE_CLIENT_ID = os.environ['GOOGLE_CLIENT_ID']
 GOOGLE_CLIENT_SECRET = os.environ['GOOGLE_CLIENT_SECRET']
 
+os.environ['OAUTHLIB_INSECURE_TRANSPORT'] = '1'
 client = oauthlib.oauth2.WebApplicationClient(GOOGLE_CLIENT_ID)
 
 # ----------------------------------------------------------------------

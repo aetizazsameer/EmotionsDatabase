@@ -8,6 +8,7 @@
 import os
 import flask
 import flask_wtf.csrf
+import io
 # import flask_talisman
 import database
 import auth
@@ -70,12 +71,14 @@ def index():
 @app.route('/admin', methods=['GET'])
 @app.route('/researcher', methods=['GET'])
 def admin():
-    # username = auth.authentication()
-    # authorize(username)
+    username = auth.authentication()
+    authorize(username)
+    print(username, "is authorized")
 
     flask.session['path'] = flask.request.path
-    # response = app.send_static_file('index.html', username=username)
+    flask.session['username'] = username
     response = app.send_static_file('index.html')
+    # response = app.send_static_file('index.html')
     return response
 
 # ----------------------------------------------------------------------
@@ -271,4 +274,19 @@ def update_response_handler():
     html_code = flask.render_template('response_insert.html',
                                       success=success)
     response = flask.make_response(html_code)
+    return response
+
+@app.route('/api/downloadcsv', methods=['GET'])
+def download_csv():
+    df = database.get_dataframe()
+    csv_data = df.to_csv(index=False)
+
+    # Create a CSV file in memory
+    csv_file = io.StringIO(csv_data)
+
+    # Serve the CSV file as a response
+    response = flask.make_response(csv_file.getvalue())
+    response.headers['Content-Disposition'] = 'attachment; filename=data.csv'
+    response.headers['Content-Type'] = 'text/csv'
+
     return response

@@ -441,6 +441,35 @@ def update_sum(id, ai, vi, af, vf, ad, vd):
             connection.close()
             print("PostgreSQL connection is closed")
 
+def is_authorized(username):
+    return True
+    # try:
+    #     with psycopg2.connect(database=_DATABASE,
+    #                           host=_HOST_URL,
+    #                           user=_USERNAME,
+    #                           password=_PASSWORD,
+    #                           port=_PORT) as connection:
+    #         with connection.cursor() as cursor:
+    #             sql_update_query = "SELECT * FROM authorized_users WHERE username = %s"
+    #             cursor.execute(sql_update_query, (username,))
+    #             record = cursor.fetchone()
+
+    #             if record:
+    #                 return True
+    #             else:
+    #                 return False
+
+    # except (Exception, psycopg2.Error) as error:
+    #     print("Error in update operation", error)
+
+    # finally:
+    #     # closing database connection.
+    #     if connection:
+    #         cursor.close()
+    #         connection.close()
+    #         print("PostgreSQL connection is closed")
+
+
 # ----------------------------------------------------------------------
 # get_dataframe
 # Connects to database and gets dataframe
@@ -460,12 +489,12 @@ def get_dataframe():
                 query_str = "SELECT * FROM responses"
                 cursor.execute(query_str)
 
-            tupples = cursor.fetchall()
-            cursor.close()
+                tupples = cursor.fetchall()
 
-            df = pd.DataFrame(tupples)
+                columns = [desc[0] for desc in cursor.description]
+                df = pd.DataFrame(tupples, columns=columns)
 
-            return df
+                return df
 
     except (Exception, psycopg2.Error) as error:
         print("Failed to insert record into responses table", error)
@@ -475,22 +504,8 @@ def get_dataframe():
         if connection:
             cursor.close()
             connection.close()
-            print("PostgreSQL connection is closed")
-
-
-# ----------------------------------------------------------------------
-# download_csv
-# Connects to database and gets dataframe
-# Parameters:
-# Returns: the results of the query
-# ----------------------------------------------------------------------
-
-
-def download_csv():
-    df = get_dataframe()
-    df.head()
-    df.to_csv(index=False)
-
+            print("PostgreSQL connection closed")
+    return pd.DataFrame()  # Return an empty dataframe when an exception is raised
 
 # ----------------------------------------------------------------------
 
