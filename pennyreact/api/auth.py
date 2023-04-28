@@ -13,7 +13,7 @@ import oauthlib.oauth2
 
 # ----------------------------------------------------------------------
 
-GOOGLE_DISCOVERY_URL = ()
+GOOGLE_DISCOVERY_URL = ('https://accounts.google.com/.well-known/openid-configuration')
 
 GOOGLE_CLIENT_ID = os.environ['GOOGLE_CLIENT_ID']
 GOOGLE_CLIENT_SECRET = os.environ['GOOGLE_CLIENT_SECRET']
@@ -86,7 +86,7 @@ def callback():
     flask.session['family_name'] = userinfo_response.json()['family_name']
     flask.session['picture'] = userinfo_response.json()['picture']
     flask.session['email'] = userinfo_response.json()['email']
-    flask.session['verified'] = userinfo_response.json()['verified']
+    # flask.session['verified'] = userinfo_response.json()['verified']
     flask.session['locale'] = userinfo_response.json()['locale']
 
     return flask.redirect(flask.url_for('index'))

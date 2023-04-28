@@ -441,6 +441,7 @@ def update_sum(id, ai, vi, af, vf, ad, vd):
             connection.close()
             print("PostgreSQL connection is closed")
 
+
 def is_authorized(username):
     return True
     # try:
