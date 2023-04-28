@@ -19,9 +19,13 @@ function Video()
     getVideo();
   }, []);
 
+  let first = true;
   useEffect(() => {
-    let videoid = id;
-    insertVideoId(JSON.stringify({videoid}));
+    if (first == false) {
+      let videoid = id;
+      insertVideoId(JSON.stringify({videoid}));
+    }
+    first = false;
   }, [id])
 
   const getVideo = () => {
