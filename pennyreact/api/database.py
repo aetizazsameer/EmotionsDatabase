@@ -334,6 +334,53 @@ def update_response(sessionid, feedback):
 
 
 # ----------------------------------------------------------------------
+# update_sum
+# Accesses the database and returns the results of the query.
+# Parameters: id - the id corresponding to the video
+#             ai - initial arousal of newly added response
+#             vi - initial valence of newly added response
+#             af - final arousal of newly added response
+#             vf - final valence of newly added response
+#             ad - delta arousal of newly added response
+#             vd - delta valence of newly added response
+# Returns: the results of the query
+# ----------------------------------------------------------------------
+
+
+def update_sum(id, ai, vi, af, vf, ad, vd):
+    try:
+        with psycopg2.connect(database=_DATABASE,
+                              host=_HOST_URL,
+                              user=_USERNAME,
+                              password=_PASSWORD,
+                              port=_PORT) as connection:
+            with connection.cursor() as cursor:
+                # Update sum in row that matches id
+                sql_update_query = """
+                UPDATE videos
+                SET sum_arousal_initial = sum_arousal_initial + %s,
+                    sum_valence_initial = sum_valence_initial + %s,
+                    sum_arousal_final = sum_arousal_final + %s,
+                    sum_valence_final = sum_valence_final + %s,
+                    sum_arousal_delta = sum_arousal_delta + %s,
+                    sum_valence_delta = sum_valence_delta + %s
+                    num_responses = num_responses + 1
+                WHERE id = %s;
+                """
+                cursor.execute(sql_update_query, (ai, vi, af, vf, ad, vd, id))
+                connection.commit()
+
+    except (Exception, psycopg2.Error) as error:
+        print("Error in update operation", error)
+
+    finally:
+        # closing database connection.
+        if connection:
+            cursor.close()
+            connection.close()
+            print("PostgreSQL connection is closed")
+
+# ----------------------------------------------------------------------
 # get_dataframe
 # Connects to database and gets dataframe
 # Parameters:
