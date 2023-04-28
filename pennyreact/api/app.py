@@ -56,11 +56,16 @@ def authorize(username):
 
 @app.route('/', methods=['GET'])
 @app.route('/index', methods=['GET'])
-@app.route('/admin', methods=['GET'])
-@app.route('/researcher', methods=['GET'])
 @app.route('/participant', methods=['GET'])
 @app.route('/participant/presurvey', methods=['GET'])
 def index():
+    flask.session['path'] = flask.request.path
+    response = app.send_static_file('index.html')
+    return response
+
+@app.route('/admin', methods=['GET'])
+@app.route('/researcher', methods=['GET'])
+def admin():
     username = auth.authentication()
     authorize(username)
 
