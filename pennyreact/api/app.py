@@ -66,11 +66,12 @@ def index():
 @app.route('/admin', methods=['GET'])
 @app.route('/researcher', methods=['GET'])
 def admin():
-    username = auth.authentication()
-    authorize(username)
+    # username = auth.authentication()
+    # authorize(username)
 
     flask.session['path'] = flask.request.path
-    response = app.send_static_file('index.html', username=username)
+    # response = app.send_static_file('index.html', username=username)
+    response = app.send_static_file('index.html')
     return response
 
 # ----------------------------------------------------------------------
@@ -122,40 +123,42 @@ def video_search():
     return flask.jsonify(videos)
 
 
-@app.route('/api/responseavg', methods=['GET'])
+@app.route('/api/video_data', methods=['GET'])
 def response_search():
-
     responses = database.get_responses()
-    sorted_responses = sorted(responses, key=lambda v: v._videoid)
+    return flask.jsonify(responses)
 
-    # split responses into subarrays by video id
-    response_dict = {}
-    for response in sorted_responses:
-        videotitle = database.get_title(response._videoid)
-        key = response._videoid, videotitle
-        if key not in response_dict:
-            response_dict[key] = []
-        response_dict[key].append(response)
+    # responses = database.get_responses()
+    # sorted_responses = sorted(responses, key=lambda v: v._videoid)
 
-    # compute averages per subarray
-    averages = []
-    for (videoid, videotitle), subarray in response_dict.items():
-        n = len(subarray)
-        valence_initial = sum(v._valence_initial for v in subarray) / n
-        valence_final = sum(v._valence_final for v in subarray) / n
-        valence_delta = sum(v._valence_delta for v in subarray) / n
-        arousal_initial = sum(v._arousal_initial for v in subarray) / n
-        arousal_final = sum(v._arousal_final for v in subarray) / n
-        arousal_delta = sum(v._arousal_delta for v in subarray) / n
-        averages.append(response_avg.ResponseAvg(videoid, videotitle,
-                                                 valence_initial, valence_final,
-                                                 valence_delta, arousal_initial,
-                                                 arousal_final, arousal_delta))
+    # # split responses into subarrays by video id
+    # response_dict = {}
+    # for response in sorted_responses:
+    #     videotitle = database.get_title(response._videoid)
+    #     key = response._videoid, videotitle
+    #     if key not in response_dict:
+    #         response_dict[key] = []
+    #     response_dict[key].append(response)
 
-    for i in range(len(averages)):
-        averages[i] = averages[i].to_dict()
+    # # compute averages per subarray
+    # averages = []
+    # for (videoid, videotitle), subarray in response_dict.items():
+    #     n = len(subarray)
+    #     valence_initial = sum(v._valence_initial for v in subarray) / n
+    #     valence_final = sum(v._valence_final for v in subarray) / n
+    #     valence_delta = sum(v._valence_delta for v in subarray) / n
+    #     arousal_initial = sum(v._arousal_initial for v in subarray) / n
+    #     arousal_final = sum(v._arousal_final for v in subarray) / n
+    #     arousal_delta = sum(v._arousal_delta for v in subarray) / n
+    #     averages.append(response_avg.ResponseAvg(videoid, videotitle,
+    #                                              valence_initial, valence_final,
+    #                                              valence_delta, arousal_initial,
+    #                                              arousal_final, arousal_delta))
 
-    return flask.jsonify(averages)
+    # for i in range(len(averages)):
+    #     averages[i] = averages[i].to_dict()
+
+    # return flask.jsonify(averages)
 
 
 @app.route('/api/insert_video', methods=['POST'])

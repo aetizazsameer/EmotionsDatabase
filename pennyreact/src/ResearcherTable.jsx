@@ -3,95 +3,111 @@
 // Author: Tyler Vu, Aetizaz Sameer
 //----------------------------------------------------------------------
 
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import React, { useState, useEffect } from "react";
+import axios from "axios";
 
 const ResearcherTable = () => {
-  const [sortField, setSortField] = useState('id');
-  const [sortOrder, setSortOrder] = useState('asc');
-  const [id, setId] = useState('');
-  const [responseAvg, setResponseAvg] = useState([]);
+  const [videoData, setVideoData] = useState([]);
+  const [sortConfig, setSortConfig] = useState({ key: "id", direction: "ascending" });
 
   useEffect(() => {
-    axios.get('/api/responseavg')
-    .then(response => {
-      setResponseAvg(response.data);
-    })
-    .catch(error => {
-      console.error(error);
+    axios
+      .get("/api/video_data")
+      .then((response) => {
+        setVideoData(response.data);
+      })
+      .catch((error) => {
+        console.error("Error fetching video data:", error);
+      });
+  }, []);
+
+  const sortData = (key) => {
+    const direction = sortConfig.direction === "ascending" ? "descending" : "ascending";
+    setSortConfig({ key, direction });
+
+    setVideoData((prevData) => {
+      return [...prevData].sort((a, b) => {
+        if (a[key] < b[key]) {
+          return sortConfig.direction === "ascending" ? -1 : 1;
+        }
+        if (a[key] > b[key]) {
+          return sortConfig.direction === "ascending" ? 1 : -1;
+        }
+        return 0;
+      });
     });
-    }, [setResponseAvg]);
+  };
 
-  const sortedData = responseAvg.sort((a, b) => {
-    let aValue = a[sortField];
-    let bValue = b[sortField];
-    if (aValue < bValue) return sortOrder === 'asc' ? -1 : 1;
-    if (aValue > bValue) return sortOrder === 'asc' ? 1 : -1;
-
-    if (sortField !== 'videoid') {
-      aValue = a['videoid'];
-      bValue = b['videoid'];
-      if (aValue < bValue) return -1;
-      if (aValue > bValue) return 1;
+  const getColumnClassName = (key) => {
+    if (sortConfig.key === key) {
+      return `sort-${sortConfig.direction}`;
     }
-
-    return 0;
-  });
-
-  const filteredData = id
-    ? sortedData.filter(
-      item => String(item.id).toLowerCase().includes(id.toLowerCase())
-    )
-    : sortedData;
-
-  const handleSort = field => {
-    if (field === sortField) {
-      setSortOrder(sortOrder === 'asc' ? 'desc' : 'asc');
-    } else {
-      setSortField(field);
-      setSortOrder('asc');
-    }
+    return "";
   };
 
   return (
-    <div>
-      <input
-        type="text"
-        placeholder="Search"
-        value={id}
-        onChange={e => setId(e.target.value)}
-      />
-      <table className="table">
-        <thead>
-          <tr>
-            <th onClick={() => handleSort('videoid')}>Video ID</th>
-            <th onClick={() => handleSort('videotitle')}>Video Title</th>
-            <th onClick={() => handleSort('valence_initial')}>Valence (initial)</th>
-            <th onClick={() => handleSort('valence_final')}>Valence (final)</th>
-            <th onClick={() => handleSort('valence_delta')}>Valence (delta)</th>
-            <th onClick={() => handleSort('arousal_initial')}>Arousal (initial)</th>
-            <th onClick={() => handleSort('arousal_final')}>Arousal (final)</th>
-            <th onClick={() => handleSort('arousal_delta')}>Arousal (delta)</th>
-
-
+    <table>
+      <thead>
+        <tr>
+          <th className={getColumnClassName("id")} onClick={() => sortData("id")}>
+            ID
+          </th>
+          <th className={getColumnClassName("title")} onClick={() => sortData("title")}>
+            Title
+          </th>
+          <th
+            className={getColumnClassName("avg_valence_initial")}
+            onClick={() => sortData("avg_valence_initial")}
+          >
+            Avg Valence Initial
+          </th>
+          <th
+            className={getColumnClassName("avg_valence_final")}
+            onClick={() => sortData("avg_valence_final")}
+          >
+            Avg Valence Final
+          </th>
+          <th
+            className={getColumnClassName("avg_valence_delta")}
+            onClick={() => sortData("avg_valence_delta")}
+          >
+            Avg Valence Delta
+          </th>
+          <th
+            className={getColumnClassName("avg_arousal_initial")}
+            onClick={() => sortData("avg_arousal_initial")}
+          >
+            Avg Arousal Initial
+          </th>
+          <th
+            className={getColumnClassName("avg_arousal_final")}
+            onClick={() => sortData("avg_arousal_final")}
+          >
+            Avg Arousal Final
+          </th>
+          <th
+            className={getColumnClassName("avg_arousal_delta")}
+            onClick={() => sortData("avg_arousal_delta")}
+          >
+            Avg Arousal Delta
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        {videoData.map((video) => (
+          <tr key={video.id}>
+            <td>{video.id}</td>
+            <td>{video.title}</td>
+            <td>{video.avg_valence_initial.toFixed(2)}</td>
+            <td>{video.avg_valence_final.toFixed(2)}</td>
+            <td>{video.avg_valence_delta.toFixed(2)}</td>
+            <td>{video.avg_arousal_initial.toFixed(2)}</td>
+            <td>{video.avg_arousal_final.toFixed(2)}</td>
+            <td>{video.avg_arousal_delta.toFixed(2)}</td>
           </tr>
-        </thead>
-        <tbody>
-          {filteredData.map(item => (
-            <tr key={item.videoid}>
-              <td>{item.videoid}</td>
-              <td>{item.videotitle}</td>
-              <td>{item.valence_initial}</td>
-              <td>{item.valence_final}</td>
-              <td>{item.valence_delta}</td>
-              <td>{item.arousal_initial}</td>
-              <td>{item.arousal_final}</td>
-              <td>{item.arousal_delta}</td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
-    </div>
+        ))}
+      </tbody>
+    </table>
   );
 };
 

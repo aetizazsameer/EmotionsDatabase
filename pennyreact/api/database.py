@@ -211,29 +211,47 @@ def delete_video(id):
 
 
 def get_responses():
+    try:
+        with psycopg2.connect(host=_HOST_URL,
+                            database=_DATABASE,
+                            user=_USERNAME,
+                            password=_PASSWORD) as connection:
+            with connection.cursor() as cursor:
+                cursor.execute("SELECT id, title, sum_valence_initial, sum_arousal_initial, num_responses, sum_valence_final, sum_arousal_final, sum_valence_delta, sum_arousal_delta FROM videos;")
+                rows = cursor.fetchall()
 
-    responses = []
+                video_data = []
+                for row in rows:
+                    num_responses = row[4]
+                    avg_valence_initial = row[2] / num_responses if num_responses > 0 else 0
+                    avg_arousal_initial = row[3] / num_responses if num_responses > 0 else 0
+                    avg_valence_final = row[5] / num_responses if num_responses > 0 else 0
+                    avg_arousal_final = row[6] / num_responses if num_responses > 0 else 0
+                    avg_valence_delta = row[7] / num_responses if num_responses > 0 else 0
+                    avg_arousal_delta = row[8] / num_responses if num_responses > 0 else 0
 
-    with psycopg2.connect(host=_HOST_URL,
-                          database=_DATABASE,
-                          user=_USERNAME,
-                          password=_PASSWORD) as connection:
-        with connection.cursor() as cursor:
+                    video = {
+                        'id': row[0],
+                        'title': row[1],
+                        'avg_valence_initial': avg_valence_initial,
+                        'avg_arousal_initial': avg_arousal_initial,
+                        'avg_valence_final': avg_valence_final,
+                        'avg_arousal_final': avg_arousal_final,
+                        'avg_valence_delta': avg_valence_delta,
+                        'avg_arousal_delta': avg_arousal_delta,
+                    }
+                    video_data.append(video)
 
-            query_str = "SELECT * FROM responses"
-            query_str += " ORDER BY id"
-            cursor.execute(query_str)
-
-            table = cursor.fetchall()
-            for row in table:
-                response = responsemod.Response(row[0], row[1], row[2],
-                                                row[3], row[4], row[5],
-                                                row[6], row[7], row[8],
-                                                row[9])
-                responses.append(response)
-
-    return responses
-
+    except (Exception, psycopg2.Error) as error:
+        video_data = 'Failed to retrieve average table'
+        print(video_data, error)
+    finally:
+        # close database connection.
+        if connection:
+            cursor.close()
+            connection.close()
+            print("PostgreSQL connection is closed")
+            return video_data
 
 # ----------------------------------------------------------------------
 # insert_response
@@ -363,7 +381,7 @@ def update_sum(id, ai, vi, af, vf, ad, vd):
                     sum_arousal_final = sum_arousal_final + %s,
                     sum_valence_final = sum_valence_final + %s,
                     sum_arousal_delta = sum_arousal_delta + %s,
-                    sum_valence_delta = sum_valence_delta + %s
+                    sum_valence_delta = sum_valence_delta + %s,
                     num_responses = num_responses + 1
                 WHERE id = %s;
                 """
