@@ -160,6 +160,10 @@ def response_search():
 
     # return flask.jsonify(averages)
 
+@app.route('/api/responses/<int:video_id>', methods=['GET'])
+def response_search_individual(video_id):
+    responses = database.get_responses_individual(video_id)
+    return flask.jsonify(responses)
 
 @app.route('/api/insert_video', methods=['POST'])
 def insert_video_handler():

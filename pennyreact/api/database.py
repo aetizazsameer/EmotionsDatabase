@@ -204,9 +204,8 @@ def delete_video(id):
 
 # -----------------------------------------------------------------------
 # get_responses
-# Gets the responses that match the search terms.
-# Parameters: query - a search term
-# Returns: the videos that match the search term
+# Gets the table of average responses.
+# Returns: table of average responses
 # -----------------------------------------------------------------------
 
 
@@ -239,6 +238,50 @@ def get_responses():
                         'avg_arousal_final': avg_arousal_final,
                         'avg_valence_delta': avg_valence_delta,
                         'avg_arousal_delta': avg_arousal_delta,
+                    }
+                    video_data.append(video)
+
+    except (Exception, psycopg2.Error) as error:
+        video_data = 'Failed to retrieve average table'
+        print(video_data, error)
+    finally:
+        # close database connection.
+        if connection:
+            cursor.close()
+            connection.close()
+            print("PostgreSQL connection is closed")
+            return video_data
+
+# -----------------------------------------------------------------------
+# get_responses_individual
+# Gets the table of individual responses where id matches video_id.
+# Parameters: video_id - the video id
+# Returns: table of individual responses
+# -----------------------------------------------------------------------
+
+
+def get_responses_individual(video_id):
+    try:
+        with psycopg2.connect(host=_HOST_URL,
+                            database=_DATABASE,
+                            user=_USERNAME,
+                            password=_PASSWORD) as connection:
+            with connection.cursor() as cursor:
+                cursor.execute("SELECT id, sessionid, valence_initial, valence_final, valence_delta, arousal_initial, arousal_final, arousal_delta, responsetimestamp FROM responses WHERE videoid = %s;", (video_id,))
+                rows = cursor.fetchall()
+
+                video_data = []
+                for row in rows:
+                    video = {
+                        'id': row[0],
+                        'sessionid': row[1],
+                        'valence_initial': row[2],
+                        'valence_final': row[3],
+                        'valence_delta': row[4],
+                        'arousal_initial': row[5],
+                        'arousal_final': row[6],
+                        'arousal_delta': row[7],
+                        'responsetimestamp': row[8],
                     }
                     video_data.append(video)
 

@@ -5,6 +5,7 @@
 
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import { Link } from "react-router-dom";
 
 const ResearcherTable = () => {
   const [videoData, setVideoData] = useState([]);
@@ -96,7 +97,9 @@ const ResearcherTable = () => {
       <tbody>
         {videoData.map((video) => (
           <tr key={video.id}>
-            <td>{video.id}</td>
+            <td>
+              <Link to={`/researcher/${video.id}`}>{video.id}</Link>
+            </td>
             <td>{video.title}</td>
             <td>{video.avg_valence_initial.toFixed(2)}</td>
             <td>{video.avg_valence_final.toFixed(2)}</td>
