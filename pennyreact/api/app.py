@@ -20,7 +20,7 @@ app = flask.Flask(__name__,
                   template_folder='.',
                   static_folder='../build',
                   static_url_path='/')
-csrf = flask_wtf.csrf.CSRFProtect(app)
+# csrf = flask_wtf.csrf.CSRFProtect(app)
 # flask_talisman.Talisman(app)  # require HTTPS (use only in production)
 app.secret_key = os.environ['SECRET_KEY']
 
