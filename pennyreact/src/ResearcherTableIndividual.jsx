@@ -6,6 +6,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { Link, useParams } from "react-router-dom";
+import './Table.css';
 
 const ResearcherTableIndividual = () => {
     const [videoData, setVideoData] = useState([]);
@@ -53,66 +54,70 @@ const ResearcherTableIndividual = () => {
     );
 
     return (
-        <div>
-            <input
-                type="text"
-                placeholder="Search by ID"
-                value={searchTerm}
-                onChange={(event) => setSearchTerm(event.target.value)}
-            />
-            <table>
-            <thead>
-                <tr>
-                <th className={getColumnClassName("id")} onClick={() => sortData("id")}>
-                    ID
-                </th>
-                <th className={getColumnClassName("sessionid")} onClick={() => sortData("sessionid")}>
-                    Session ID
-                </th>
-                <th
-                    className={getColumnClassName("valence_initial")}
-                    onClick={() => sortData("valence_initial")}
-                >
-                    Valence Initial
-                </th>
-                <th
-                    className={getColumnClassName("valence_final")}
-                    onClick={() => sortData("valence_final")}
-                >
-                    Valence Final
-                </th>
-                <th
-                    className={getColumnClassName("valence_delta")}
-                    onClick={() => sortData("valence_delta")}
-                >
-                    Valence Delta
-                </th>
-                <th
-                    className={getColumnClassName("arousal_initial")}
-                    onClick={() => sortData("arousal_initial")}
-                >
-                    Arousal Initial
-                </th>
-                <th
-                    className={getColumnClassName("arousal_final")}
-                    onClick={() => sortData("arousal_final")}
-                >
-                    Arousal Final
-                </th>
-                <th
-                    className={getColumnClassName("arousal_delta")}
-                    onClick={() => sortData("arousal_delta")}
-                >
-                    Arousal Delta
-                </th>
-                <th
-                    className={getColumnClassName("responsetimestamp")}
-                    onClick={() => sortData("responsetimestamp")}
-                >
-                    Timestamp
-                </th>
-                </tr>
-            </thead>
+        <div className="table-container">
+            <div className="actions-container">
+                <input
+                    className="search-input"
+                    type="text"
+                    placeholder="Search by ID"
+                    value={searchTerm}
+                    onChange={(event) => setSearchTerm(event.target.value)}
+                />
+                <Link to="/researcher" className="go-back-button">Go Back</Link>
+            </div>
+            <table class="content-table">
+                <thead>
+                    <tr className="labels">
+                    <th className={getColumnClassName("id")} onClick={() => sortData("id")}>
+                        ID
+                    </th>
+                    <th className={getColumnClassName("sessionid")} onClick={() => sortData("sessionid")}>
+                        Session ID
+                    </th>
+                    <th
+                        className={getColumnClassName("valence_initial")}
+                        onClick={() => sortData("valence_initial")}
+                    >
+                        Valence Initial
+                    </th>
+                    <th
+                        className={getColumnClassName("valence_final")}
+                        onClick={() => sortData("valence_final")}
+                    >
+                        Valence Final
+                    </th>
+                    <th
+                        className={getColumnClassName("valence_delta")}
+                        onClick={() => sortData("valence_delta")}
+                    >
+                        Valence Delta
+                    </th>
+                    <th
+                        className={getColumnClassName("arousal_initial")}
+                        onClick={() => sortData("arousal_initial")}
+                    >
+                        Arousal Initial
+                    </th>
+                    <th
+                        className={getColumnClassName("arousal_final")}
+                        onClick={() => sortData("arousal_final")}
+                    >
+                        Arousal Final
+                    </th>
+                    <th
+                        className={getColumnClassName("arousal_delta")}
+                        onClick={() => sortData("arousal_delta")}
+                    >
+                        Arousal Delta
+                    </th>
+                    <th
+                        className={getColumnClassName("responsetimestamp")}
+                        onClick={() => sortData("responsetimestamp")}
+                    >
+                        Timestamp
+                    </th>
+                    </tr>
+                </thead>
             <tbody>
                 {filteredVideoData.map((video) => (
                 <tr key={video.id}>

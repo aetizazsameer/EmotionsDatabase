@@ -4,16 +4,14 @@
 //----------------------------------------------------------------------
 
 import React from 'react';
-import PennyHeader from './PennyHeader';
-import PennyFooter from './PennyFooter';
+import Navbar from './Navbar';
 import ResearcherTable from './ResearcherTable';
 
 function Researcher() {
     return (
         <div>
-            <PennyHeader />
+            <Navbar />
             <ResearcherTable />
-            <PennyFooter />
         </div>
     )
 }

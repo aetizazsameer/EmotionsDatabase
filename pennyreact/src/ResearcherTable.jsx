@@ -6,6 +6,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
+import './Table.css';
 
 const ResearcherTable = () => {
   const [videoData, setVideoData] = useState([]);
@@ -81,17 +82,25 @@ const ResearcherTable = () => {
   };
 
   return (
-    <div>
-      <button onClick={handleDownloadCSV}>Download CSV</button>
-      <input
-        type="text"
-        placeholder="Search by title"
-        value={searchTerm}
-        onChange={(event) => setSearchTerm(event.target.value)}
-      />
-      <table>
+    <div className="table-container">
+      <div className="actions-container">
+        <input
+          className="search-input"
+          type="text"
+          placeholder="Search by title"
+          value={searchTerm}
+          onChange={(event) => setSearchTerm(event.target.value)}
+        />
+        <button
+          className="export-csv-button"
+          onClick={handleDownloadCSV}
+        >
+          Download CSV
+        </button>
+      </div>
+      <table class="content-table">
         <thead>
-          <tr>
+          <tr className="labels">
             <th className={getColumnClassName("id")} onClick={() => sortData("id")}>
               ID
             </th>

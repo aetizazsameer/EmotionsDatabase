@@ -1,0 +1,118 @@
+.table-container {
+    padding: 0 5%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  @media (min-width: 768px) {
+    .table-container {
+      padding: 0 10%;
+    }
+  }
+
+  @media (min-width: 1200px) {
+    .table-container {
+      padding: 0 15%;
+    }
+  }
+
+  .actions-container {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    padding: 12px 15px;
+  }
+
+  .content-table {
+    border-collapse: collapse;
+    margin: 0 auto;
+    font-size: 0.9em;
+    width: 100%;
+    max-width: 1600px;
+    border-radius: 5px 5px 0 0;
+    overflow: hidden;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+  }
+
+.labels {
+    background-color:gray;
+    color:white;
+    text-align: left;
+    font-weight: bold;
+}
+
+.content-table th,
+.content-table td {
+    padding: 12px 15px;
+}
+
+.content-table tbody tr {
+    border-bottom: 1px solid #dddddd;
+}
+
+.content-table tbody tr:nth-of-type(even) {
+    background-color: #f3f3f3;
+}
+
+.content-table tbody tr:last-of-type {
+    border-bottom: 2px solid gray;
+}
+
+.export-csv-button {
+    background-color: #007BFF;
+    color: white;
+    font-size: 0.9em;
+    padding: 8px 12px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-block;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+    outline: none;
+}
+
+.export-csv-button:hover {
+    background-color: #0056b3;
+}
+
+.export-csv-button:active {
+    transform: scale(0.98);
+}
+
+.search-input {
+    font-size: 0.9em;
+    padding: 8px 12px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    outline: none;
+    transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+.search-input:focus {
+    border-color: #007BFF;
+    box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.25);
+}
+
+.go-back-button {
+    background-color: #28a745; /* Green background color */
+    color: white;
+    font-size: 0.9em;
+    padding: 8px 12px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-block;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+    outline: none;
+}
+
+.go-back-button:hover {
+    background-color: #218838; /* Darker green on hover */
+}
+
+.go-back-button:active {
+transform: scale(0.98);
+}

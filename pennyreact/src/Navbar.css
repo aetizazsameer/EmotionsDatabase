@@ -35,7 +35,9 @@ li:last-child {
   margin-right: 0;
 }
 
-a {
-  /* color: white; */
-  text-decoration: none;
+li a {
+  color: white; /* Set the text color to white */
+  text-decoration: none; /* Remove the underline */
+  display: inline-block;
+  padding: 8px 16px;
 }
