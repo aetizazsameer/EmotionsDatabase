@@ -42,12 +42,12 @@ class Video:
             'title': self._title,
             'url': self._url,
             'uploadtimestamp': self._uploadtimestamp,
-            'sum_arousal_initial': self._sums.sum_arousal_initial,
-            'sum_arousal_final': self._sums.sum_arousal_final,
-            'sum_arousal_delta': self._sums.sum_arousal_delta,
-            'sum_valence_initial': self._sums.sum_valence_initial,
-            'sum_valence_final': self._sums.sum_valence_final,
-            'sum_valence_delta': self._sums.sum_valence_delta
+            'sum_arousal_initial': self._sums['sum_arousal_initial'],
+            'sum_arousal_final': self._sums['sum_arousal_final'],
+            'sum_arousal_delta': self._sums['sum_arousal_delta'],
+            'sum_valence_initial': self._sums['sum_valence_initial'],
+            'sum_valence_final': self._sums['sum_valence_final'],
+            'sum_valence_delta': self._sums['sum_valence_delta']
         }
 
 #-----------------------------------------------------------------------

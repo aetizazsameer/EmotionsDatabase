@@ -7,7 +7,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
 const AdminTable = () => {
-  const [sortField, setSortField] = useState('id');
+  const [sortField, setSortField] = useState('title');
   const [sortOrder, setSortOrder] = useState('asc');
   const [searchTerm, setSearchTerm] = useState('');
   const [videos, setVideos] = useState([]);
@@ -15,7 +15,7 @@ const AdminTable = () => {
   useEffect(() => {
       axios.get('/api/videosearch?query='+searchTerm)
       .then(response => {
-          setVideos(response.data);
+        setVideos(response.data);
       })
       .catch(error => {
         console.error(error);
@@ -37,8 +37,7 @@ const AdminTable = () => {
   const filteredData = searchTerm
     ? sortedData.filter(
       item => {
-        return filter(item.id) || filter(item.title) ||
-          filter(item.url) || filter(item.uploadtimestamp);
+        return filter(item.title) || filter(item.url) || filter(item.uploadtimestamp);
       })
     : sortedData;
 
@@ -62,7 +61,6 @@ const AdminTable = () => {
       <table className="table">
         <thead>
           <tr>
-            <th onClick={() => handleSort('id')}>Video ID</th>
             <th onClick={() => handleSort('title')}>Title</th>
             <th onClick={() => handleSort('url')}>URL</th>
             <th onClick={() => handleSort('uploadtimestamp')}>Timestamp</th>
@@ -70,10 +68,9 @@ const AdminTable = () => {
         </thead>
         <tbody>
           {filteredData.map(item => (
-            <tr key={item.id}>
-              <td>{item.id}</td>
+            <tr key={item.title}>
               <td>{item.title}</td>
-              <td><a href={item.url}>{item.url}</a></td>
+              <td><a href={item.url}>Link</a></td>
               <td>{item.uploadtimestamp}</td>
             </tr>
           ))}
