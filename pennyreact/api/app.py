@@ -14,6 +14,7 @@ import database
 import auth
 from video_selector import selector
 import json
+from datetime import datetime
 
 # ----------------------------------------------------------------------
 
@@ -250,7 +251,8 @@ def download_csv():
 
     # Serve the CSV file as a response
     response = flask.make_response(csv_file.getvalue())
-    response.headers['Content-Disposition'] = 'attachment; filename=data.csv'
+    timestamp = datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
+    response.headers['Content-Disposition'] = f'attachment; filename=emotionsnet_{timestamp}.csv'
     response.headers['Content-Type'] = 'text/csv'
 
     return response
