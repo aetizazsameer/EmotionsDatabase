@@ -4,7 +4,7 @@
 //----------------------------------------------------------------------
 
 import React from 'react';
-import Navbar from './Navbar';
+import Navbar from './Navbar_Research';
 import ResearcherTable from './ResearcherTableIndividual';
 
 function Researcher_Invididual() {

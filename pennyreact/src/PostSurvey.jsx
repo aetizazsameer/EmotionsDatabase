@@ -21,7 +21,7 @@ function PostSurvey() {
                     </p>
                     <p>
                     Arousal is defined as a state of alertness and activation in your body that is linked to an emotion.
-                    The top represents emotions that are high arousal and the bottom represents emotions that are low arousal:
+                    The top represents emotions that are high arousal and the bottom represents emotions that are low arousal.
                     </p>
                 </div>
                 <div className="grid">

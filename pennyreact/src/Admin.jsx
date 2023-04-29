@@ -4,19 +4,15 @@
 //----------------------------------------------------------------------
 
 import React from 'react';
-import PennyHeader from './PennyHeader.jsx';
-import PennyFooter from './PennyFooter.jsx';
+import Navbar from './Navbar_Admin';
 import AdminTable from './AdminTable.jsx';
 import Form from './Form.jsx';
 
 function Admin() {
     return (
         <div>
-            <PennyHeader />
-            <AdminTable />
-            <hr />
+            <Navbar />
             <Form />
-            <PennyFooter />
         </div>
     );
 }
