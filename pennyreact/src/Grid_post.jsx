@@ -10,7 +10,7 @@ function Grid() {
   const [valenceFinal, setValenceFinal] = useState(null);
   const [arousalInitial, setArousalInitial] = useState(null);
   const [valenceInitial, setValenceInitial] = useState(null);
-  const [videoId, setVideoId] = useState(null)
+  const [videoId, setVideoId] = useState(null);
   const [gridData, setGridData] = useState(Array(50).fill(Array(50).fill(false)));
   const [showSubmitButton, setShowSubmitButton] = useState(false);
 
@@ -31,13 +31,40 @@ function Grid() {
 
     axios.get('/get_videoid')
       .then((response) => {
-          const { videoid } = response.data;
-          setVideoId(videoid)
-        })
-        .catch((error) => {
-          console.log(error);
-        });
-  }
+        const { videoid } = response.data;
+        setVideoId(videoid)
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
+  const removeCookies = () => {
+    axios.post('/remove_cookies')
+    .then(response => {
+        console.log('Removed selection coordinates and videoid')
+    })
+    .catch(error => {
+        console.log('Error removing selection coordinates and/or videoid')
+    });
+  };
+
+  const insertResponse = async (valenceDelta, arousalDelta) => {
+    try {
+      const response = await axios.post('/api/insert_response', {
+        video_id: videoId,
+        valence_initial: valenceInitial,
+        valence_final: valenceFinal,
+        valence_delta: valenceDelta,
+        arousal_initial: arousalInitial,
+        arousal_final: arousalFinal,
+        arousal_delta: arousalDelta
+      });
+      console.log(response.data);
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
   const handleClick = (row, col) => {
     console.log(`Clicked on row ${row} and column ${col}`);
@@ -53,32 +80,9 @@ function Grid() {
     console.log(`Arousal delta: ${arousalDelta}`);
     console.log(`Valence delta: ${valenceDelta}`);
 
-    try {
-      const response = await axios.post('/api/insert_response', {
-        sessionid: 1234,
-        video_id: videoId,
-        valence_initial: valenceInitial,
-        valence_final: valenceFinal,
-        valence_delta: valenceDelta,
-        arousal_initial: arousalInitial,
-        arousal_final: arousalFinal,
-        arousal_delta: arousalDelta
-      });
-      console.log(response.data);
-    } catch (error) {
-      console.error(error);
-    }
-
-    axios.post('/remove_cookies')
-    .then(response => {
-        console.log('Removed selection coordinates and videoid')
-    })
-    .catch(error => {
-        console.log('Error removing selection coordinates and/or videoid')
-    });
-
-
-    navigate('/participant');
+    insertResponse(valenceDelta, arousalDelta)
+      .then(() => removeCookies())
+      .then(() => navigate('/participant'));
   };
 
   return (

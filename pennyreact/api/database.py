@@ -5,12 +5,13 @@
 # query: Andrew Hwang, Aetizaz Sameer
 # -----------------------------------------------------------------------
 
+import flask
 import requests
 import re
 import psycopg2
 import pandas as pd
 import video as videomod
-import response as responsemod
+import os
 from datetime import datetime
 
 # ----------------------------------------------------------------------
@@ -20,6 +21,7 @@ _DATABASE = 'emotionsdatabase'
 _USERNAME = 'emotionsdatabase_user'
 _PASSWORD = 'muO6WwujmxvrVuxwhYRcK1jOrQslGrTm'
 _PORT = '5432'
+_ADMIN_USER = os.environ['ADMIN_USERNAME']
 
 
 # ----------------------------------------------------------------------
@@ -310,7 +312,7 @@ def get_responses_individual(video_id):
 # ----------------------------------------------------------------------
 
 
-def insert_response(sessionid, video_id, vi, vf, vd, ai, af, ad):
+def insert_response(video_id, vi, vf, vd, ai, af, ad):
     status = None
     try:
         with psycopg2.connect(database=_DATABASE,
@@ -326,6 +328,13 @@ def insert_response(sessionid, video_id, vi, vf, vd, ai, af, ad):
                                             arousal_final, arousal_delta,
                                             responsetimestamp) VALUES
                                             (%s, %s, %s, %s, %s, %s, %s, %s, %s)"""
+
+                sessionid = flask.session.get('sessionid')
+                # nonexisting session
+                if sessionid is None:
+                    sessionid = sessionid()
+                    flask.session['sessionid'] = sessionid
+
                 record_to_insert = (sessionid, video_id, vi, vf, vd,
                                     ai, af, ad, timestamp())
                 cursor.execute(postgres_insert_query, record_to_insert)
@@ -441,34 +450,49 @@ def update_sum(id, ai, vi, af, vf, ad, vd):
             connection.close()
             print("PostgreSQL connection is closed")
 
+# ----------------------------------------------------------------------
+# generate_sessionid
+# Create new sessionid for the current user
+# Parameters:
+# Returns: new sessionid
+# ----------------------------------------------------------------------
 
-def is_authorized(username):
-    return True
-    # try:
-    #     with psycopg2.connect(database=_DATABASE,
-    #                           host=_HOST_URL,
-    #                           user=_USERNAME,
-    #                           password=_PASSWORD,
-    #                           port=_PORT) as connection:
-    #         with connection.cursor() as cursor:
-    #             sql_update_query = "SELECT * FROM authorized_users WHERE username = %s"
-    #             cursor.execute(sql_update_query, (username,))
-    #             record = cursor.fetchone()
 
-    #             if record:
-    #                 return True
-    #             else:
-    #                 return False
+def sessionid():
+    sessionid = None
+    try:
+        with psycopg2.connect(database=_DATABASE,
+                              host=_HOST_URL,
+                              user=_USERNAME,
+                              password=_PASSWORD,
+                              port=_PORT) as connection:
+            with connection.cursor() as cursor:
+                # Update sum in row that matches id
+                sql_insert_query = "INSERT INTO sessions DEFAULT VALUES"
+                cursor.execute(sql_insert_query)
+                sessionid = cursor.lastrowid
+                connection.commit()
 
-    # except (Exception, psycopg2.Error) as error:
-    #     print("Error in update operation", error)
+    except (Exception, psycopg2.Error) as error:
+        print("Error in insert operation", error)
 
-    # finally:
-    #     # closing database connection.
-    #     if connection:
-    #         cursor.close()
-    #         connection.close()
-    #         print("PostgreSQL connection is closed")
+    finally:
+        # closing database connection.
+        if connection:
+            cursor.close()
+            connection.close()
+            print("PostgreSQL connection is closed")
+        return sessionid
+
+
+def is_authorized(username, path):
+    # all users are authorized to view researcher page
+    if path == '/researcher':
+        return True
+    # only admin is authorized to view admin page
+    if path == '/admin' and username == _ADMIN_USER:
+        return True
+    return False
 
 
 # ----------------------------------------------------------------------

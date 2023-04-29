@@ -7,13 +7,12 @@
 
 import os
 import flask
-import flask_wtf.csrf
 import io
+# import flask_wtf.csrf
 # import flask_talisman
 import database
 import auth
 from video_selector import selector
-import response_avg
 import json
 
 # ----------------------------------------------------------------------
@@ -49,8 +48,8 @@ def logoutgoogle():
     return auth.logoutgoogle()
 
 
-def authorize(username):
-    if not database.is_authorized(username):
+def authorize(username, path):
+    if not database.is_authorized(username, path):
         html_code = 'You are not authorized to use this application.'
         response = flask.make_response(html_code)
         flask.abort(response)
@@ -71,14 +70,14 @@ def index():
 @app.route('/admin', methods=['GET'])
 @app.route('/researcher', methods=['GET'])
 def admin():
-    username = auth.authentication()
-    authorize(username)
-    print(username, "is authorized")
+    path = flask.request.path
 
-    flask.session['path'] = flask.request.path
+    username = auth.authentication()
+    authorize(username, path)
+
+    flask.session['path'] = path
     flask.session['username'] = username
     response = app.send_static_file('index.html')
-    # response = app.send_static_file('index.html')
     return response
 
 # ----------------------------------------------------------------------
@@ -106,9 +105,14 @@ def participant_sequence():
     if path == video and stored_path != presurvey:
         return flask.redirect(presurvey)
 
-    # postsurvey without having completed video
-    elif path == postsurvey and stored_path != video:
-        return flask.redirect(presurvey)
+    elif path == postsurvey:
+        # postsurvey without having completed video
+        if stored_path != video:
+            return flask.redirect(presurvey)
+        # postsurvey with modified session cookie
+        if not (flask.session.get('videoid') and \
+                flask.session.get('row') and flask.session.get('col')):
+            return flask.redirect(presurvey)
 
     flask.session['path'] = path
     return index()
@@ -133,18 +137,6 @@ def get_coord_cookie():
     })
 
 
-@app.route('/insert_videoid', methods=['POST'])
-def insert_videoid_cookie():
-    data = json.loads(flask.request.json['data'])
-
-    videoid = data.get('videoid')
-    if videoid is None:
-        return 'Error saving videoid'
-
-    flask.session['videoid'] = videoid
-    return 'Saved videoid'
-
-
 @app.route('/get_videoid', methods=['GET'])
 def get_videoid_cookie():
     return flask.jsonify({
@@ -161,9 +153,13 @@ def remove_coord_cookie():
     return 'Error removing selection coordinates and/or videoid'
 
 
+# ----------------------------------------------------------------------
+
+
 @app.route('/participant/get_URL', methods=['GET'])
 def get_URL():
     url, id = selector()
+    flask.session['videoid'] = id
     return flask.jsonify({'url': url, 'id': id})
 
 
@@ -181,38 +177,6 @@ def video_search():
 def response_search():
     responses = database.get_responses()
     return flask.jsonify(responses)
-
-    # responses = database.get_responses()
-    # sorted_responses = sorted(responses, key=lambda v: v._videoid)
-
-    # # split responses into subarrays by video id
-    # response_dict = {}
-    # for response in sorted_responses:
-    #     videotitle = database.get_title(response._videoid)
-    #     key = response._videoid, videotitle
-    #     if key not in response_dict:
-    #         response_dict[key] = []
-    #     response_dict[key].append(response)
-
-    # # compute averages per subarray
-    # averages = []
-    # for (videoid, videotitle), subarray in response_dict.items():
-    #     n = len(subarray)
-    #     valence_initial = sum(v._valence_initial for v in subarray) / n
-    #     valence_final = sum(v._valence_final for v in subarray) / n
-    #     valence_delta = sum(v._valence_delta for v in subarray) / n
-    #     arousal_initial = sum(v._arousal_initial for v in subarray) / n
-    #     arousal_final = sum(v._arousal_final for v in subarray) / n
-    #     arousal_delta = sum(v._arousal_delta for v in subarray) / n
-    #     averages.append(response_avg.ResponseAvg(videoid, videotitle,
-    #                                              valence_initial, valence_final,
-    #                                              valence_delta, arousal_initial,
-    #                                              arousal_final, arousal_delta))
-
-    # for i in range(len(averages)):
-    #     averages[i] = averages[i].to_dict()
-
-    # return flask.jsonify(averages)
 
 
 @app.route('/api/responses/<int:video_id>', methods=['GET'])
@@ -240,7 +204,6 @@ def insert_video_handler():
 def insert_response_handler():
     # Handle the insertion of response into your database here
     data = flask.request.get_json()
-    sessionid = data.get('sessionid')
     videoid = data.get('video_id')
     vi = data.get('valence_initial')
     vf = data.get('valence_final')
@@ -250,7 +213,7 @@ def insert_response_handler():
     ad = data.get('arousal_delta')
 
     success = database.insert_response(
-        sessionid, videoid, vi, vf, vd, ai, af, ad)
+        videoid, vi, vf, vd, ai, af, ad)
     database.update_sum(videoid, ai, vi, af, vf, ad, vd)
 
     # not displayed
@@ -275,6 +238,7 @@ def update_response_handler():
                                       success=success)
     response = flask.make_response(html_code)
     return response
+
 
 @app.route('/api/downloadcsv', methods=['GET'])
 def download_csv():

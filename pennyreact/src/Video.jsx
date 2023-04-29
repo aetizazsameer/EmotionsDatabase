@@ -19,15 +19,6 @@ function Video()
     getVideo();
   }, []);
 
-  let first = true;
-  useEffect(() => {
-    if (first == false) {
-      let videoid = id;
-      insertVideoId(JSON.stringify({videoid}));
-    }
-    first = false;
-  }, [id])
-
   const getVideo = () => {
     axios.get('/participant/get_URL')
       .then(response => {
@@ -36,17 +27,6 @@ function Video()
       })
       .catch(error => {
         console.error(error);
-      });
-  };
-
-  const insertVideoId = data => {
-    axios.post('/insert_videoid', { data: data })
-
-      .then(response => {
-        console.log('Submitted videoid successfully');
-      })
-      .catch(error => {
-        console.log('Error submitting videoid', error);
       });
   };
 
