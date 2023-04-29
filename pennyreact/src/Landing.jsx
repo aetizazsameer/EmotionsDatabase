@@ -6,11 +6,10 @@
 import React from 'react';
 import PennyHeader from './PennyHeader';
 import PennyFooter from './PennyFooter';
-import './Landing.css';
 
 function Landing() {
     return (
-        <div className="landing-container">
+        <div>
             <PennyHeader />
             <a href="/admin">Admin login</a>
             <br />
@@ -19,7 +18,7 @@ function Landing() {
             <a href="/participant">Participant login</a>
             <br />
             <PennyFooter />
-        </div>
+        </div >
     );
 }
 
