@@ -51,7 +51,7 @@ def logoutgoogle():
 
 def authorize(username, path):
     if not database.is_authorized(username, path):
-        html_code = 'You are not authorized to use this application.'
+        html_code = f'You are not authorized to use this application, {username}'
         response = flask.make_response(html_code)
         flask.abort(response)
 
