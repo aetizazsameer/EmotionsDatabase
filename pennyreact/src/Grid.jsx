@@ -10,13 +10,11 @@ function Grid() {
   const [selectedRow, setRow] = useState(null);
   const [selectedCol, setCol] = useState(null);
   const [gridData, setGridData] = useState(Array(50).fill(Array(50).fill(false)));
-  const [showSubmitButton, setShowSubmitButton] = useState(false);
 
   const handleClick = (row, col) => {
     console.log(`Clicked on row ${row} and column ${col}`);
     setRow(row);
     setCol(col);
-    setShowSubmitButton(true);
   };
 
   const insertCookie = data => {
@@ -60,11 +58,15 @@ function Grid() {
           <div className="grid-line--vertical" />
         </div>
       </div>
-      {showSubmitButton && (
-          <div className="submit-button-container">
-            <button className="submit-button" onClick={()=> handleSubmitButton(selectedRow, selectedCol)}>Submit</button>
-          </div>
-        )}
+      <div className="submit-button-container">
+        <button
+          className={`submit-button${selectedRow !== null && selectedCol !== null ? '' : ' submit-button--disabled'}`}
+          onClick={() => handleSubmitButton(selectedRow, selectedCol)}
+          disabled={selectedRow === null || selectedCol === null}
+        >
+          Submit
+        </button>
+      </div>
     </div>
   );
 }

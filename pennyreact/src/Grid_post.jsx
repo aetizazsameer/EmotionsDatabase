@@ -12,7 +12,6 @@ function Grid() {
   const [valenceInitial, setValenceInitial] = useState(null);
   const [videoId, setVideoId] = useState(null);
   const [gridData, setGridData] = useState(Array(50).fill(Array(50).fill(false)));
-  const [showSubmitButton, setShowSubmitButton] = useState(false);
 
   useEffect(() => {
     getCookieData();
@@ -70,7 +69,6 @@ function Grid() {
     console.log(`Clicked on row ${row} and column ${col}`);
     setArousalFinal(row);
     setValenceFinal(col);
-    setShowSubmitButton(true);
   };
 
   const handleSubmitButton = async () => {
@@ -110,13 +108,17 @@ function Grid() {
           <div className="grid-line--vertical" />
         </div>
       </div>
-      {showSubmitButton && (
-          <div className="submit-button-container">
-            <button className="submit-button" onClick={()=> handleSubmitButton()}>Submit</button>
-          </div>
-        )}
+      <div className="submit-button-container">
+        <button
+          className={`submit-button${arousalFinal !== null && valenceFinal !== null ? '' : ' submit-button--disabled'}`}
+          onClick={handleSubmitButton}
+          disabled={arousalFinal === null || valenceFinal === null}
+        >
+          Submit
+        </button>
+      </div>
     </div>
   );
-};
+}
 
 export default Grid;
