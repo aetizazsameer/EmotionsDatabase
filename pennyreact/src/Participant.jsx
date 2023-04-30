@@ -8,7 +8,6 @@ import { Link } from 'react-router-dom';
 import './Participant.css';
 import Navbar from './Navbar';
 import Logo from './ParticipantLogo';
-import
 
 function Participant() {
     return (
