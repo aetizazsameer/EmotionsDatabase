@@ -12,6 +12,7 @@ function Grid() {
   const [valenceInitial, setValenceInitial] = useState(null);
   const [videoId, setVideoId] = useState(null);
   const [gridData, setGridData] = useState(Array(50).fill(Array(50).fill(false)));
+  const [showModal, setShowModal] = useState(false);
 
   useEffect(() => {
     getCookieData();
@@ -79,9 +80,17 @@ function Grid() {
     console.log(`Valence delta: ${valenceDelta}`);
 
     insertResponse(valenceDelta, arousalDelta)
-      .then(() => removeCookies())
-      .then(() => navigate('/participant'));
+    .then(() => removeCookies())
+    .then(() => {
+      setShowModal(true);
+    });
   };
+
+  const handleModalButtonClick = () => {
+    setShowModal(false);
+    navigate('/participant');
+  };
+
 
   return (
     <div>
@@ -129,6 +138,17 @@ function Grid() {
           Submit
         </button>
       </div>
+      {showModal && (
+        <div className="modal">
+          <div className="modal-content">
+            <h1>Submission received!</h1>
+            <p>Thank you for your submission.</p>
+            <button className="modal-button" onClick={handleModalButtonClick}>
+              Continue
+            </button>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
