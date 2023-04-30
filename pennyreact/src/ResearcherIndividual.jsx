@@ -5,13 +5,13 @@
 
 import React from 'react';
 import Navbar from './Navbar_Research';
-import ResearcherTable from './ResearcherTableIndividual';
+import ResearcherTableIndividual from './ResearcherTableIndividual';
 
 function Researcher_Invididual() {
     return (
         <div>
             <Navbar />
-            <ResearcherTable />
+            <ResearcherTableIndividual />
         </div>
     )
 }

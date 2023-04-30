@@ -9,7 +9,7 @@ import { BrowserRouter, Routes, Route, Outlet } from 'react-router-dom';
 import Landing from './Landing';
 import Admin from './Admin';
 import Researcher from './Researcher';
-import Researcher_Individual from './Researcher_Individual';
+import ResearcherIndividual from './ResearcherIndividual';
 import Participant from './Participant';
 import PreSurvey from './PreSurvey';
 import VideoPage from './VideoPage';
@@ -23,7 +23,7 @@ ReactDOM.render(
             <Route path="/index" element={<Landing />} />
             <Route path="/admin" element={<Admin />} />
             <Route path="/researcher" element={<Researcher />} />
-            <Route path="/researcher/:videoId" element={<Researcher_Individual />} />
+            <Route path="/researcher/:videoId" element={<ResearcherIndividual />} />
             <Route path="/participant" element={<Participant />} />
             <Route path="/participant/presurvey" element={<PreSurvey />} />
             <Route path="/participant/video" element={<VideoPage />} />
