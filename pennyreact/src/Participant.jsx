@@ -6,7 +6,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import './Participant.css';
-import Navbar from './Navbar_Participant';
+import Navbar from './Navbar';
 import Logo from './ParticipantLogo';
 import
 
