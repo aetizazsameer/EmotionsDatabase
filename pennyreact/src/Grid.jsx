@@ -3,7 +3,6 @@ import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import './Grid.css';
 
-
 function Grid() {
   const navigate = useNavigate();
 
@@ -43,6 +42,18 @@ function Grid() {
       </div>
       <div className="grid">
         <div className="grid-container">
+          {Array.from({ length: 9 }, (_, i) => (
+            <React.Fragment key={i}>
+              <div
+                className="grid-line--horizontal"
+                style={{ top: `${(i + 1) * 50}px` }}
+              />
+              <div
+                className="grid-line--vertical"
+                style={{ left: `${(i + 1) * 50}px` }}
+              />
+            </React.Fragment>
+          ))}
           {gridData.map((rowData, rowIndex) => (
             <div key={rowIndex} className="grid-row">
               {rowData.map((colData, colIndex) => (

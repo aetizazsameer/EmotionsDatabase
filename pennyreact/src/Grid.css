@@ -6,7 +6,10 @@
   .grid-container {
     position: relative;
     margin-top: 30px;
+    width: 500px; /* Set the width of the grid container */
+    height: 500px; /* Set the height of the grid container */
   }
+
 
   .label-container {
     position: relative;
@@ -73,27 +76,24 @@
     border-left: 1px solid black;
   }
 
-  .grid-line--horizontal {
-    position: absolute;
-    top: 50%;
-    left: 0;
-    width: 500px;
-    height: 1px;
-    background-color: black;
-    border-top: none;
-    border-bottom: none;
-  }
+/* Horizontal lines */
+.grid-line--horizontal {
+  position: absolute;
+  left: 0;
+  width: 100%;
+  height: 1px;
+  background-color: black;
+}
 
-  .grid-line--vertical {
-    position: absolute;
-    top: 0;
-    left: 249px;
-    width: 1px;
-    height: 100%;
-    background-color: black;
-    border-left: none;
-    border-right: none;
-  }
+/* Vertical lines */
+.grid-line--vertical {
+  position: absolute;
+  top: 0;
+  width: 1px;
+  height: 100%;
+  background-color: black;
+}
+
   .grid-cell--selected {
     background-color: black;
   }
