@@ -6,14 +6,14 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import './Video.css';
 
-function Video()
-{
+function Video() {
   const navigate = useNavigate();
 
   const [src, setSrc] = useState('');
   const [id, setId] = useState('');
-
+  const [videoEnded, setVideoEnded] = useState(false);
 
   useEffect(() => {
     getVideo();
@@ -31,6 +31,10 @@ function Video()
   };
 
   const handleVideoEnd = () => {
+    setVideoEnded(true);
+  };
+
+  const handleModalButtonClick = () => {
     navigate('/participant/postsurvey');
   };
 
@@ -39,6 +43,15 @@ function Video()
       <video onEnded={handleVideoEnd} controls width="100%">
         {src ? <source src={src} type="video/mp4" /> : <p>No video found</p>}
       </video>
+      {videoEnded && (
+        <div className="modal">
+          <div className="modal-content">
+            <h1>Thanks for watching!</h1>
+            <p>Please continue to the post survey.</p>
+            <button className="modal-button" onClick={handleModalButtonClick}>Continue</button>
+          </div>
+        </div>
+      )}
     </div>
   );
 };

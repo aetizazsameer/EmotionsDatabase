@@ -8,7 +8,6 @@ import Grid from './Grid';
 import './PreSurvey.css';
 import Navbar from './Navbar';
 import InstructionsPopup from './InstructionsPopup';
-import BriefInstructions from './BriefInstructions';
 
 function PreSurvey() {
     const [showPopup, setShowPopup] = useState(true);

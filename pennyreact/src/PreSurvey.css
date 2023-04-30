@@ -23,6 +23,20 @@
   line-height: 1.5;
 }
 
+.show-full-instructions {
+  background-color: #007bff;
+  border: none;
+  color: white;
+  padding: 10px 20px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 10px 2px;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
 .grid {
   width: 70%;
   margin-left: 120px;
