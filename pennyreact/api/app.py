@@ -251,8 +251,10 @@ def download_csv():
 
     # Serve the CSV file as a response
     response = flask.make_response(csv_file.getvalue())
-    timestamp = datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
-    response.headers['Content-Disposition'] = f'attachment; filename=emotionsnet_{timestamp}.csv'
+    filename = f'emotionsnet_{datetime.now().strftime("%Y-%m-%d_%H-%M-%S")}.csv'
+    response.headers['Content-Disposition'] = f'attachment; filename={filename}'
     response.headers['Content-Type'] = 'text/csv'
+    response.headers["x-filename"] = filename
+    response.headers["Access-Control-Expose-Headers"] = 'x-filename'
 
     return response
