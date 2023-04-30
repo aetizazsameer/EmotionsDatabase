@@ -34,48 +34,31 @@ const Form = () => {
   };
 
   return (
-    <div>
-      <form onSubmit={handleSubmit}>
-        <div>
-          <label htmlFor="title">Title:</label>
-          <input
-            className="search-input"
-            type="text"
-            id="title"
-            value={title}
-            onChange={(e) => setTitle(e.target.value)}
-          />
-        </div>
-        <div>
-          <label htmlFor="url">URL:</label>
-          <input
-            className="search-input"
-            type="text"
-            id="url"
-            value={url}
-            onChange={(e) => setUrl(e.target.value)}
-          />
-        </div>
-        <button
-          type="submit"
-          disabled={!title || !url}
-          className={!title || !url ? 'disabled-button' : ''}
-        >
-          Add
-        </button>
-      </form>
-      {showModal && (
-      <div className="modal">
-        <div className="modal-content">
-          <h1>Video Added</h1>
-          <p>{modalMessage}</p>
-          <button className="modal-button" onClick={handleModalButtonClick}>
-            Close
-          </button>
-        </div>
+    <form onSubmit={handleSubmit} className="form-container">
+      <div className="form-field">
+        <label htmlFor="title">Title:</label>
+        <input
+          className="search-input"
+          type="text"
+          id="title"
+          value={title}
+          onChange={(e) => setTitle(e.target.value)}
+        />
       </div>
-    )}
-    </div>
+      <div className="form-field">
+        <label htmlFor="url">URL:</label>
+        <input
+          className="search-input"
+          type="text"
+          id="url"
+          value={url}
+          onChange={(e) => setUrl(e.target.value)}
+        />
+      </div>
+      <button type="submit" disabled={!title || !url} className={!title || !url ? 'disabled-button' : ''}>
+        Add
+      </button>
+    </form>
   );
 };
 
