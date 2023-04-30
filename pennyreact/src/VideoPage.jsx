@@ -13,7 +13,6 @@ function VideoPage() {
         <div>
             <Navbar />
             <Video />
-            <Link to="/participant/postsurvey">Post-survey</Link>
         </div>
     );
 }
