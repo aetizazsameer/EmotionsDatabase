@@ -12,6 +12,7 @@ function Admin() {
     return (
         <div>
             <Navbar />
+            <AdminTable />
             <Form />
         </div>
     );
