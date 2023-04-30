@@ -62,12 +62,12 @@ const ResearcherTableIndividual = () => {
             <tr key={video.id}>
                 <td>{video.id}</td>
                 <td>{video.sessionid}</td>
-                <td>{video.valence_initial.toFixed(2)}</td>
-                <td>{video.valence_final.toFixed(2)}</td>
-                <td>{video.valence_delta.toFixed(2)}</td>
-                <td>{video.arousal_initial.toFixed(2)}</td>
-                <td>{video.arousal_final.toFixed(2)}</td>
-                <td>{video.arousal_delta.toFixed(2)}</td>
+                <td>{video.valence_initial}</td>
+                <td>{video.valence_final}</td>
+                <td>{video.valence_delta}</td>
+                <td>{video.arousal_initial}</td>
+                <td>{video.arousal_final}</td>
+                <td>{video.arousal_delta}</td>
                 <td>{video.responsetimestamp}</td>
             </tr>
         ));

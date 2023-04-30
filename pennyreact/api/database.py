@@ -405,7 +405,7 @@ def update_response(sessionid, feedback):
 
 # ----------------------------------------------------------------------
 # update_sum
-# Accesses the database and returns the results of the query.
+# Updates video data given data from a response
 # Parameters: id - the id corresponding to the video
 #             ai - initial arousal of newly added response
 #             vi - initial valence of newly added response
@@ -413,7 +413,7 @@ def update_response(sessionid, feedback):
 #             vf - final valence of newly added response
 #             ad - delta arousal of newly added response
 #             vd - delta valence of newly added response
-# Returns: the results of the query
+# Returns:
 # ----------------------------------------------------------------------
 
 
