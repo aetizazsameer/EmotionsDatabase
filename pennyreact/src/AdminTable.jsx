@@ -5,6 +5,7 @@
 
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import './Table.css';
 
 const AdminTable = () => {
   const [sortField, setSortField] = useState('title');
@@ -51,32 +52,37 @@ const AdminTable = () => {
   };
 
   return (
-    <div>
-      <input
-        type="text"
-        placeholder="Search"
-        value={searchTerm}
-        onChange={e => setSearchTerm(e.target.value)}
-      />
-      <table className="table">
-        <thead>
-          <tr>
-            <th onClick={() => handleSort('title')}>Title</th>
-            <th onClick={() => handleSort('url')}>URL</th>
-            <th onClick={() => handleSort('uploadtimestamp')}>Timestamp</th>
-          </tr>
-        </thead>
-        <tbody>
-          {filteredData.map(item => (
-            <tr key={item.title}>
-              <td>{item.title}</td>
-              <td><a href={item.url}>Link</a></td>
-              <td>{item.uploadtimestamp}</td>
+    <div className="table-container">
+    <input
+          className="search-input"
+          type="text"
+          placeholder="Search"
+          value={searchTerm}
+          onChange={e => setSearchTerm(e.target.value)}
+        />
+      <div className="actions-container">
+
+        <table class="content-table">
+          <thead>
+            <tr className="labels">
+              <th onClick={() => handleSort('title')}>Title</th>
+              <th onClick={() => handleSort('url')}>URL</th>
+              <th onClick={() => handleSort('uploadtimestamp')}>Timestamp</th>
             </tr>
-          ))}
-        </tbody>
-      </table>
+          </thead>
+          <tbody>
+            {filteredData.map(item => (
+              <tr key={item.title}>
+                <td>{item.title}</td>
+                <td><a href={item.url}>Link</a></td>
+                <td>{item.uploadtimestamp}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
     </div>
+
   );
 };
 
