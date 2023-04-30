@@ -53,36 +53,34 @@ const AdminTable = () => {
 
   return (
     <div className="table-container">
-    <input
+      <div className="actions-container">
+        <input
           className="search-input"
           type="text"
           placeholder="Search"
           value={searchTerm}
           onChange={e => setSearchTerm(e.target.value)}
         />
-      <div className="actions-container">
-
-        <table class="content-table">
-          <thead>
-            <tr className="labels">
-              <th onClick={() => handleSort('title')}>Title</th>
-              <th onClick={() => handleSort('url')}>URL</th>
-              <th onClick={() => handleSort('uploadtimestamp')}>Timestamp</th>
-            </tr>
-          </thead>
-          <tbody>
-            {filteredData.map(item => (
-              <tr key={item.title}>
-                <td>{item.title}</td>
-                <td><a href={item.url}>Link</a></td>
-                <td>{item.uploadtimestamp}</td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
       </div>
+      <table class="content-table">
+        <thead>
+          <tr className="labels">
+            <th onClick={() => handleSort('title')}>Title</th>
+            <th onClick={() => handleSort('url')}>URL</th>
+            <th onClick={() => handleSort('uploadtimestamp')}>Timestamp</th>
+          </tr>
+        </thead>
+        <tbody>
+          {filteredData.map(item => (
+            <tr key={item.title}>
+              <td>{item.title}</td>
+              <td><a href={item.url}>Link</a></td>
+              <td>{item.uploadtimestamp}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
     </div>
-
   );
 };
 
