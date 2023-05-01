@@ -70,8 +70,12 @@ const ResearcherTable = () => {
         const link = document.createElement("a");
         link.href = url;
 
-        // Set the filename with the date, time, and "emotionsnet" prefix
-        const filename = `emotionsnet_${new Date().toISOString().replace(/[:T\-Z]/g, "")}.csv`;
+        // Set the filename with the date, time, and "emotionsnet" prefix in a more readable format
+        const currentDate = new Date();
+        const dateString = currentDate.toLocaleDateString().replace(/\//g, "-");
+        const timeString = currentDate.toLocaleTimeString().replace(/:/g, "-");
+        const filename = `emotionsnet_${dateString}_${timeString}.csv`;
+
         link.setAttribute("download", filename);
 
         document.body.appendChild(link);
@@ -84,7 +88,6 @@ const ResearcherTable = () => {
         console.error("Error downloading CSV:", error);
       });
   };
-
 
   return (
     <div className="table-container">
