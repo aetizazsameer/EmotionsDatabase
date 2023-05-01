@@ -502,7 +502,6 @@ def is_authorized(username, path):
 # Returns: the results of the query
 # ----------------------------------------------------------------------
 
-
 def get_dataframe():
     try:
         with psycopg2.connect(database=_DATABASE,
@@ -511,13 +510,22 @@ def get_dataframe():
                               password=_PASSWORD,
                               port=_PORT) as connection:
             with connection.cursor() as cursor:
-                query_str = "SELECT * FROM responses"
+                query_str = """SELECT responses.*, videos.title
+                               FROM responses
+                               JOIN videos ON responses.videoid = videos.id"""
                 cursor.execute(query_str)
 
                 tupples = cursor.fetchall()
 
                 columns = [desc[0] for desc in cursor.description]
                 df = pd.DataFrame(tupples, columns=columns)
+
+                # Reorder columns to make 'title' the fourth column (right after 'videoid')
+                cols = df.columns.tolist()
+                title_index = cols.index('title')
+                videoid_index = cols.index('videoid')
+                cols = cols[:videoid_index + 1] + [cols[title_index]] + cols[videoid_index + 1:title_index] + cols[title_index + 1:]
+                df = df[cols]
 
                 return df
 
