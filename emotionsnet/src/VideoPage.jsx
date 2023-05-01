@@ -11,7 +11,12 @@ function VideoPage() {
     return (
         <div>
             <Navbar />
-            <Video />
+            <div className="video-page">
+                <h2>Please watch the video until the end.</h2>
+                <div className="video-wrapper">
+                    <Video />
+                </div>
+            </div>
         </div>
     );
 }
