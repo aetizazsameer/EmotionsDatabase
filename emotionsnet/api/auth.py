@@ -89,7 +89,7 @@ def callback():
     # flask.session['verified'] = userinfo_response.json()['verified']
     flask.session['locale'] = userinfo_response.json()['locale']
 
-    return flask.redirect(flask.url_for('index'))
+    return flask.redirect('/index')
 
 # ----------------------------------------------------------------------
 
