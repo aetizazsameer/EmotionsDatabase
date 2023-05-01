@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import './Navbar.css';
 import logo from './logo.png';
+import LogoutButton from './LogoutButton';
 
 function Navbar_Research() {
   return (
@@ -12,6 +13,7 @@ function Navbar_Research() {
       <ul>
         <li><Link to="/researcher">Research Home</Link></li>
         <li><Link to="/participant">Go to Participant</Link></li>
+        <LogoutButton />
       </ul>
     </nav>
   );
