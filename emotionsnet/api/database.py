@@ -2,7 +2,7 @@
 
 # -----------------------------------------------------------------------
 # admindatabase.py
-# query: Andrew Hwang, Aetizaz Sameer
+# Author: Tyler Vu, Aetizaz Sameer, Andrew Hwang
 # -----------------------------------------------------------------------
 
 import flask

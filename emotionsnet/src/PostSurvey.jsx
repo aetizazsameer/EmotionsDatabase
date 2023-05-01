@@ -1,10 +1,10 @@
 //----------------------------------------------------------------------
-// participant.js
-// Author: Aetizaz Sameer, Andrew Hwang, Tyler Vu
+// PostSurvey.jsx
+// Author: Tyler Vu, Aetizaz Sameer, Andrew Hwang
 //----------------------------------------------------------------------
 
 import React, { useState } from 'react';
-import Grid from './Grid_post';
+import GridPost from './GridPost';
 import Navbar from './Navbar';
 import InstructionsPopup from './InstructionsPopup';
 
@@ -44,7 +44,7 @@ function PostSurvey() {
                     </button>
                 </div>
                 <div className="grid">
-                    <Grid />
+                    <GridPost />
                 </div>
             </div>
             {showPopup && (

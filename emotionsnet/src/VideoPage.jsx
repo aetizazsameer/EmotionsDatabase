@@ -1,10 +1,9 @@
 //----------------------------------------------------------------------
-// participant.js
-// Author: Aetizaz Sameer, Andrew Hwang, Tyler Vu
+// VideoPage.jsx
+// Author: Tyler Vu, Aetizaz Sameer, Andrew Hwang
 //----------------------------------------------------------------------
 
 import React from 'react';
-import { Link } from 'react-router-dom';
 import Video from './Video';
 import Navbar from './Navbar';
 

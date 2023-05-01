@@ -1,9 +1,14 @@
+//----------------------------------------------------------------------
+// Logo.jsx
+// Author: Tyler Vu, Aetizaz Sameer, Andrew Hwang
+//----------------------------------------------------------------------
+
 import React from 'react';
 import { Link } from 'react-router-dom';
 import logo from './logo_black.png';
-import './ParticipantLogo.css';
+import './Logo.css';
 
-function ParticipantLogo() {
+function Logo() {
   return (
     <nav className="Navbar">
       <Link to="/participant" className="Navbar__logo-link">
@@ -13,4 +18,4 @@ function ParticipantLogo() {
   );
 }
 
-export default ParticipantLogo;
+export default Logo;

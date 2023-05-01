@@ -1,3 +1,8 @@
+//----------------------------------------------------------------------
+// InstructionsPopup.jsx
+// Author: Tyler Vu, Aetizaz Sameer, Andrew Hwang
+//----------------------------------------------------------------------
+
 import React from 'react';
 import './InstructionsPopup.css';
 import gridimg from './grid.png';

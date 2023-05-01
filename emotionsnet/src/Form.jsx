@@ -1,3 +1,8 @@
+//----------------------------------------------------------------------
+// Form.jsx
+// Author: Tyler Vu, Aetizaz Sameer, Andrew Hwang
+//----------------------------------------------------------------------
+
 import React, { useState } from 'react';
 import axios from 'axios';
 import './Table.css';

@@ -1,6 +1,6 @@
 //----------------------------------------------------------------------
-// participant.js
-// Author: Aetizaz Sameer, Andrew Hwang, Tyler Vu
+// PreSurvey.jsx
+// Author: Tyler Vu, Aetizaz Sameer, Andrew Hwang
 //----------------------------------------------------------------------
 
 import React, { useState } from 'react';

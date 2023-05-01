@@ -1,6 +1,6 @@
 //----------------------------------------------------------------------
 // ResearcherTable.jsx
-// Author: Tyler Vu, Aetizaz Sameer
+// Author: Tyler Vu, Aetizaz Sameer, Andrew Hwang
 //----------------------------------------------------------------------
 
 import React, { useState, useEffect } from "react";

@@ -1,16 +1,16 @@
 //----------------------------------------------------------------------
 // ResearcherIndividual.jsx
-// Author: Aetizaz Sameer, Andrew Hwang, Tyler Vu
+// Author: Tyler Vu, Aetizaz Sameer, Andrew Hwang
 //----------------------------------------------------------------------
 
 import React from 'react';
-import Navbar from './Navbar_Research';
+import NavbarResearch from './NavbarResearch';
 import ResearcherTableIndividual from './ResearcherTableIndividual';
 
 function ResearcherInvididual() {
     return (
         <div>
-            <Navbar />
+            <NavbarResearch />
             <ResearcherTableIndividual />
         </div>
     )

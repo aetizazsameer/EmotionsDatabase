@@ -2,7 +2,7 @@
 
 #-----------------------------------------------------------------------
 # video.py
-# Author: Aetizaz Sameer
+# Author: Tyler Vu, Aetizaz Sameer, Andrew Hwang
 #-----------------------------------------------------------------------
 
 class Video:

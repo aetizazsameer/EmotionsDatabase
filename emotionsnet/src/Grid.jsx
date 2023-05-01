@@ -1,3 +1,8 @@
+//----------------------------------------------------------------------
+// Grid.jsx
+// Author: Tyler Vu, Aetizaz Sameer, Andrew Hwang
+//----------------------------------------------------------------------
+
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';

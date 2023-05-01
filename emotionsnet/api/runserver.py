@@ -2,7 +2,7 @@
 
 # ----------------------------------------------------------------------
 # runserver.py
-# Author: Aetizaz Sameer and Tyler Vu
+# Author: Tyler Vu, Aetizaz Sameer, Andrew Hwang
 # ----------------------------------------------------------------------
 
 import sys
