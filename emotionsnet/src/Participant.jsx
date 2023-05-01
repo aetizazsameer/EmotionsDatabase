@@ -16,7 +16,7 @@ function Participant() {
             <div className="Participant">
                 <Logo />
                 <h1>Welcome to Emotions Net!</h1>
-                <p>Thank you for visiting our booth.</p>
+                <p>Thank you for visiting.</p>
                 <Link to="/participant/presurvey" className="my-button">Click Here to Begin</Link>
             </div>
         </div>
