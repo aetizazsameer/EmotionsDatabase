@@ -24,7 +24,7 @@ function PreSurvey() {
                 <div className="instructions">
                     <h1>Pre-Video Survey</h1>
                     <h2>Instructions</h2>
-                    <p>Select on the grid where it best fits your current emotions after the video.</p>
+                    <p>Select on the grid where it best fits your current emotions before the video.</p>
                     <p>
                     Valence is a measure of how positive or negative an emotion is.
                     The left represents negative valence and the right represents positive valence.
