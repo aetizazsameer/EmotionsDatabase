@@ -14,7 +14,7 @@ import Participant from './Participant';
 import PreSurvey from './PreSurvey';
 import VideoPage from './VideoPage';
 import PostSurvey from './PostSurvey';
-// import './font.css';
+import './styles/AppStyles.css';
 
 ReactDOM.render(
     <BrowserRouter>

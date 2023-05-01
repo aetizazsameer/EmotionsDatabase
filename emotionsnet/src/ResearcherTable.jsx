@@ -99,11 +99,8 @@ const ResearcherTable = () => {
           value={searchTerm}
           onChange={(event) => setSearchTerm(event.target.value)}
         />
-        <button
-          className="export-csv-button"
-          onClick={handleDownloadCSV}
-        >
-          Download CSV
+        <button class="export-csv-button" onClick={handleDownloadCSV}>
+          Download
         </button>
       </div>
       <table class="content-table">

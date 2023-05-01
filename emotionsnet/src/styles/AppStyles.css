@@ -1,0 +1,244 @@
+/* Global Styles */
+html,
+body {
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
+  font-family: Inter, sans-serif;
+}
+
+.page-container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+/* Participant Styles */
+.Participant {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  padding: 0 2rem;
+  text-align: center;
+  background: #F8F8F8;
+}
+
+.Participant h1 {
+  font-size: 5rem;
+  text-align: center;
+  font-weight: bold;
+  line-height: 1.1;
+  margin-bottom: 1.5rem;
+  color: #000000;
+}
+
+.Participant p {
+  font-size: 2rem;
+  font-weight: normal;
+  line-height: 1.5;
+  margin-bottom: 2rem;
+  color: #808080;
+}
+
+.Participant button {
+  padding: 1rem 2rem;
+  font-size: 1.8rem;
+  font-weight: bold;
+  background-color: #000000;
+  color: #FFFFFF;
+  border: none;
+  border-radius: 0.5rem;
+  cursor: pointer;
+}
+
+/* Button Styles */
+.my-button {
+  display: inline-block;
+  padding: 12px 24px;
+  background-color: #007bff;
+  color: #fff;
+  font-size: 16px;
+  font-weight: 500;
+  text-decoration: none;
+  border-radius: 4px;
+  transition: background-color 0.3s ease;
+}
+
+.my-button:hover {
+  background-color: #0069d9;
+}
+
+/* Table Styles */
+.table-container {
+  display: flex;
+  flex-direction: column;
+  margin: 2rem;
+}
+
+.actions-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.search-input {
+  padding: 0.5rem;
+  font-size: 1rem;
+  font-family: Inter, sans-serif;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.export-csv-button {
+  padding: 0.5rem 1rem;
+  font-size: 1rem;
+  font-weight: 500;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.export-csv-button:hover {
+  background-color: #0069d9;
+}
+
+table.content-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-family: Inter, sans-serif;
+}
+
+table.content-table thead tr {
+  background-color:#979797;
+  color: #ffffff;
+  text-align: left;
+}
+
+table.content-table thead th {
+  padding: 1rem;
+  cursor: pointer;
+}
+
+table.content-table tbody td {
+  padding: 1rem;
+  text-align: left;
+  border-bottom: 1px solid #dddddd;
+}
+
+table.content-table tbody tr:nth-of-type(even) {
+  background-color: #f3f3f3;
+}
+
+table.content-table tbody tr:hover {
+  background-color: #dddddd;
+}
+
+table.content-table tbody tr.active-row {
+  background-color: #007bff;
+  color: #ffffff;
+}
+
+table.content-table tbody tr.active-row:hover {
+  background-color: #0069d9;
+}
+
+.sort-ascending::after {
+  content: " ▲";
+  font-size: 0.8rem;
+}
+
+.sort-descending::after {
+  content: " ▼";
+  font-size: 0.8rem;
+}
+
+/* Form Styles */
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin: 2rem;
+}
+
+form label {
+  font-size: 1rem;
+  font-weight: 500;
+  margin-bottom: 0.5rem;
+}
+
+form input {
+  padding: 0.5rem;
+  font-size: 1rem;
+  font-family: Inter, sans-serif;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+form button {
+  padding: 0.5rem 1rem;
+  font-size: 1rem;
+  font-weight: 500;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+form button:hover {
+  background-color: #0069d9;
+}
+
+form button[disabled] {
+  background-color: #cccccc;
+  cursor: not-allowed;
+}
+
+/* Message Styles */
+.message-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+.message-box {
+  padding: 2rem;
+  background-color: #ffffff;
+  border-radius: 0.5rem;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.message-box h2 {
+  font-size: 2rem;
+  font-weight: bold;
+  margin-bottom: 1rem;
+}
+
+.message-box button {
+  padding: 0.5rem 1rem;
+  font-size: 1rem;
+  font-weight: 500;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.message-box button:hover {
+  background-color: #0069d9;
+}

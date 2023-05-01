@@ -59,18 +59,26 @@
     border-bottom: 2px solid gray;
 }
 
-.export-csv-button {
-    background-color: #007BFF;
-    color: white;
+.export-csv-button,
+.modal-button {
     font-size: 0.9em;
-    padding: 8px 12px;
+    padding: 10px 20px;
+    min-width: 120px; /* Add minimum width */
+    text-align: center; /* Center the text */
+    white-space: nowrap; /* Prevent text from wrapping */
     border: none;
     border-radius: 4px;
     cursor: pointer;
     text-decoration: none;
     display: inline-block;
     transition: background-color 0.3s ease, transform 0.3s ease;
+    font-weight: bold; /* Make the text bold */
     outline: none;
+}
+
+.export-csv-button {
+    background-color: #007BFF;
+    color: white;
 }
 
 .export-csv-button:hover {
@@ -79,6 +87,19 @@
 
 .export-csv-button:active {
     transform: scale(0.98);
+}
+
+.modal-button {
+    background-color: #007bff;
+    color: white;
+}
+
+.modal-button:hover {
+    background-color: #0069d9;
+}
+
+.modal-button:focus {
+    outline: none;
 }
 
 .search-input {
@@ -96,25 +117,29 @@
 }
 
 .go-back-button {
-    background-color: #28a745; /* Green background color */
-    color: white;
-    font-size: 0.9em;
-    padding: 8px 12px;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    text-decoration: none;
-    display: inline-block;
-    transition: background-color 0.3s ease, transform 0.3s ease;
-    outline: none;
+  background-color: #28a745; /* Green background color */
+  color: white;
+  font-size: 0.9em;
+  padding: 10px 20px;
+  min-width: 120px; /* Add minimum width */
+  text-align: center; /* Center the text */
+  white-space: nowrap; /* Prevent text from wrapping */
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  text-decoration: none;
+  display: inline-block;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+  font-weight: bold; /* Make the text bold */
+  outline: none;
 }
 
 .go-back-button:hover {
-    background-color: #218838; /* Darker green on hover */
+  background-color: #218838; /* Darker green on hover */
 }
 
 .go-back-button:active {
-transform: scale(0.98);
+  transform: scale(0.98);
 }
 
 .form-container {
@@ -148,14 +173,21 @@ transform: scale(0.98);
 }
 
 button {
-  background-color: #007bff;
-  color: white;
+  font-size: 0.9em;
   padding: 10px 20px;
+  min-width: 120px; /* Add minimum width */
+  text-align: center; /* Center the text */
+  white-space: nowrap; /* Prevent text from wrapping */
   border: none;
   border-radius: 4px;
   cursor: pointer;
-  text-transform: uppercase;
-  font-weight: bold;
+  text-decoration: none;
+  display: inline-block;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+  font-weight: bold; /* Make the text bold */
+  outline: none;
+  background-color: #007bff;
+  color: white;
 }
 
 button:hover:not(.disabled-button) {
@@ -167,55 +199,4 @@ button:hover:not(.disabled-button) {
   color: white;
   border: none;
   cursor: not-allowed;
-}
-
-.modal {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0.5);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  z-index: 1000;
-}
-
-.modal-content {
-  background-color: white;
-  padding: 30px;
-  border-radius: 8px;
-  text-align: center;
-  width: 80%;
-  max-width: 500px;
-}
-
-.modal-content h1 {
-  font-size: 24px;
-  margin-bottom: 20px;
-}
-
-.modal-content p {
-  font-size: 16px;
-  margin-bottom: 20px;
-}
-
-.modal-button {
-  background-color: #007bff;
-  color: white;
-  padding: 10px 20px;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  text-transform: uppercase;
-  font-weight: bold;
-}
-
-.modal-button:hover {
-  background-color: #0069d9;
-}
-
-.modal-button:focus {
-  outline: none;
 }
