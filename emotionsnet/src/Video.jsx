@@ -20,7 +20,7 @@ function Video() {
   }, []);
 
   const getVideo = () => {
-    axios.get('/participant/get_URL')
+    axios.get('/api/get_URL')
       .then(response => {
         setSrc(response.data.url);
         setId(response.data.id);

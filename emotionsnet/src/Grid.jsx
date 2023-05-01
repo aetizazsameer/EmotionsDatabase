@@ -22,7 +22,7 @@ function Grid() {
   };
 
   const insertCookie = data => {
-    axios.post('/insert_coord', { data: data })
+    axios.post('/api/insert_coord', { data: data })
       .then(response => {
         console.log('Submitted grid selection successfully');
       })

@@ -24,7 +24,7 @@ function Grid() {
   }, []);
 
   const getCookieData = () => {
-    axios.get('/get_coord')
+    axios.get('/api/get_coord')
       .then((response) => {
         const { row, col } = response.data;
         setArousalInitial(row);
@@ -34,7 +34,7 @@ function Grid() {
         console.log(error);
       });
 
-    axios.get('/get_videoid')
+    axios.get('/api/get_videoid')
       .then((response) => {
         const { videoid } = response.data;
         setVideoId(videoid)
@@ -45,7 +45,7 @@ function Grid() {
   };
 
   const removeCookies = () => {
-    axios.post('/remove_cookies')
+    axios.post('/api/remove_cookies')
     .then(response => {
         console.log('Removed selection coordinates and videoid')
     })

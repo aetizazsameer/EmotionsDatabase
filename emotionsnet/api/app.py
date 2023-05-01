@@ -121,7 +121,7 @@ def participant_sequence():
 # ----------------------------------------------------------------------
 
 
-@app.route('/insert_coord', methods=['POST'])
+@app.route('/api/insert_coord', methods=['POST'])
 def insert_coord_cookie():
     data = json.loads(flask.request.json['data'])
 
@@ -130,7 +130,7 @@ def insert_coord_cookie():
     return 'Saved selection coordinates'
 
 
-@app.route('/get_coord', methods=['GET'])
+@app.route('/api/get_coord', methods=['GET'])
 def get_coord_cookie():
     return flask.jsonify({
         'row': flask.session.get('row'),
@@ -138,14 +138,14 @@ def get_coord_cookie():
     })
 
 
-@app.route('/get_videoid', methods=['GET'])
+@app.route('/api/get_videoid', methods=['GET'])
 def get_videoid_cookie():
     return flask.jsonify({
         'videoid': flask.session.get('videoid'),
     })
 
 
-@app.route('/remove_cookies', methods=['POST'])
+@app.route('/api/remove_cookies', methods=['POST'])
 def remove_coord_cookie():
     if flask.session.pop('row', None) and \
             flask.session.pop('col', None) and \
@@ -157,7 +157,7 @@ def remove_coord_cookie():
 # ----------------------------------------------------------------------
 
 
-@app.route('/participant/get_URL', methods=['GET'])
+@app.route('/api/get_URL', methods=['GET'])
 def get_URL():
     url, id = selector()
     flask.session['videoid'] = id
