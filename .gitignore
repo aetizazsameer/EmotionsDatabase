@@ -3,14 +3,17 @@
 .venv/
 instance/
 /__pycache__
-pennyreact/node_modules
-pennyreact/node_modules/*
-/pennyreact/node_modules/*
-/pennyreact/api/__pycache__
-/pennyreact/node_modules
-/pennyreact/build/
-/pennyreact/build/*
-/pennyreact/build*
+emotionsnet/node_modules
+emotionsnet/node_modules/*
+/emotionsnet/node_modules/*
+/emotionsnet/api/__pycache__
+/emotionsnet/node_modules
+/emotionsnet/build/
+/emotionsnet/build/*
+/emotionsnet/build*
+/pennyreact/*
+/pennyreact/
+/pennyreact
 
 # See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
 
@@ -26,7 +29,7 @@ node_modules/*
 /coverage
 
 # production
-pennyreact/build/
+emotionsnet/build/
 
 # misc
 .DS_Store
