@@ -73,11 +73,11 @@ def index():
 def admin():
     path = flask.request.path
 
-    # username = auth.authentication()
-    # authorize(username, path)
+    username = auth.authentication()
+    authorize(username, path)
 
     flask.session['path'] = path
-    # flask.session['username'] = username
+    flask.session['username'] = username
     response = app.send_static_file('index.html')
     return response
 
