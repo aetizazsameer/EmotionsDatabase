@@ -41,3 +41,11 @@ li a {
   display: inline-block;
   padding: 8px 16px;
 }
+
+li:hover a:hover {
+  color: #007bff; /* Set the text color to white */
+  display: inline-block;
+  padding: 8px 16px;
+
+  transition: color 0.2s ease;
+}
