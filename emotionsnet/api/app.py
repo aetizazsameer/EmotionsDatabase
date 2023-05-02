@@ -64,6 +64,7 @@ def redirect_presurvey():
 
 @app.route('/', methods=['GET'])
 @app.route('/index', methods=['GET'])
+@app.route('/about', methods=['GET'])
 @app.route('/participant/presurvey', methods=['GET'])
 def index():
     flask.session['path'] = flask.request.path

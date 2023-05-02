@@ -15,7 +15,7 @@ function Landing() {
             <Navbar />
             <div className="Landing">
                 <Logo />
-                <h1>Welcome to Emotions Net!</h1>
+                <h1>Welcome to EmotionsNet!</h1>
                 <p>Thank you for contributing to our research. Learn more about our mission <a href='/about'>here</a>.</p>
                 <span>
                     <Link to="/participant/presurvey" className="participant-button">Contribute</Link>

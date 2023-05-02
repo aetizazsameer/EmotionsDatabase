@@ -13,6 +13,7 @@ import ResearcherIndividual from './ResearcherIndividual';
 import PreSurvey from './PreSurvey';
 import VideoPage from './VideoPage';
 import PostSurvey from './PostSurvey';
+import AboutPage from './AboutPage';
 import './styles/AppStyles.css';
 
 ReactDOM.render(
@@ -20,6 +21,7 @@ ReactDOM.render(
         <Routes>
             <Route path="/" element={<Landing />} />
             <Route path="/index" element={<Landing />} />
+            <Route path="/about" element={<AboutPage />} />
             <Route path="/admin" element={<Admin />} />
             <Route path="/researcher" element={<Researcher />} />
             <Route path="/researcher/:videoId" element={<ResearcherIndividual />} />
