@@ -17,6 +17,31 @@ p {
   margin-bottom: 20px;
 }
 
+.logo_img {
+    margin-top: 50px;
+    height: 50px;
+    position: absolute;
+    left: 50%;
+    margin-right: -50%;
+    transform: translate(-50%, -50%);
+}
+
+.credit {
+    font-size: 1em;
+    text-align: center;
+    margin-top: 140px;
+    height: 50px;
+    position: absolute;
+    left: 50%;
+    margin-right: -50%;
+    transform: translate(-50%, -50%);
+}
+
+.line-separator {
+    margin-top: 10px;
+    margin-bottom: 20px;
+}
+
 @media (max-width: 767px) {
   h1 {
     font-size: 2em;

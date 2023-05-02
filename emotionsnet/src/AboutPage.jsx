@@ -5,6 +5,7 @@
 
 import React from 'react';
 import Navbar from './Navbar';
+import logo from './logo_black.png';
 import './AboutPage.css'
 
 function AboutPage() {
@@ -12,24 +13,30 @@ function AboutPage() {
         <>
             <Navbar />
             <div className="aboutpage-container">
-                <h1>About EmotionsNet</h1>
+                <div style={{ display: 'inline-block' }}>
+                    <h1>About EmotionsNet</h1>
+                    <hr className='line-separator'/>
+                </div>
                 <p>
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam ac quam at arcu porttitor
-                    facilisis. Sed feugiat mi vel risus tristique vehicula. Sed eu sapien elit. Sed ultrices,
-                    nisl ac malesuada pulvinar, lacus augue bibendum tortor, eget maximus eros metus vel nisi.
-                    Donec at massa sed dolor feugiat tincidunt a in mauris. Maecenas consequat magna id quam
-                    congue luctus. Sed ultricies quam id diam pharetra ultricies. Sed vel nulla augue. Nam
-                    posuere sem sit amet tortor tincidunt, ac pharetra est interdum. Nulla ut tellus non velit
-                    imperdiet tristique. Aenean sodales nibh sit amet nibh semper, vel posuere lorem malesuada.
+                    In the fields of psychology and neuroscience, often researchers seek to study the effect of mood and emotion on
+                    measurable characteristics -- such as health, willingness to take risks, and other behaviors. In order to conduct
+                    this kind of research, scientists turn to movie and video clips to induce particular emotions in their viewers.
+                    However, this can prove difficult since video clips that are studied and curated are spread across a large number
+                    of paper publications in different journals.
                 </p>
                 <p>
-                    In hac habitasse platea dictumst. Sed at orci quis nisi blandit laoreet. Sed rhoncus
-                    tristique semper. Nulla facilisi. Morbi vitae ligula vel mauris feugiat porttitor a nec
-                    augue. Ut id quam id ipsum tincidunt congue vel vel tellus. Duis eu tortor nunc. In hac
-                    habitasse platea dictumst. Morbi suscipit metus et mauris malesuada hendrerit. Morbi vel
-                    tincidunt nunc, in rutrum justo.
+                    <b>EmotionsNet</b> is a modern platform that aims to modernize and streamlize this process, addressing the data
+                    scarcity problem faced by researchers. By allowing everyday participants to share their emotions before and after
+                    watching a video clip, we are able to quantify the emotional impact of a video.
+                </p>
+                <p>
+                    <b>EmotionsNet</b> aims to create a large database of video clips and their associated emotions. This helps both
+                     <a href='/researcher'> researchers</a> in need of data as well as <a href='/participant/presurvey'>contributors</a> wondering how their emotional responses compare to the general
+                    population.
                 </p>
             </div>
+            <img src={logo} alt="Logo" className="logo_img" />
+            <p className="credit">Created by Tyler Vu, Aetizaz Sameer, Andrew Hwang</p>
         </>
     );
 }
