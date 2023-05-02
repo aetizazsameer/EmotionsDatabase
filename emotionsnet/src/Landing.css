@@ -1,0 +1,86 @@
+html,
+body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  overflow: hidden;
+}
+
+.page-container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100%;
+}
+
+.Landing {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    flex-grow: 1;
+    padding: 0 2rem;
+    text-align: center;
+    background: #F8F8F8;
+    font-family: Inter, sans-serif;
+}
+
+.Landing h1 {
+    font-size: 5rem;
+    text-align: center;
+    font-weight: bold;
+    line-height: 1.1;
+    margin-bottom: 1.5rem;
+    color: #000000;
+}
+
+.Landing p {
+    font-size: 2rem;
+    font-weight: normal;
+    line-height: 1.5;
+    margin-bottom: 2rem;
+    color: #808080;
+}
+
+.Landing button {
+    padding: 1rem 2rem;
+    font-size: 1.8rem;
+    font-weight: bold;
+    background-color: #000000;
+    color: #FFFFFF;
+    border: none;
+    border-radius: 0.5rem;
+    cursor: pointer;
+}
+
+.participant-button, .researcher-button {
+    display: inline-block;
+    padding: 12px 24px;
+    color: #fff;
+    font-size: 16px;
+    font-weight: 500;
+    text-decoration: none;
+    border-radius: 4px;
+    transition: background-color 0.3s ease;
+}
+
+.participant-button {
+    background-color: #007bff;
+}
+
+.researcher-button {
+    background-color: #ff7f00;
+}
+
+.participant-button:hover {
+    background-color: #0069d9;
+}
+
+.researcher-button:hover {
+    background-color: #e67000;
+}
+
+html, body {
+    margin: 0;
+    padding: 0;
+    min-height: 100vh;
+}

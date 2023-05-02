@@ -16,7 +16,7 @@ function Navbar() {
       </div>
       <ul>
         <li><Link to="/">Home</Link></li>
-        <li><Link to="/researcher">Go to Research</Link></li>
+        <li><Link to="/researcher">Researcher view</Link></li>
       </ul>
     </nav>
   );

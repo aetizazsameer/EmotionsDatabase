@@ -58,9 +58,12 @@ def authorize(username, path):
 # ----------------------------------------------------------------------
 
 
+@app.route('/participant', methods=['GET'])
+def redirect_presurvey():
+    return flask.redirect('/participant/presurvey')
+
 @app.route('/', methods=['GET'])
 @app.route('/index', methods=['GET'])
-@app.route('/participant', methods=['GET'])
 @app.route('/participant/presurvey', methods=['GET'])
 def index():
     flask.session['path'] = flask.request.path

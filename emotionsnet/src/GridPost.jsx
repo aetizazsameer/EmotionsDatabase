@@ -103,7 +103,7 @@ function Grid() {
   const handleModalButtonClick = () => {
     setShowModal(false);
     setSuccess(null);
-    navigate('/participant');
+    navigate('/index');
   };
 
 

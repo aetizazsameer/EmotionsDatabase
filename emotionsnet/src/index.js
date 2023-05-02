@@ -10,7 +10,6 @@ import Landing from './Landing';
 import Admin from './Admin';
 import Researcher from './Researcher';
 import ResearcherIndividual from './ResearcherIndividual';
-import Participant from './Participant';
 import PreSurvey from './PreSurvey';
 import VideoPage from './VideoPage';
 import PostSurvey from './PostSurvey';
@@ -24,7 +23,6 @@ ReactDOM.render(
             <Route path="/admin" element={<Admin />} />
             <Route path="/researcher" element={<Researcher />} />
             <Route path="/researcher/:videoId" element={<ResearcherIndividual />} />
-            <Route path="/participant" element={<Participant />} />
             <Route path="/participant/presurvey" element={<PreSurvey />} />
             <Route path="/participant/video" element={<VideoPage />} />
             <Route path="/participant/postsurvey" element={<PostSurvey />} />

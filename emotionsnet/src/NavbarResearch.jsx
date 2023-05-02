@@ -16,8 +16,8 @@ function NavbarResearch() {
         <Link to="/"><img src={logo} alt="Logo" /></Link>
       </div>
       <ul>
-        <li><Link to="/researcher">Research Home</Link></li>
-        <li><Link to="/participant">Go to Participant</Link></li>
+        <li><Link to="/researcher">Researcher view</Link></li>
+        <li><Link to="/participant/presurvey">Contribute</Link></li>
         <LogoutButton />
       </ul>
     </nav>
