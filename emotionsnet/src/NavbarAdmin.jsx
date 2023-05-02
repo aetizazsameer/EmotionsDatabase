@@ -17,7 +17,7 @@ function NavbarAdmin() {
       </div>
       <ul>
         <li><Link to="/about">About</Link></li>
-        <li><Link to="/researcher">Researcher view</Link></li>
+        <li><Link to="/researcher">Data</Link></li>
         <li><Link to="/participant/presurvey">Contribute</Link></li>
         <LogoutButton />
       </ul>
