@@ -518,7 +518,7 @@ def get_dataframe():
                               password=_PASSWORD,
                               port=_PORT) as connection:
             with connection.cursor() as cursor:
-                query_str = """SELECT responses.*, videos.title
+                query_str = """SELECT responses.*, videos.title, videos.url
                                FROM responses
                                JOIN videos ON responses.videoid = videos.id"""
                 cursor.execute(query_str)
@@ -528,11 +528,12 @@ def get_dataframe():
                 columns = [desc[0] for desc in cursor.description]
                 df = pd.DataFrame(tupples, columns=columns)
 
-                # Reorder columns to make 'title' the fourth column (right after 'videoid')
+                # Reorder columns to make 'title' the fourth column and 'url' the last column
                 cols = df.columns.tolist()
                 title_index = cols.index('title')
+                url_index = cols.index('url')
                 videoid_index = cols.index('videoid')
-                cols = cols[:videoid_index + 1] + [cols[title_index]] + cols[videoid_index + 1:title_index] + cols[title_index + 1:]
+                cols = cols[:videoid_index + 1] + [cols[title_index]] + cols[videoid_index + 1:title_index] + cols[title_index + 1:url_index] + cols[url_index + 1:] + [cols[url_index]]
                 df = df[cols]
 
                 return df
@@ -547,7 +548,6 @@ def get_dataframe():
             connection.close()
             print("PostgreSQL connection closed")
     return pd.DataFrame()  # Return an empty dataframe when an exception is raised
-
 # ----------------------------------------------------------------------
 
 
