@@ -23,18 +23,20 @@ function Grid() {
 
   const insertCookie = data => {
     axios.post('/api/insert_coord', { data: data })
-      .then(response => {
-        console.log('Submitted grid selection successfully');
-      })
-      .catch(error => {
-        console.log('Error submitting grid selection', error);
-      });
+    .then(response => {
+      console.log('Submitted grid selection successfully');
+    })
+    .catch(error => {
+      console.log('Error submitting grid selection', error);
+    })
+    .then(() =>{
+      navigate('/participant/video')
+    })
   };
 
   const handleSubmitButton = (row, col) => {
-    console.log(`Submitting row ${selectedRow} and column ${selectedCol}...`);
+    console.log(`Submitting row ${row} and column ${col}...`);
     insertCookie(JSON.stringify({row, col}))
-    navigate('/participant/video');
   };
 
   return (
