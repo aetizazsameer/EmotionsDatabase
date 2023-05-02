@@ -65,10 +65,11 @@ body {
 
 .participant-button {
     background-color: #007bff;
+    margin-right: 20px;
 }
 
 .researcher-button {
-    background-color: #ff7f00;
+    background-color: #28a745;
 }
 
 .participant-button:hover {
@@ -76,7 +77,7 @@ body {
 }
 
 .researcher-button:hover {
-    background-color: #e67000;
+    background-color: #218838;
 }
 
 html, body {
