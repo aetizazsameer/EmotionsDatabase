@@ -330,13 +330,15 @@ def insert_response(video_id, vi, vf, vd, ai, af, ad):
                                             responsetimestamp) VALUES
                                             (%s, %s, %s, %s, %s, %s, %s, %s, %s)"""
 
-                sessionid = flask.session.get('sessionid')
+                session_id = flask.session.get('sessionid', None)
                 # nonexisting session
-                if sessionid is None:
-                    sessionid = sessionid()
-                    flask.session['sessionid'] = sessionid
+                if session_id is None:
+                    session_id = sessionid()
+                    if session_id is None:
+                        raise Exception('Could not generate sessionid')
+                    flask.session['sessionid'] = session_id
 
-                record_to_insert = (sessionid, video_id, vi, vf, vd,
+                record_to_insert = (session_id, video_id, vi, vf, vd,
                                     ai, af, ad, timestamp())
                 cursor.execute(postgres_insert_query, record_to_insert)
 
@@ -495,7 +497,10 @@ def sessionid():
 
 
 def is_authorized(username, path):
-    # all users are authorized to view researcher page
+    # user must be logged in
+    if username is None:
+        return False
+    # all logged-in users are authorized to view researcher page
     if path == '/researcher':
         return True
     # only admin is authorized to view admin page
