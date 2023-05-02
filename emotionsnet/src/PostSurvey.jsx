@@ -9,7 +9,7 @@ import Navbar from './Navbar';
 import InstructionsPopup from './InstructionsPopup';
 
 function PostSurvey() {
-    const [showPopup, setShowPopup] = useState(true);
+    const [showPopup, setShowPopup] = useState(false);
     const [currentSlide, setCurrentSlide] = useState(0);
 
     const closePopup = () => {
