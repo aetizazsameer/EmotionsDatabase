@@ -16,7 +16,7 @@ function NavbarAdmin() {
         <Link to="/"><img src={logo} alt="Logo" /></Link>
       </div>
       <ul>
-        <li><Link to="/admin">Admin panel</Link></li>
+        <li><Link to="/about">About</Link></li>
         <li><Link to="/researcher">Researcher view</Link></li>
         <li><Link to="/participant/presurvey">Contribute</Link></li>
         <LogoutButton />
