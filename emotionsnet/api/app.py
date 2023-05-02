@@ -177,8 +177,10 @@ def response_search():
 
 @app.route('/api/responses/<int:video_id>', methods=['GET'])
 def response_search_individual(video_id):
-    responses = database.get_responses_individual(video_id)
-    return flask.jsonify(responses)
+    result = database.get_responses_individual(video_id)
+    responses = result['video_data']
+    video_info = result['video_info']
+    return flask.jsonify({'responses': responses, 'video_info': video_info})
 
 
 @app.route('/api/insert_video', methods=['POST'])

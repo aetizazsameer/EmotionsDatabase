@@ -264,12 +264,17 @@ def get_responses():
 
 
 def get_responses_individual(video_id):
+    video_info = None
+
     try:
         with psycopg2.connect(host=_HOST_URL,
                             database=_DATABASE,
                             user=_USERNAME,
                             password=_PASSWORD) as connection:
             with connection.cursor() as cursor:
+                cursor.execute("SELECT title, id, url FROM videos WHERE id = %s;", (video_id,))
+                video_info = cursor.fetchone()
+
                 cursor.execute("SELECT id, sessionid, valence_initial, valence_final, valence_delta, arousal_initial, arousal_final, arousal_delta, responsetimestamp FROM responses WHERE videoid = %s;", (video_id,))
                 rows = cursor.fetchall()
 
@@ -297,7 +302,7 @@ def get_responses_individual(video_id):
             cursor.close()
             connection.close()
             print("PostgreSQL connection is closed")
-            return video_data
+            return {'video_data': video_data, 'video_info': video_info}
 
 # ----------------------------------------------------------------------
 # insert_response

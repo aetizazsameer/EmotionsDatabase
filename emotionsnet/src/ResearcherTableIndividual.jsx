@@ -13,11 +13,16 @@ const ResearcherTableIndividual = () => {
     const [searchTerm, setSearchTerm] = useState("");
     const [sortConfig, setSortConfig] = useState({ key: "id", direction: "ascending" });
     const { videoId } = useParams();
+    const [videoInfo, setVideoInfo] = useState(null);
+    const [isLoading, setIsLoading] = useState(true);
 
     useEffect(() => {
         axios.get(`/api/responses/${videoId}`)
         .then((response) => {
-            setVideoData(response.data);
+            setVideoData(response.data.responses);
+            setVideoInfo(response.data.video_info);
+            setIsLoading(false);
+            console.log('videoInfo from API:', response.data.video_info); // Add this line
         })
         .catch((error) => {
             console.error("Error fetching video data:", error);
@@ -74,6 +79,21 @@ const ResearcherTableIndividual = () => {
 
     return (
         <div className="table-container">
+            <div className="video-info">
+                {isLoading ? (
+                    <h2>Loading video information...</h2>
+                ) : (
+                    videoInfo && (
+                        <h2>
+                            {videoInfo[0]} (video id{" "}
+                            <a href={videoInfo[2]} target="_blank" rel="noopener noreferrer">
+                                {videoInfo[1]}
+                            </a>
+                            )
+                        </h2>
+                    )
+                )}
+            </div>
             <div className="actions-container">
                 <input
                     className="search-input"
