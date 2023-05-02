@@ -102,6 +102,16 @@
     outline: none;
 }
 
+.search-wrapper,
+.download-wrapper {
+  display: flex;
+  align-items: center;
+}
+
+.search-wrapper {
+  margin-right: 16px;
+}
+
 .search-input {
     font-size: 0.9em;
     padding: 8px 12px;

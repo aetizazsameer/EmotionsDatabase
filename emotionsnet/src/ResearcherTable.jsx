@@ -92,16 +92,20 @@ const ResearcherTable = () => {
   return (
     <div className="table-container">
       <div className="actions-container">
-        <input
-          className="search-input"
-          type="text"
-          placeholder="Search by title"
-          value={searchTerm}
-          onChange={(event) => setSearchTerm(event.target.value)}
-        />
-        <button class="export-csv-button" onClick={handleDownloadCSV}>
-          Download
-        </button>
+        <div className="search-wrapper">
+          <input
+            className="search-input"
+            type="text"
+            placeholder="Search by title"
+            value={searchTerm}
+            onChange={(event) => setSearchTerm(event.target.value)}
+          />
+        </div>
+        <div className="download-wrapper">
+          <button className="export-csv-button" onClick={handleDownloadCSV}>
+            Download
+          </button>
+        </div>
       </div>
       <table class="content-table">
         <thead>
