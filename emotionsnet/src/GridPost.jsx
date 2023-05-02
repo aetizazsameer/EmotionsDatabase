@@ -13,59 +13,17 @@ function Grid() {
 
   const [arousalFinal, setArousalFinal] = useState(null);
   const [valenceFinal, setValenceFinal] = useState(null);
-  const [arousalInitial, setArousalInitial] = useState(null);
-  const [valenceInitial, setValenceInitial] = useState(null);
   const [success, setSuccess] = useState(null);
-  const [videoId, setVideoId] = useState(null);
   const [gridData, setGridData] = useState(Array(50).fill(Array(50).fill(false)));
   const [showModal, setShowModal] = useState(false);
 
-  useEffect(() => {
-    getCookieData();
-  }, []);
-
-  const getCookieData = () => {
-    axios.get('/api/get_coord')
-      .then((response) => {
-        const { row, col } = response.data;
-        setArousalInitial(row);
-        setValenceInitial(col);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-
-    axios.get('/api/get_videoid')
-      .then((response) => {
-        const { videoid } = response.data;
-        setVideoId(videoid)
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  };
-
-  const removeCookies = () => {
-    axios.post('/api/remove_cookies')
-    .then(response => {
-        console.log('Removed selection coordinates and videoid')
-    })
-    .catch(error => {
-        console.log('Error removing selection coordinates and/or videoid')
-    });
-  };
-
-  const insertResponse = async (valenceDelta, arousalDelta) => {
+  const insertResponse = async () => {
     try {
       const response = await axios.post('/api/insert_response', {
-        video_id: videoId,
-        valence_initial: valenceInitial,
-        valence_final: valenceFinal,
-        valence_delta: valenceDelta,
-        arousal_initial: arousalInitial,
         arousal_final: arousalFinal,
-        arousal_delta: arousalDelta
+        valence_final: valenceFinal
       });
+      console.log(response.data);
       if (response.data == 'SUCCESS') {
         console.log('Response submitted');
         setSuccess(true);
@@ -88,13 +46,8 @@ function Grid() {
 
   const handleSubmitButton = async () => {
     console.log(`Submitting row ${arousalFinal} and column ${valenceFinal}...`);
-    let arousalDelta = arousalFinal - arousalInitial;
-    let valenceDelta = valenceFinal - valenceInitial;
-    console.log(`Arousal delta: ${arousalDelta}`);
-    console.log(`Valence delta: ${valenceDelta}`);
 
-    insertResponse(valenceDelta, arousalDelta)
-    .then(() => removeCookies())
+    insertResponse()
     .then(() => {
       setShowModal(true);
     });

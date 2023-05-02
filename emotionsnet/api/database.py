@@ -367,6 +367,7 @@ def insert_response(video_id, vi, vf, vd, ai, af, ad):
 
 def update_response(sessionid, feedback):
     try:
+        status = None
         with psycopg2.connect(database=_DATABASE,
                               host=_HOST_URL,
                               user=_USERNAME,
@@ -391,9 +392,11 @@ def update_response(sessionid, feedback):
                 cursor.execute(sql_select_query, (sessionid,))
                 record = cursor.fetchone()
                 print(record)
+                status = True
 
     except (Exception, psycopg2.Error) as error:
         print("Error in update operation", error)
+        status = False
 
     finally:
         # closing database connection.
@@ -401,6 +404,7 @@ def update_response(sessionid, feedback):
             cursor.close()
             connection.close()
             print("PostgreSQL connection is closed")
+        return status
 
 
 # ----------------------------------------------------------------------
@@ -419,6 +423,7 @@ def update_response(sessionid, feedback):
 
 def update_sum(id, ai, vi, af, vf, ad, vd):
     try:
+        status = None
         with psycopg2.connect(database=_DATABASE,
                               host=_HOST_URL,
                               user=_USERNAME,
@@ -439,9 +444,11 @@ def update_sum(id, ai, vi, af, vf, ad, vd):
                 """
                 cursor.execute(sql_update_query, (ai, vi, af, vf, ad, vd, id))
                 connection.commit()
+                status = True
 
     except (Exception, psycopg2.Error) as error:
         print("Error in update operation", error)
+        status = False
 
     finally:
         # closing database connection.
@@ -449,6 +456,7 @@ def update_sum(id, ai, vi, af, vf, ad, vd):
             cursor.close()
             connection.close()
             print("PostgreSQL connection is closed")
+        return status
 
 # ----------------------------------------------------------------------
 # generate_sessionid

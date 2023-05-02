@@ -149,15 +149,6 @@ def get_videoid_cookie():
     })
 
 
-@app.route('/api/remove_cookies', methods=['POST'])
-def remove_coord_cookie():
-    if flask.session.pop('row', None) and \
-            flask.session.pop('col', None) and \
-            flask.session.pop('videoid', None):
-        return 'Removed selection coordinates and videoid'
-    return 'Error removing selection coordinates and/or videoid'
-
-
 # ----------------------------------------------------------------------
 
 
@@ -205,23 +196,49 @@ def insert_video_handler():
 
 @app.route('/api/insert_response', methods=['POST'])
 def insert_response_handler():
+    arousal_initial = flask.session.pop('row', None)
+    valence_initial = flask.session.pop('col', None)
+    videoid = flask.session.pop('videoid', None)
+
+    if not (arousal_initial and valence_initial and videoid):
+        # error retrieving coordinates/videoid from session
+        return 'FAILED on session retrieval'
+
+
     # Handle the insertion of response into your database here
     data = flask.request.get_json()
-    videoid = data.get('video_id')
-    vi = data.get('valence_initial')
-    vf = data.get('valence_final')
-    vd = data.get('valence_delta')
-    ai = data.get('arousal_initial')
-    af = data.get('arousal_final')
-    ad = data.get('arousal_delta')
+    arousal_final = data.get('arousal_final')
+    valence_final = data.get('valence_final')
+
+    arousal_delta = arousal_final - arousal_initial
+    valence_delta = valence_final - valence_initial
 
     success = database.insert_response(
-        videoid, vi, vf, vd, ai, af, ad)
-    database.update_sum(videoid, ai, vi, af, vf, ad, vd)
+        videoid,
+        valence_initial,
+        valence_final,
+        valence_delta,
+        arousal_initial,
+        arousal_final,
+        arousal_delta
+    )
+    if not success:
+        # failed to insert
+        return flask.make_response('FAILED on insert response')
+
+    success = database.update_sum(
+        videoid,
+        arousal_initial,
+        valence_initial,
+        arousal_final,
+        valence_final,
+        arousal_delta,
+        valence_delta
+    )
 
     if success:
         return flask.make_response('SUCCESS')
-    return flask.make_response('FAILED')
+    return flask.make_response('FAILED on update video')
 
 
 @app.route('/api/update_response', methods=['POST'])
