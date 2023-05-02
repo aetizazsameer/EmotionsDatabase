@@ -73,11 +73,11 @@ def index():
 def admin():
     path = flask.request.path
 
-    username = auth.authentication()
-    authorize(username, path)
+    # username = auth.authentication()
+    # authorize(username, path)
 
     flask.session['path'] = path
-    flask.session['username'] = username
+    # flask.session['username'] = username
     response = app.send_static_file('index.html')
     return response
 
@@ -194,11 +194,9 @@ def insert_video_handler():
     url = data.get('url')
     success = database.insert_video(title, url)
 
-    # not displayed
-    html_code = flask.render_template('video_insert.html',
-                                      success=success)
-    response = flask.make_response(html_code)
-    return response
+    if success:
+        return flask.make_response('SUCCESS')
+    return flask.make_response('FAILED')
 
 
 @app.route('/api/insert_response', methods=['POST'])
@@ -217,11 +215,9 @@ def insert_response_handler():
         videoid, vi, vf, vd, ai, af, ad)
     database.update_sum(videoid, ai, vi, af, vf, ad, vd)
 
-    # not displayed
-    html_code = flask.render_template('response_insert.html',
-                                      success=success)
-    response = flask.make_response(html_code)
-    return response
+    if success:
+        return flask.make_response('SUCCESS')
+    return flask.make_response('FAILED')
 
 
 @app.route('/api/update_response', methods=['POST'])

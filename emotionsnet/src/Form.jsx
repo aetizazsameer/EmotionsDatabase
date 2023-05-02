@@ -10,22 +10,30 @@ import './Table.css';
 const Form = () => {
   const [title, setTitle] = useState('');
   const [url, setUrl] = useState('');
+  const [success, setSuccess] = useState(null);
   const [submittedTitle, setSubmittedTitle] = useState('');
   const [showModal, setShowModal] = useState(false);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await axios.post('/api/insert_video', {
+      const response = await axios.post('/api/insert_video', {
         title,
         url,
       });
-      console.log('Data submitted successfully');
+      if (response.data == 'SUCCESS') {
+        console.log('Video submitted');
+        setSuccess(true);
+      }
+      else {
+        console.error('Failed to submit video.');
+        setSuccess(false);
+      };
+
       setSubmittedTitle(title);
       setShowModal(true);
     } catch (error) {
       console.log(error);
-      // Add code here to handle submission error
     }
 
     setTitle('');
@@ -34,6 +42,7 @@ const Form = () => {
 
   const closeModal = () => {
     setShowModal(false);
+    setSuccess(null);
   };
 
   return (
@@ -70,8 +79,24 @@ const Form = () => {
       {showModal && (
         <div className="modal">
           <div className="modal-content">
-            <h1>Success</h1>
-            <p>{submittedTitle} has been added.</p>
+            {success===true &&
+              <div>
+                <h1>Success</h1>
+                <p>{submittedTitle} has been added to database.</p>
+              </div>
+            }
+            {success===false &&
+              <div>
+                <h1>Failed</h1>
+                <p>{submittedTitle} was not added to database. Check URL and try again.</p>
+              </div>
+            }
+            {success===null &&
+              <div>
+                <h1>Unknown error</h1>
+                <p>{submittedTitle} was not added to database. Contact a site administrator.</p>
+              </div>
+            }
             <button className="modal-button" onClick={closeModal}>
               Close
             </button>

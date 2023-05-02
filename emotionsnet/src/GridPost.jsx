@@ -15,6 +15,7 @@ function Grid() {
   const [valenceFinal, setValenceFinal] = useState(null);
   const [arousalInitial, setArousalInitial] = useState(null);
   const [valenceInitial, setValenceInitial] = useState(null);
+  const [success, setSuccess] = useState(null);
   const [videoId, setVideoId] = useState(null);
   const [gridData, setGridData] = useState(Array(50).fill(Array(50).fill(false)));
   const [showModal, setShowModal] = useState(false);
@@ -65,9 +66,17 @@ function Grid() {
         arousal_final: arousalFinal,
         arousal_delta: arousalDelta
       });
-      console.log(response.data);
+      if (response.data == 'SUCCESS') {
+        console.log('Response submitted');
+        setSuccess(true);
+      }
+      else {
+        console.log('Data submitted');
+        setSuccess(false);
+      }
     } catch (error) {
       console.error(error);
+      setSuccess(false);
     }
   };
 
@@ -93,6 +102,7 @@ function Grid() {
 
   const handleModalButtonClick = () => {
     setShowModal(false);
+    setSuccess(null);
     navigate('/participant');
   };
 
@@ -146,8 +156,24 @@ function Grid() {
       {showModal && (
         <div className="modal">
           <div className="modal-content">
-            <h1>Submission received!</h1>
-            <p>Thank you for your submission.</p>
+            { success===true &&
+              <div>
+                <h1>Submission received!</h1>
+                <p>Thank you for your submission.</p>
+              </div>
+            }
+            { success===false &&
+              <div>
+                <h1>Submission failed.</h1>
+                <p>Please try again.</p>
+              </div>
+            }
+            { success===null &&
+              <div>
+                <h1>Unknown error.</h1>
+                <p>Please contact a site administrator.</p>
+              </div>
+            }
             <button className="modal-button" onClick={handleModalButtonClick}>
               Continue
             </button>
