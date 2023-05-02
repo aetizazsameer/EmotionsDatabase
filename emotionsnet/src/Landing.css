@@ -56,10 +56,10 @@
 }
 
 .Landing p {
-  font-size: 2rem;
+  font-size: 1.5rem;
   font-weight: normal;
   line-height: 1.5;
-  margin-bottom: 2rem;
+  margin-bottom: 4rem;
   color: #808080;
 }
 
@@ -87,7 +87,7 @@
 }
 
 .my-button:hover {
-  background-color: #0069d9;
+  background-color: #025dbe;
 }
 
 html,

@@ -49,3 +49,12 @@ li:hover a:hover {
 
   transition: color 0.2s ease;
 }
+
+.logo {
+  transition: filter 0.3s ease;
+}
+
+.logo:hover {
+  filter: brightness(80%);
+  transition: 0.3s ease;
+}
