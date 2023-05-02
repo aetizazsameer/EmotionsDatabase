@@ -218,7 +218,7 @@ def get_responses():
                             user=_USERNAME,
                             password=_PASSWORD) as connection:
             with connection.cursor() as cursor:
-                cursor.execute("SELECT id, title, sum_valence_initial, sum_arousal_initial, num_responses, sum_valence_final, sum_arousal_final, sum_valence_delta, sum_arousal_delta FROM videos;")
+                cursor.execute("SELECT id, title, sum_valence_initial, sum_arousal_initial, num_responses, sum_valence_final, sum_arousal_final, sum_valence_delta, sum_arousal_delta, url FROM videos;")
                 rows = cursor.fetchall()
 
                 video_data = []
@@ -240,6 +240,7 @@ def get_responses():
                         'avg_arousal_final': avg_arousal_final,
                         'avg_valence_delta': avg_valence_delta,
                         'avg_arousal_delta': avg_arousal_delta,
+                        'url': row[9],
                     }
                     video_data.append(video)
 

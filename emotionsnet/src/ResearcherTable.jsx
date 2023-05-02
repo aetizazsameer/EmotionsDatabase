@@ -148,6 +148,9 @@ const ResearcherTable = () => {
             >
               Avg Arousal Delta
             </th>
+            <th>
+              URL
+            </th>
           </tr>
         </thead>
         <tbody>
@@ -163,6 +166,11 @@ const ResearcherTable = () => {
               <td>{video.avg_arousal_initial.toFixed(2)}</td>
               <td>{video.avg_arousal_final.toFixed(2)}</td>
               <td>{video.avg_arousal_delta.toFixed(2)}</td>
+              <td>
+                <a href={video.url} target="_blank" rel="noopener noreferrer">
+                  Link
+                </a>
+              </td>
             </tr>
           ))}
         </tbody>
