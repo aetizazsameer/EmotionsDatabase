@@ -159,7 +159,7 @@
   max-width: 500px;
   margin: 0 auto;
   padding: 20px;
-  background-color: #f8f9fa;
+  background-color: #eeeeee;
   border-radius: 8px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
@@ -173,6 +173,15 @@
 .form-field label {
   margin-bottom: 5px;
   font-weight: bold;
+}
+
+.upload-header {
+  margin-bottom: -20px;
+}
+
+.upload-text {
+  margin-top: -20px;
+  margin-bottom: -15px;;
 }
 
 .search-input {

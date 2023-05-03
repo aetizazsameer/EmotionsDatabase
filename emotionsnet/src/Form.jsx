@@ -16,24 +16,31 @@ const Form = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    try {
-      const response = await axios.post('/api/insert_video', {
-        title,
-        url,
-      });
-      if (response.data == 'SUCCESS') {
-        console.log('Video submitted');
-        setSuccess(true);
-      }
-      else {
-        console.error('Failed to submit video.');
-        setSuccess(false);
-      };
-
-      setSubmittedTitle(title);
+    if (title === '' || url === '') {
       setShowModal(true);
-    } catch (error) {
-      console.log(error);
+      setSuccess(false);
+      setSubmittedTitle('Video');
+    }
+    else {
+      try {
+        const response = await axios.post('/api/insert_video', {
+          title,
+          url,
+        });
+        if (response.data === 'SUCCESS') {
+          console.log('Video submitted');
+          setSuccess(true);
+        }
+        else {
+          console.error('Failed to submit video.');
+          setSuccess(false);
+        };
+
+        setSubmittedTitle(title);
+        setShowModal(true);
+      } catch (error) {
+        console.log(error);
+      }
     }
 
     setTitle('');
@@ -48,6 +55,8 @@ const Form = () => {
   return (
     <>
       <form onSubmit={handleSubmit} className="form-container">
+        <h3 className="upload-header">Upload new video</h3>
+        <p className="upload=text">From Princeton Media Central video link</p>
         <div className="form-field">
           <label htmlFor="title">Title:</label>
           <input
