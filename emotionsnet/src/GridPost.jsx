@@ -24,7 +24,7 @@ function Grid() {
         valence_final: valenceFinal
       });
       console.log(response.data);
-      if (response.data == 'SUCCESS') {
+      if (response.data === 'SUCCESS') {
         console.log('Response submitted');
         setSuccess(true);
       }

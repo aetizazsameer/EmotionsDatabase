@@ -54,12 +54,12 @@ const ResearcherTableIndividual = () => {
     };
 
     // Filter videoData based on the search term
-    const filteredVideoData = videoData == null ? null :
+    const filteredVideoData = videoData === null ? null :
         videoData.filter((video) =>
             video.id.toString().includes(searchTerm));
 
     const filteredVideoTable = (data) =>
-        data.length == 0
+        data.length === 0
         ? <tr key={videoId}>
             <td colSpan="8">No response exists for a video with ID {videoId}.</td>
         </tr>

@@ -82,7 +82,7 @@ def index():
 
 @app.route('/admin', methods=['GET'])
 @app.route('/researcher', methods=['GET'])
-def admin():
+def authroute():
     path = flask.request.path
 
     username = auth.authentication(path)
@@ -96,7 +96,8 @@ def admin():
 
 @app.route('/researcher/<int:video_id>', methods=['GET'])
 def researcher_individual(video_id):
-    return admin()
+    # video_id handled by React frontend
+    return authroute()
 
 # ----------------------------------------------------------------------
 
@@ -265,11 +266,9 @@ def update_response_handler():
 
     success = database.update_response(sessionid, feedback)
 
-    # not displayed
-    html_code = flask.render_template('response_insert.html',
-                                      success=success)
-    response = flask.make_response(html_code)
-    return response
+    if success:
+        return 'SUCCESS'
+    return 'FAILED'
 
 
 @app.route('/api/downloadcsv', methods=['GET'])

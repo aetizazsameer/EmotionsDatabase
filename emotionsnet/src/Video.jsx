@@ -12,7 +12,6 @@ function Video() {
   const navigate = useNavigate();
 
   const [src, setSrc] = useState('');
-  const [id, setId] = useState('');
   const [videoEnded, setVideoEnded] = useState(false);
 
   useEffect(() => {
@@ -23,7 +22,6 @@ function Video() {
     axios.get('/api/get_URL')
       .then(response => {
         setSrc(response.data.url);
-        setId(response.data.id);
       })
       .catch(error => {
         console.error(error);
