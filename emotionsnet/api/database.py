@@ -343,6 +343,7 @@ def insert_response(video_id, vi, vf, vd, ai, af, ad):
                         raise Exception('Could not generate sessionid')
                     flask.session['sessionid'] = session_id
 
+                print(f'Inserting with sessionid {session_id}')
                 record_to_insert = (session_id, video_id, vi, vf, vd,
                                     ai, af, ad, timestamp())
                 cursor.execute(postgres_insert_query, record_to_insert)
@@ -484,9 +485,10 @@ def sessionid():
                               port=_PORT) as connection:
             with connection.cursor() as cursor:
                 # Update sum in row that matches id
-                sql_insert_query = "INSERT INTO sessions DEFAULT VALUES"
-                cursor.execute(sql_insert_query)
-                sessionid = cursor.lastrowid
+                sql_query = "INSERT INTO sessions DEFAULT VALUES " +\
+                            "RETURNING id"
+                cursor.execute(sql_query)
+                sessionid = cursor.fetchone()[0]
                 connection.commit()
 
     except (Exception, psycopg2.Error) as error:
