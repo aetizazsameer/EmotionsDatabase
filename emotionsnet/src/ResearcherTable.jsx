@@ -5,7 +5,6 @@
 
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import { Link } from "react-router-dom";
 import './Table.css';
 
 const ResearcherTable = () => {
@@ -161,7 +160,7 @@ const ResearcherTable = () => {
           {filteredVideoData.map((video) => (
             <tr key={video.id}>
               <td>
-                <Link to={`/researcher/${video.id}`}>{video.id}</Link>
+                <a href={`/researcher/${video.id}`}>{video.id}</a>
               </td>
               <td>{video.title}</td>
               <td>{video.avg_valence_initial.toFixed(2)}</td>

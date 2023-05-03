@@ -4,7 +4,6 @@
 //----------------------------------------------------------------------
 
 import React from 'react';
-import { Link } from 'react-router-dom';
 import './Landing.css';
 import Navbar from './Navbar';
 import Logo from './Logo'
@@ -18,8 +17,8 @@ function Landing() {
                 <h1>Welcome to EmotionsNet!</h1>
                 <p>Thank you for contributing to our research. Learn more about our mission <a href='/about'>here</a>.</p>
                 <span>
-                    <Link to="/participant/presurvey" className="participant-button">Contribute</Link>
-                    <Link to="/researcher" className="researcher-button">View data</Link>
+                    <a href="/participant/presurvey" className="participant-button">Contribute</a>
+                    <a href="/researcher" className="researcher-button">View data</a>
                 </span>
             </div>
         </div>

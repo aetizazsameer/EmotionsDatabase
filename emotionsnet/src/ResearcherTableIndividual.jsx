@@ -5,7 +5,7 @@
 
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import { Link, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import './Table.css';
 
 const ResearcherTableIndividual = () => {
@@ -102,7 +102,7 @@ const ResearcherTableIndividual = () => {
                     value={searchTerm}
                     onChange={(event) => setSearchTerm(event.target.value)}
                 />
-                <Link to="/researcher" className="go-back-button">Go Back</Link>
+                <a href="/researcher" className="go-back-button">Go Back</a>
             </div>
             <table class="content-table">
                 <thead>

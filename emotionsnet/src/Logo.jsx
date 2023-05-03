@@ -4,16 +4,15 @@
 //----------------------------------------------------------------------
 
 import React from 'react';
-import { Link } from 'react-router-dom';
 import logo from './logo_black.png';
 import './Logo.css';
 
 function Logo() {
   return (
     <nav className="Navbar">
-      <Link to="/index" className="Navbar__logo-link">
+      <a href="/index" className="Navbar__logo-link">
         <img src={logo} alt="Logo" className="Navbar__logo" />
-      </Link>
+      </a>
     </nav>
   );
 }
