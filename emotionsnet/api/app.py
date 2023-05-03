@@ -56,8 +56,8 @@ def authorize(email, path):
     if not database.is_authorized(email, path):
         html_code = 'You are not authorized to use this application, '+\
                     f'{email}. <br><br>Please <a href="/logout">log '+\
-                    'out</a>, return to the <a href="/">homepage</a>, or'+\
-                    ' contact a site administrator for access.'
+                    'out</a>, return to the <a href="/">homepage</a>,'+\
+                    ' or contact a site administrator for access.'
 
         response = flask.make_response(html_code)
         flask.abort(response)
