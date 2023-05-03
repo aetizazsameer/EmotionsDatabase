@@ -35,8 +35,10 @@ function Grid() {
   };
 
   const handleSubmitButton = (row, col) => {
-    console.log(`Submitting row ${row} and column ${col}...`);
-    insertCookie(JSON.stringify({row, col}))
+    if (row !== null && col !== null) {
+      console.log(`Submitting row ${row} and column ${col}...`);
+      insertCookie(JSON.stringify({ row, col }))
+    }
   };
 
   return (
