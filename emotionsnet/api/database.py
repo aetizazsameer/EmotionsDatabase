@@ -503,8 +503,8 @@ def sessionid():
 
 def is_authorized(email, path):
     # all logged-in users are authorized to view researcher page
-    # if re.fullmatch(path, '/researcher(/([1-9][0-9]*))?') is not None:
-    return True
+    if re.fullmatch('\/researcher(\/([1-9][0-9]*))?', path) is not None:
+        return True
     # only admin is authorized to view admin page
     if path == '/admin' and email == _ADMIN_USER:
         return True
