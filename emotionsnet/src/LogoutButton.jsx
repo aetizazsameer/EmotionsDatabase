@@ -9,7 +9,7 @@ import './LogoutButton.css';
 
 function LogoutButton() {
     return (
-        <Link to="/logoutapp" className="logout-button">Logout</Link>
+        <Link to="/logout" className="logout-button">Logout</Link>
     );
 }
 

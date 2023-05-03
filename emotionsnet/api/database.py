@@ -501,15 +501,12 @@ def sessionid():
         return sessionid
 
 
-def is_authorized(username, path):
-    # user must be logged in
-    if username is None:
-        return False
+def is_authorized(email, path):
     # all logged-in users are authorized to view researcher page
     if path == '/researcher':
         return True
     # only admin is authorized to view admin page
-    if path == '/admin' and username == _ADMIN_USER:
+    if path == '/admin' and email == _ADMIN_USER:
         return True
     return False
 

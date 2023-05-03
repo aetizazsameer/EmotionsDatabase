@@ -39,9 +39,12 @@ def callback():
     return auth.callback()
 
 
+@app.route('/logout', methods=['GET'])
 @app.route('/logoutapp', methods=['GET'])
 def logoutapp():
-    return auth.logoutapp()
+    flask.session.clear()
+    flask.session.pop('email', None)
+    return flask.redirect('/')
 
 
 @app.route('/logoutgoogle', methods=['GET'])
@@ -49,9 +52,9 @@ def logoutgoogle():
     return auth.logoutgoogle()
 
 
-def authorize(username, path):
-    if not database.is_authorized(username, path):
-        html_code = f'You are not authorized to use this application, {username}'
+def authorize(email, path):
+    if not database.is_authorized(email, path):
+        html_code = f'You are not authorized to use this application, {email}'
         response = flask.make_response(html_code)
         flask.abort(response)
 
@@ -61,6 +64,7 @@ def authorize(username, path):
 @app.route('/participant', methods=['GET'])
 def redirect_presurvey():
     return flask.redirect('/participant/presurvey')
+
 
 @app.route('/', methods=['GET'])
 @app.route('/index', methods=['GET'])
@@ -115,7 +119,7 @@ def participant_sequence():
         if stored_path != video:
             return flask.redirect(presurvey)
         # postsurvey with modified session cookie
-        if not (flask.session.get('videoid') and \
+        if not (flask.session.get('videoid') and
                 flask.session.get('row') and flask.session.get('col')):
             return flask.redirect(presurvey)
 
@@ -205,7 +209,6 @@ def insert_response_handler():
     if not (arousal_initial and valence_initial and videoid):
         # error retrieving coordinates/videoid from session
         return 'FAILED on session retrieval'
-
 
     # Handle the insertion of response into your database here
     data = flask.request.get_json()

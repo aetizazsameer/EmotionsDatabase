@@ -91,15 +91,6 @@ def callback():
 
     return flask.redirect('/index')
 
-# ----------------------------------------------------------------------
-
-def logoutapp():
-    # Log out of application.
-    flask.session.clear()
-    html_code = flask.render_template('loggedout.html')
-
-    response = flask.make_response(html_code)
-    return response
 
 # ----------------------------------------------------------------------
 
@@ -114,7 +105,7 @@ def logoutgoogle():
 # ----------------------------------------------------------------------
 
 def authentication():
-    if 'email' not in flask.session:
-        flask.abort(flask.redirect(flask.url_for('login')))
+    if flask.session.get('email') is None:
+        flask.abort(flask.redirect('/login'))
 
     return flask.session.get('email')
