@@ -8,8 +8,7 @@ import axios from 'axios';
 import './Table.css';
 
 const AdminTable = () => {
-  const [sortField, setSortField] = useState('title');
-  const [sortOrder, setSortOrder] = useState('asc');
+  const [sortConfig, setSortConfig] = useState({ key: 'title', direction: 'ascending' });
   const [searchTerm, setSearchTerm] = useState('');
   const [videos, setVideos] = useState([]);
 
@@ -23,33 +22,44 @@ const AdminTable = () => {
       });
   }, [searchTerm, setVideos]);
 
-  const sortedData = videos.sort((a, b) => {
-    const aValue = a[sortField];
-    const bValue = b[sortField];
-    if (aValue < bValue) return sortOrder === 'asc' ? -1 : 1;
-    if (aValue > bValue) return sortOrder === 'asc' ? 1 : -1;
-    return 0;
-  });
+  const sortData = (key) => {
+    const direction = sortConfig.direction === 'ascending' ? 'descending' : 'ascending';
+    setSortConfig({ key, direction });
+
+    setVideos((prevData) => {
+      return [...prevData].sort((a, b) => {
+        if (a[key] < b[key]) {
+          return sortConfig.direction === 'ascending' ? -1 : 1;
+        }
+        if (a[key] > b[key]) {
+          return sortConfig.direction === 'ascending' ? 1 : -1;
+        }
+        return 0;
+      });
+    });
+  };
+
+  const getColumnClassName = (key) => {
+    if (sortConfig.key === key) {
+      return `sort-${sortConfig.direction}`;
+    }
+    return '';
+  };
+
+  const handleSort = (field) => {
+    sortData(field);
+  };
 
   const filter = field => {
       return String(field).toLowerCase().includes(searchTerm.toLowerCase());
   }
 
   const filteredData = searchTerm
-    ? sortedData.filter(
+    ? videos.filter(
       item => {
         return filter(item.title) || filter(item.url) || filter(item.uploadtimestamp);
       })
-    : sortedData;
-
-  const handleSort = field => {
-    if (field === sortField) {
-      setSortOrder(sortOrder === 'asc' ? 'desc' : 'asc');
-    } else {
-      setSortField(field);
-      setSortOrder('asc');
-    }
-  };
+    : videos;
 
   return (
     <div className="table-container">
@@ -65,9 +75,9 @@ const AdminTable = () => {
       <table class="content-table">
         <thead>
           <tr className="labels">
-            <th onClick={() => handleSort('title')}>Title</th>
-            <th onClick={() => handleSort('url')}>URL</th>
-            <th onClick={() => handleSort('uploadtimestamp')}>Timestamp</th>
+            <th className={getColumnClassName('title')} onClick={() => handleSort('title')}>Title</th>
+            <th className={getColumnClassName('url')} onClick={() => handleSort('url')}>URL</th>
+            <th className={getColumnClassName('uploadtimestamp')} onClick={() => handleSort('uploadtimestamp')}>Timestamp</th>
           </tr>
         </thead>
         <tbody>
