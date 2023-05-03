@@ -85,7 +85,7 @@ def index():
 def admin():
     path = flask.request.path
 
-    username = auth.authentication()
+    username = auth.authentication(path)
     authorize(username, path)
 
     flask.session['path'] = path

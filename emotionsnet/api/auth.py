@@ -89,7 +89,7 @@ def callback():
     # flask.session['verified'] = userinfo_response.json()['verified']
     flask.session['locale'] = userinfo_response.json()['locale']
 
-    return flask.redirect('/index')
+    return flask.redirect(flask.session.pop('authpath', '/index'))
 
 
 # ----------------------------------------------------------------------
@@ -104,8 +104,9 @@ def logoutgoogle():
 
 # ----------------------------------------------------------------------
 
-def authentication():
+def authentication(path):
     if flask.session.get('email') is None:
+        flask.session['authpath'] = path
         flask.abort(flask.redirect('/login'))
 
     return flask.session.get('email')
