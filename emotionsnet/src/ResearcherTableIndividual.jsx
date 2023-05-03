@@ -98,7 +98,7 @@ const ResearcherTableIndividual = () => {
                 <input
                     className="search-input"
                     type="text"
-                    placeholder="Search by title"
+                    placeholder="Search by id"
                     value={searchTerm}
                     onChange={(event) => setSearchTerm(event.target.value)}
                 />
