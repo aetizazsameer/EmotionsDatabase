@@ -45,12 +45,14 @@ function Grid() {
   };
 
   const handleSubmitButton = async () => {
-    console.log(`Submitting row ${arousalFinal} and column ${valenceFinal}...`);
+    if (arousalFinal !== null && valenceFinal !== null) {
+      console.log(`Submitting row ${arousalFinal} and column ${valenceFinal}...`);
 
-    insertResponse()
-    .then(() => {
-      setShowModal(true);
-    });
+      insertResponse()
+      .then(() => {
+        setShowModal(true);
+      });
+    }
   };
 
   const handleModalButtonClick = () => {
