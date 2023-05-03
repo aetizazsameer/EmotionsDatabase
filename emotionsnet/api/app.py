@@ -93,6 +93,11 @@ def admin():
     response = app.send_static_file('index.html')
     return response
 
+
+@app.route('/researcher/<int:video_id>', methods=['GET'])
+def researcher_individual(video_id):
+    return admin()
+
 # ----------------------------------------------------------------------
 
 
