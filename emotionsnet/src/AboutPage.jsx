@@ -25,7 +25,7 @@ function AboutPage() {
                     of paper publications in different journals.
                 </p>
                 <p>
-                    <b>EmotionsNet</b> is a modern platform that aims to modernize and streamlize this process, addressing the data
+                    <b>EmotionsNet</b> is a modern platform that aims to modernize and streamline this process, addressing the data
                     scarcity problem faced by researchers. By allowing everyday participants to share their emotions before and after
                     watching a video clip, we are able to quantify the emotional impact of a video.
                 </p>
